@@ -65,3 +65,4 @@ jobs:
         run: |
           CHROMIUM_PATH=$(/tmp/folio-browser-env/bin/python -c "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
           /tmp/folio-browser-env/bin/python scripts/browser_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --output /tmp/folio-browser-results
+          /tmp/folio-browser-env/bin/python scripts/publication_review_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-review-results.json

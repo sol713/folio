@@ -108,19 +108,40 @@
     } finally { state.busy=false; }
   }
   async function previewEditor() { if(state.busy)return; if(!can('posts.update')&&state.dirty)throw new Error('This token can suggest edits but cannot save or preview unsaved draft changes.'); let p=state.editor.post; if(state.dirty||!p.id) p=await saveDraft(true); if(!p)return; if(state.dirty)throw new Error('Your draft changed while saving. Save your latest edits, then preview.'); const result=await op('posts.preview',{id:p.id,revision:p.revision}); $('#preview-content').innerHTML=result.html||result.post?.html||''; $('#write-panel').classList.add('hidden'); $('#preview-panel').classList.remove('hidden'); $$('[data-editor-mode]').forEach(b=>b.classList.toggle('active',b.dataset.editorMode==='preview')); state.viewMode='preview'; }
-  async function reviewPublish() { if(state.busy)return; let p=state.editor.post;if(state.dirty||!p.id)p=await saveDraft(true);if(!p)return; if(state.dirty)throw new Error('Your draft changed while saving. Save your latest edits, then publish.'); const current=await op('posts.get',{id:p.id}); if(current.post.revision!==p.revision) throw new Error('This story changed since your last save. Reload and review the latest revision.'); await op('posts.preview',{id:p.id,revision:p.revision}); const live=current.live; const changes=['title','slug','excerpt','markdown','tags','category','cover','featured'].filter(k=>JSON.stringify(p[k])!==JSON.stringify(live?.[k])); modal('One last look.',`<p>${live?'You’re about to replace the live story with this reviewed draft.':'This story will become public on your journal.'}</p><div class="publish-review"><span class="small-label">Ready to publish · Revision ${p.revision}</span><h3 data-no-i18n>${esc(p.title)}</h3><p>/${esc(p.slug)} · ${words(p.markdown)} words · ${readTime(p)} min read</p>${live?`<div class="review-versions"><div><span class="small-label">Currently live · R${live.revision}</span><strong data-no-i18n>${esc(live.title)}</strong></div><div><span class="small-label">New version · R${p.revision}</span><strong data-no-i18n>${esc(p.title)}</strong></div></div><p class="review-changes">Changed: ${changes.length?changes.map(k=>esc(k==='markdown'?'story content':k)).join(', '):'no content differences'}</p>`:'<p class="review-changes">New story · No previous public version</p>'}</div><div class="modal-actions"><button class="button secondary small" data-action="close-modal">Keep editing</button><button class="button orange small" id="confirm-publish">Publish revision ${p.revision} ${icon('northeast',12)}</button></div>`);
-    const editorSession=state.editor;
+  async function reviewPublish() {
+    if(state.busy)return;
+    // Bind the read-only review before any save/get/preview await. Navigation
+    // can replace the editor even when the post ID or route later matches again.
+    const editorSession=state.editor, reviewTicket=state.render, reviewToken=state.token;
+    if(!editorSession)return;
+    let reviewRoute=state.route;
+    const reviewIsCurrent=()=>state.editor===editorSession&&state.render===reviewTicket&&state.token===reviewToken&&state.route===reviewRoute&&location.pathname+location.search+(location.hash||'')===reviewRoute;
+    let p=editorSession.post;
+    if(state.dirty||!p.id){
+      p=await saveDraft(true);
+      if(state.editor!==editorSession||state.render!==reviewTicket||state.token!==reviewToken)return;
+      // A first successful save promotes /studio/new to the same article URL.
+      reviewRoute=state.route;
+    }
+    if(!p||!reviewIsCurrent())return;
+    if(state.dirty)throw new Error('Your draft changed while saving. Save your latest edits, then publish.');
+    const current=await op('posts.get',{id:p.id});
+    if(!reviewIsCurrent())return;
+    if(current.post.revision!==p.revision)throw new Error('This story changed since your last save. Reload and review the latest revision.');
+    await op('posts.preview',{id:p.id,revision:p.revision});
+    if(!reviewIsCurrent())return;
+    const live=current.live; const changes=['title','slug','excerpt','markdown','tags','category','cover','featured'].filter(k=>JSON.stringify(p[k])!==JSON.stringify(live?.[k])); modal('One last look.',`<p>${live?'You’re about to replace the live story with this reviewed draft.':'This story will become public on your journal.'}</p><div class="publish-review"><span class="small-label">Ready to publish · Revision ${p.revision}</span><h3 data-no-i18n>${esc(p.title)}</h3><p>/${esc(p.slug)} · ${words(p.markdown)} words · ${readTime(p)} min read</p>${live?`<div class="review-versions"><div><span class="small-label">Currently live · R${live.revision}</span><strong data-no-i18n>${esc(live.title)}</strong></div><div><span class="small-label">New version · R${p.revision}</span><strong data-no-i18n>${esc(p.title)}</strong></div></div><p class="review-changes">Changed: ${changes.length?changes.map(k=>esc(k==='markdown'?'story content':k)).join(', '):'no content differences'}</p>`:'<p class="review-changes">New story · No previous public version</p>'}</div><div class="modal-actions"><button class="button secondary small" data-action="close-modal">Keep editing</button><button class="button orange small" id="confirm-publish">Publish revision ${p.revision} ${icon('northeast',12)}</button></div>`);
     const contentFields=['title','slug','markdown','excerpt','tags','category','cover','featured'];
     const reviewedFingerprint=JSON.stringify(contentFields.map(key=>p[key]));
     // The reviewed write and retry identity survive an uncertain HTTP response.
     const payload={id:p.id,expected_revision:p.revision,confirm:true,idempotency_key:crypto.randomUUID()};
     $('#confirm-publish').onclick=async()=>{
-      if(state.busy)return;
+      if(state.busy||!reviewIsCurrent())return;
       const btn=$('#confirm-publish');btn.disabled=true;state.busy=true;
       try{
         const result=await op('posts.publish',payload);
         closeModal();state.site=null;
-        if(state.editor===editorSession){
+        if(reviewIsCurrent()){
           editorSession.post=result.post;editorSession.live=result.post;
           const current=editorDataFromFields();
           state.dirty=reviewedFingerprint!==JSON.stringify(contentFields.map(key=>current[key]));

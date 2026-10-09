@@ -19,7 +19,22 @@
     "node_inflight_navigation": "3 failed",
     "browser_lock_during_save": "failed: active session erased",
     "browser_close_pending_publish": "failed: newer typing discarded",
-    "browser_320px_home": "failed: post-card min-content expanded beyond viewport"
+    "browser_320px_home": "failed: post-card min-content expanded beyond viewport",
+    "obsolete_publication_review": {
+      "head": "3582c071cde8aba4cda02f35c4c30815a3c3ddcc",
+      "failed_cases": 8,
+      "actual_source_overwrites": 4,
+      "windows": [
+        "posts.get",
+        "posts.preview"
+      ],
+      "destinations": [
+        "new",
+        "existing with unoccupied edited slug",
+        "Lock",
+        "Back and re-enter same article"
+      ]
+    }
   },
   "refined": {
     "go_test": "passed",
@@ -59,21 +74,29 @@
         "owned containers shut down cleanly; credentials absent from daemon logs"
       ],
       "container_run": true,
-      "image_id": "sha256:b454e41cc31a43082a831242caab978c8a73bc07dfdbcdf579c7844429558a90",
-      "binary_sha256": "c7af03c2f78734dafb09a57bee0e21fb9edbdb6c8d738e6c3413701d980bc46a",
+      "image_id": "sha256:9fcb6644b88e64c53f3b2b8d541c08d3d96437d5f7b9691e3dc81cce25d42e5a",
+      "binary_sha256": "903bfb60fec3ead87cff6f0ade5ae308ba12f253ec7ac794077384daeac26f25",
       "runtime_uid": 1000,
       "public_deployment": false
     },
     "license_inventory_upstream_modules": 43,
     "actual_linux_runtime_upstream_modules": 21,
-    "license_files": 70
+    "license_files": 70,
+    "publication_review": {
+      "passed": 9,
+      "total": 9,
+      "fixture": "real daemon responses delayed in Chromium, disposable fictional stories",
+      "persistent_record_checks": "A unchanged; existing B updated by B ID; new B created under a new ID",
+      "current_unsaved_first_publish": "passed",
+      "javascript_errors": []
+    }
   },
   "scope_limits": {
     "public_deployment": false,
     "live_legacy_v01_binary_upgrade_test": "not performed: no trusted v0.1 executable in this checkout",
     "browser_matrix": "Linux Chromium only; not a full accessibility or device audit",
     "browser_scheduler": "paused for UI review; actual execution covered by real lifecycle/workflow and Docker tests",
-    "github_ci": "not yet observed at time of local acceptance",
+    "github_ci": "3582c07 initial CI passed on Go 1.25.14 and 1.27.2; new review-identity head must be observed separately",
     "vulnerability_scan": "blocked: govulncheck v1.8.0 received HTTP 403 fetching the official vuln.go.dev module index; no vulnerability-clean claim"
   }
 }
