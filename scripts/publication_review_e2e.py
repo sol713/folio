@@ -129,8 +129,10 @@ def main():
                         extra_preview = operation == 'posts.get' and 'posts.preview' in reads
                         passed = not stale_dialog and not extra_preview and after_a == before_a
                         if destination in ['new', 'existing']:
+                            saved_record = call('posts.get', {'id': saved['id']})
                             passed = passed and write_id == expected_id and saved['id'] != a['id']
                             passed = passed and saved['markdown'] == 'Target-only unsaved words ' + name
+                            passed = passed and saved_record['post'] == saved and saved_record['live'] is None
                             passed = passed and page.url == (base + '/studio/posts/' + saved['id'] if destination == 'new' else expected_url)
                             if destination == 'new': passed = passed and after_b == before_b
                             else: passed = passed and after_b['post']['id'] == b['id'] and after_b['post']['revision'] == 2
