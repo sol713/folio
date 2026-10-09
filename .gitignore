@@ -4,5 +4,7 @@
 *.db-shm
 *.db-wal
 .env
-screenshots/
+/screenshots/
 *.log
+__pycache__/
+*.py[cod]

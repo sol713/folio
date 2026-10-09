@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/rand"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -56,29 +54,8 @@ func run() error {
 			}
 			return flagError(locale, e)
 		}
-		if _, e := os.Stat(filepath.Join(*dir, "token")); e == nil {
-			return errors.New(i18n.Message(locale, "already initialized; existing credentials were not changed"))
-		}
-		if e := os.MkdirAll(*dir, 0700); e != nil {
+		if e := initialize(ctx, *dir, *demo, locale); e != nil {
 			return e
-		}
-		b := make([]byte, 32)
-		if _, e := rand.Read(b); e != nil {
-			return e
-		}
-		token := hex.EncodeToString(b)
-		if e := os.WriteFile(filepath.Join(*dir, "token"), []byte(token+"\n"), 0600); e != nil {
-			return e
-		}
-		s, e := core.Open(*dir)
-		if e != nil {
-			return e
-		}
-		defer s.Close()
-		if *demo {
-			if e = s.Seed(ctx); e != nil {
-				return e
-			}
 		}
 		return json.NewEncoder(os.Stdout).Encode(map[string]any{"initialized": true, "data": *dir, "token_file": filepath.Join(*dir, "token"), "demo": *demo, "next": "folio serve --data " + *dir})
 	case "serve":

@@ -1,5 +1,9 @@
 # Verification record
 
+## 2026-10-09 cloud refinement
+
+Fresh clone, original baseline, confirmed defects, regression fixes and actual Docker/Chromium runtime acceptance are recorded in [CLOUD-REFINEMENT.md](CLOUD-REFINEMENT.md) and [CLOUD-VERIFICATION.json](CLOUD-VERIFICATION.json). This dated record includes executed container checks; Docker-unavailable statements below describe the earlier release environments.
+
 ## v0.2 release verification
 
 Status: final cloud gates and scoped Mac browser acceptance pass. The native-download routing defect found in Mac QA is fixed and all five export types were retested as actual files on disk. No blocking defect remains in the exercised release scope.

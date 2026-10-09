@@ -1,0 +1,79 @@
+{
+  "base_commit": "8bfeb420aa23c62e44ebf2b19c17a72e58d89d20",
+  "base_tree": "e79b726ab1bd65695feac745946c5dc84a315c5c",
+  "date_utc": "2026-10-09",
+  "toolchain": "Go 1.27.2",
+  "browser": "Chromium 151.0.7922.173; Python Playwright 1.62.0",
+  "baseline": {
+    "go_test": "passed",
+    "go_race": "passed",
+    "go_vet": "passed",
+    "node_contract_files": 5,
+    "ops_unit_tests": 66,
+    "real_lifecycle_groups": 12,
+    "real_workflow_groups": 11
+  },
+  "regressions_before_fix": {
+    "init_failure_and_retry": "failed: token remained after SQLite failure",
+    "dangling_credential_symlink": "failed: followed dangling link",
+    "node_inflight_navigation": "3 failed",
+    "browser_lock_during_save": "failed: active session erased",
+    "browser_close_pending_publish": "failed: newer typing discarded",
+    "browser_320px_home": "failed: post-card min-content expanded beyond viewport"
+  },
+  "refined": {
+    "go_test": "passed",
+    "go_race": "passed",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "node_runner_tests": 8,
+    "locale_keys": 766,
+    "real_lifecycle_groups": 12,
+    "real_workflow_groups": 11,
+    "real_init_regressions": 3,
+    "ops_unit_tests": 66,
+    "ops_real_integration_groups": 11,
+    "browser": {
+      "checks": [
+        "bilingual reader/login and real private first draft with revision history",
+        "real deferred save: Lock, Back, locale, caret and newer typing preserved; one subsequent revision",
+        "lost publication response retries the exact key once; closing its dialog preserves newer typing and the reviewed public snapshot",
+        "explicit browser publication followed by private draft/live isolation",
+        "browser schedule confirmation pins revision/time despite later edits",
+        "390px owner review approves proposal-only agent text into a private draft; untrusted diff remains inert",
+        "all five browser-native downloads have actual matching files; reviewed Markdown import stays private",
+        "Chinese public/article/editor/schedules/migration surfaces at 390px and 320px without page overflow or JavaScript errors"
+      ],
+      "passed": 8,
+      "javascript_errors": [],
+      "fixture": "disposable fictional demo and acceptance content",
+      "public_deployment": false
+    },
+    "docker": {
+      "status": "passed",
+      "checks": [
+        "shipped scratch Dockerfile builds from hash-verified static ELF and CA bundle",
+        "non-root container runs with read-only root, dropped capabilities, loopback publishing and real healthcheck",
+        "SIGTERM/restart preserves SQLite state; overdue pinned revision publishes once while newer draft stays private",
+        "container backup/paused restore preserves exact draft/live revisions, pinned schedules and media bytes with independent credentials",
+        "owned containers shut down cleanly; credentials absent from daemon logs"
+      ],
+      "container_run": true,
+      "image_id": "sha256:b454e41cc31a43082a831242caab978c8a73bc07dfdbcdf579c7844429558a90",
+      "binary_sha256": "c7af03c2f78734dafb09a57bee0e21fb9edbdb6c8d738e6c3413701d980bc46a",
+      "runtime_uid": 1000,
+      "public_deployment": false
+    },
+    "license_inventory_upstream_modules": 43,
+    "actual_linux_runtime_upstream_modules": 21,
+    "license_files": 70
+  },
+  "scope_limits": {
+    "public_deployment": false,
+    "live_legacy_v01_binary_upgrade_test": "not performed: no trusted v0.1 executable in this checkout",
+    "browser_matrix": "Linux Chromium only; not a full accessibility or device audit",
+    "browser_scheduler": "paused for UI review; actual execution covered by real lifecycle/workflow and Docker tests",
+    "github_ci": "not yet observed at time of local acceptance",
+    "vulnerability_scan": "blocked: govulncheck v1.8.0 received HTTP 403 fetching the official vuln.go.dev module index; no vulnerability-clean claim"
+  }
+}
