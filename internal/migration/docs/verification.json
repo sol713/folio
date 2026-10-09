@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-10-03T16:26:45.947483+00:00",
+  "platform": "macOS arm64",
+  "go": "1.25.7",
+  "tests_exit_code": 0,
+  "top_level_pass_events": 45,
+  "all_pass_events_including_subtests": 112,
+  "race_exit_code": 0,
+  "vet_exit_code": 0,
+  "fuzz": {
+    "command": "go test -run '^$' -fuzz '^FuzzParse$' -fuzztime=5s -parallel=2",
+    "exit_code": 0,
+    "executions": 220452,
+    "new_interesting": 65,
+    "seconds": 6.348
+  },
+  "cli_sample_plan_exit_code": 0,
+  "scope": "Own Go package; temporary real files and symlinks; Apply fake operation adapter reproducing persistent idempotency/CAS, not a real Folio server integration."
+}

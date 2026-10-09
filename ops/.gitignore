@@ -1,0 +1,9 @@
+__pycache__/
+.cache/
+dist/
+data/
+backups/
+*.lock
+*.upgrade.json
+*.candidate.json
+*.failed-*

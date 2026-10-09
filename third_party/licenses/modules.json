@@ -1,0 +1,214 @@
+[
+  {
+    "Path": "folio",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "cloud.google.com/go/compute/metadata",
+    "Version": "v0.3.0"
+  },
+  {
+    "Path": "github.com/aymerick/douceur",
+    "Version": "v0.2.0"
+  },
+  {
+    "Path": "github.com/dustin/go-humanize",
+    "Version": "v1.0.1",
+    "GoVersion": "1.16"
+  },
+  {
+    "Path": "github.com/golang-jwt/jwt/v5",
+    "Version": "v5.3.1",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "github.com/google/go-cmp",
+    "Version": "v0.7.0",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "github.com/google/jsonschema-go",
+    "Version": "v0.4.3",
+    "GoVersion": "1.23.0"
+  },
+  {
+    "Path": "github.com/google/pprof",
+    "Version": "v0.0.0-20260802141513-ef3492d7dac3",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "github.com/google/uuid",
+    "Version": "v1.6.0"
+  },
+  {
+    "Path": "github.com/gorilla/css",
+    "Version": "v1.0.1",
+    "GoVersion": "1.20"
+  },
+  {
+    "Path": "github.com/hashicorp/golang-lru/v2",
+    "Version": "v2.0.7",
+    "GoVersion": "1.18"
+  },
+  {
+    "Path": "github.com/mattn/go-isatty",
+    "Version": "v0.0.24",
+    "GoVersion": "1.20"
+  },
+  {
+    "Path": "github.com/microcosm-cc/bluemonday",
+    "Version": "v1.0.27",
+    "GoVersion": "1.19"
+  },
+  {
+    "Path": "github.com/modelcontextprotocol/go-sdk",
+    "Version": "v1.7.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "github.com/ncruces/go-strftime",
+    "Version": "v1.0.0",
+    "GoVersion": "1.17"
+  },
+  {
+    "Path": "github.com/remyoudompheng/bigfft",
+    "Version": "v0.0.0-20230129092748-24d4a6f8daec",
+    "GoVersion": "1.12"
+  },
+  {
+    "Path": "github.com/segmentio/asm",
+    "Version": "v1.1.3",
+    "GoVersion": "1.17"
+  },
+  {
+    "Path": "github.com/segmentio/encoding",
+    "Version": "v0.5.4",
+    "GoVersion": "1.23"
+  },
+  {
+    "Path": "github.com/yosida95/uritemplate/v3",
+    "Version": "v3.0.2",
+    "GoVersion": "1.14"
+  },
+  {
+    "Path": "github.com/yuin/goldmark",
+    "Version": "v1.8.6",
+    "GoVersion": "1.22"
+  },
+  {
+    "Path": "golang.org/x/crypto",
+    "Version": "v0.53.0"
+  },
+  {
+    "Path": "golang.org/x/mod",
+    "Version": "v0.38.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "golang.org/x/net",
+    "Version": "v0.56.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "golang.org/x/oauth2",
+    "Version": "v0.35.0",
+    "GoVersion": "1.24.0"
+  },
+  {
+    "Path": "golang.org/x/sync",
+    "Version": "v0.22.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "golang.org/x/sys",
+    "Version": "v0.47.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "golang.org/x/term",
+    "Version": "v0.44.0"
+  },
+  {
+    "Path": "golang.org/x/text",
+    "Version": "v0.38.0"
+  },
+  {
+    "Path": "golang.org/x/time",
+    "Version": "v0.15.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "golang.org/x/tools",
+    "Version": "v0.48.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "modernc.org/cc/v4",
+    "Version": "v4.29.2",
+    "GoVersion": "1.25"
+  },
+  {
+    "Path": "modernc.org/ccgo/v4",
+    "Version": "v4.35.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "modernc.org/fileutil",
+    "Version": "v1.4.0",
+    "GoVersion": "1.24"
+  },
+  {
+    "Path": "modernc.org/gc/v2",
+    "Version": "v2.6.5",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "modernc.org/gc/v3",
+    "Version": "v3.1.5",
+    "GoVersion": "1.23.0"
+  },
+  {
+    "Path": "modernc.org/goabi0",
+    "Version": "v0.2.0",
+    "GoVersion": "1.23.0"
+  },
+  {
+    "Path": "modernc.org/libc",
+    "Version": "v1.75.6",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "modernc.org/mathutil",
+    "Version": "v1.7.1",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "modernc.org/memory",
+    "Version": "v1.12.1",
+    "GoVersion": "1.23.0"
+  },
+  {
+    "Path": "modernc.org/opt",
+    "Version": "v0.2.0",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "modernc.org/sortutil",
+    "Version": "v1.2.1",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "modernc.org/sqlite",
+    "Version": "v1.58.0",
+    "GoVersion": "1.25.0"
+  },
+  {
+    "Path": "modernc.org/strutil",
+    "Version": "v1.2.1",
+    "GoVersion": "1.21"
+  },
+  {
+    "Path": "modernc.org/token",
+    "Version": "v1.1.0"
+  }
+]

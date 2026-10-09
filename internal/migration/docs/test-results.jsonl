@@ -1,0 +1,455 @@
+{"Time":"2026-10-04T00:25:32.996772+08:00","Action":"start","Package":"folio-migration"}
+{"Time":"2026-10-04T00:25:32.996856+08:00","Action":"start","Package":"folio-migration/cmd/folio-migrate-plan"}
+{"Time":"2026-10-04T00:25:32.996873+08:00","Action":"output","Package":"folio-migration/cmd/folio-migrate-plan","Output":"?   \tfolio-migration/cmd/folio-migrate-plan\t[no test files]\n"}
+{"Time":"2026-10-04T00:25:32.996883+08:00","Action":"skip","Package":"folio-migration/cmd/folio-migrate-plan","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.563873+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyCreatesPrivateDraftsOnly"}
+{"Time":"2026-10-04T00:25:33.564067+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyCreatesPrivateDraftsOnly","Output":"=== RUN   TestApplyCreatesPrivateDraftsOnly\n"}
+{"Time":"2026-10-04T00:25:33.564553+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyCreatesPrivateDraftsOnly","Output":"--- PASS: TestApplyCreatesPrivateDraftsOnly (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.564581+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyCreatesPrivateDraftsOnly","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.564594+08:00","Action":"run","Package":"folio-migration","Test":"TestLostResponseReplayDoesNotDuplicate"}
+{"Time":"2026-10-04T00:25:33.564602+08:00","Action":"output","Package":"folio-migration","Test":"TestLostResponseReplayDoesNotDuplicate","Output":"=== RUN   TestLostResponseReplayDoesNotDuplicate\n"}
+{"Time":"2026-10-04T00:25:33.564765+08:00","Action":"output","Package":"folio-migration","Test":"TestLostResponseReplayDoesNotDuplicate","Output":"--- PASS: TestLostResponseReplayDoesNotDuplicate (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.564778+08:00","Action":"pass","Package":"folio-migration","Test":"TestLostResponseReplayDoesNotDuplicate","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.564787+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyErrorRedactionAndContinue"}
+{"Time":"2026-10-04T00:25:33.564801+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyErrorRedactionAndContinue","Output":"=== RUN   TestApplyErrorRedactionAndContinue\n"}
+{"Time":"2026-10-04T00:25:33.564909+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyErrorRedactionAndContinue","Output":"--- PASS: TestApplyErrorRedactionAndContinue (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.564922+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyErrorRedactionAndContinue","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.564945+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip"}
+{"Time":"2026-10-04T00:25:33.564953+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip","Output":"=== RUN   TestApplyUpdateCASAndSkip\n"}
+{"Time":"2026-10-04T00:25:33.56498+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/update"}
+{"Time":"2026-10-04T00:25:33.564988+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/update","Output":"=== RUN   TestApplyUpdateCASAndSkip/update\n"}
+{"Time":"2026-10-04T00:25:33.564996+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/update","Output":"--- PASS: TestApplyUpdateCASAndSkip/update (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565004+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/update","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565014+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/skip"}
+{"Time":"2026-10-04T00:25:33.565022+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/skip","Output":"=== RUN   TestApplyUpdateCASAndSkip/skip\n"}
+{"Time":"2026-10-04T00:25:33.565029+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/skip","Output":"--- PASS: TestApplyUpdateCASAndSkip/skip (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565038+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip/skip","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565077+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip","Output":"--- PASS: TestApplyUpdateCASAndSkip (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565086+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyUpdateCASAndSkip","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565094+08:00","Action":"run","Package":"folio-migration","Test":"TestInvalidPlanNeverCallsAdapter"}
+{"Time":"2026-10-04T00:25:33.565101+08:00","Action":"output","Package":"folio-migration","Test":"TestInvalidPlanNeverCallsAdapter","Output":"=== RUN   TestInvalidPlanNeverCallsAdapter\n"}
+{"Time":"2026-10-04T00:25:33.565119+08:00","Action":"output","Package":"folio-migration","Test":"TestInvalidPlanNeverCallsAdapter","Output":"--- PASS: TestInvalidPlanNeverCallsAdapter (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565127+08:00","Action":"pass","Package":"folio-migration","Test":"TestInvalidPlanNeverCallsAdapter","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565138+08:00","Action":"run","Package":"folio-migration","Test":"TestApplyCancellation"}
+{"Time":"2026-10-04T00:25:33.565146+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyCancellation","Output":"=== RUN   TestApplyCancellation\n"}
+{"Time":"2026-10-04T00:25:33.565155+08:00","Action":"output","Package":"folio-migration","Test":"TestApplyCancellation","Output":"--- PASS: TestApplyCancellation (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565163+08:00","Action":"pass","Package":"folio-migration","Test":"TestApplyCancellation","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.56517+08:00","Action":"run","Package":"folio-migration","Test":"TestMalformedReceiptMayCommitAndIsRecoverable"}
+{"Time":"2026-10-04T00:25:33.565177+08:00","Action":"output","Package":"folio-migration","Test":"TestMalformedReceiptMayCommitAndIsRecoverable","Output":"=== RUN   TestMalformedReceiptMayCommitAndIsRecoverable\n"}
+{"Time":"2026-10-04T00:25:33.565208+08:00","Action":"output","Package":"folio-migration","Test":"TestMalformedReceiptMayCommitAndIsRecoverable","Output":"--- PASS: TestMalformedReceiptMayCommitAndIsRecoverable (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565217+08:00","Action":"pass","Package":"folio-migration","Test":"TestMalformedReceiptMayCommitAndIsRecoverable","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565226+08:00","Action":"run","Package":"folio-migration","Test":"TestNilAdapterRejected"}
+{"Time":"2026-10-04T00:25:33.565233+08:00","Action":"output","Package":"folio-migration","Test":"TestNilAdapterRejected","Output":"=== RUN   TestNilAdapterRejected\n"}
+{"Time":"2026-10-04T00:25:33.565241+08:00","Action":"output","Package":"folio-migration","Test":"TestNilAdapterRejected","Output":"--- PASS: TestNilAdapterRejected (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.565248+08:00","Action":"pass","Package":"folio-migration","Test":"TestNilAdapterRejected","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.565257+08:00","Action":"run","Package":"folio-migration","Test":"TestDirectoryPlanCollectsParseErrors"}
+{"Time":"2026-10-04T00:25:33.565264+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryPlanCollectsParseErrors","Output":"=== RUN   TestDirectoryPlanCollectsParseErrors\n"}
+{"Time":"2026-10-04T00:25:33.566488+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryPlanCollectsParseErrors","Output":"--- PASS: TestDirectoryPlanCollectsParseErrors (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.566502+08:00","Action":"pass","Package":"folio-migration","Test":"TestDirectoryPlanCollectsParseErrors","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.566512+08:00","Action":"run","Package":"folio-migration","Test":"TestDirectoryRejectsSymlinksAndAncestor"}
+{"Time":"2026-10-04T00:25:33.566521+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryRejectsSymlinksAndAncestor","Output":"=== RUN   TestDirectoryRejectsSymlinksAndAncestor\n"}
+{"Time":"2026-10-04T00:25:33.56749+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryRejectsSymlinksAndAncestor","Output":"--- PASS: TestDirectoryRejectsSymlinksAndAncestor (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.567511+08:00","Action":"pass","Package":"folio-migration","Test":"TestDirectoryRejectsSymlinksAndAncestor","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.567515+08:00","Action":"run","Package":"folio-migration","Test":"TestDirectoryRejectsEscapeSymlinkWithoutReading"}
+{"Time":"2026-10-04T00:25:33.567521+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryRejectsEscapeSymlinkWithoutReading","Output":"=== RUN   TestDirectoryRejectsEscapeSymlinkWithoutReading\n"}
+{"Time":"2026-10-04T00:25:33.568389+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryRejectsEscapeSymlinkWithoutReading","Output":"--- PASS: TestDirectoryRejectsEscapeSymlinkWithoutReading (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.568424+08:00","Action":"pass","Package":"folio-migration","Test":"TestDirectoryRejectsEscapeSymlinkWithoutReading","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.568432+08:00","Action":"run","Package":"folio-migration","Test":"TestDirectoryOversizedFile"}
+{"Time":"2026-10-04T00:25:33.568437+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryOversizedFile","Output":"=== RUN   TestDirectoryOversizedFile\n"}
+{"Time":"2026-10-04T00:25:33.569955+08:00","Action":"output","Package":"folio-migration","Test":"TestDirectoryOversizedFile","Output":"--- PASS: TestDirectoryOversizedFile (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.569963+08:00","Action":"pass","Package":"folio-migration","Test":"TestDirectoryOversizedFile","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.569969+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRoundtripBodyAndSafeDraft"}
+{"Time":"2026-10-04T00:25:33.569974+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRoundtripBodyAndSafeDraft","Output":"=== RUN   TestExportRoundtripBodyAndSafeDraft\n"}
+{"Time":"2026-10-04T00:25:33.570284+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRoundtripBodyAndSafeDraft","Output":"--- PASS: TestExportRoundtripBodyAndSafeDraft (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.57029+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRoundtripBodyAndSafeDraft","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.570294+08:00","Action":"run","Package":"folio-migration","Test":"TestExportDeterministicWithManifestMetadata"}
+{"Time":"2026-10-04T00:25:33.570297+08:00","Action":"output","Package":"folio-migration","Test":"TestExportDeterministicWithManifestMetadata","Output":"=== RUN   TestExportDeterministicWithManifestMetadata\n"}
+{"Time":"2026-10-04T00:25:33.570402+08:00","Action":"output","Package":"folio-migration","Test":"TestExportDeterministicWithManifestMetadata","Output":"--- PASS: TestExportDeterministicWithManifestMetadata (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.570407+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportDeterministicWithManifestMetadata","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.570411+08:00","Action":"run","Package":"folio-migration","Test":"TestExportWritesOnlyNewPrivateDirectory"}
+{"Time":"2026-10-04T00:25:33.570415+08:00","Action":"output","Package":"folio-migration","Test":"TestExportWritesOnlyNewPrivateDirectory","Output":"=== RUN   TestExportWritesOnlyNewPrivateDirectory\n"}
+{"Time":"2026-10-04T00:25:33.582385+08:00","Action":"output","Package":"folio-migration","Test":"TestExportWritesOnlyNewPrivateDirectory","Output":"--- PASS: TestExportWritesOnlyNewPrivateDirectory (0.01s)\n"}
+{"Time":"2026-10-04T00:25:33.582406+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportWritesOnlyNewPrivateDirectory","Elapsed":0.01}
+{"Time":"2026-10-04T00:25:33.582434+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal"}
+{"Time":"2026-10-04T00:25:33.582439+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal","Output":"=== RUN   TestExportRejectsDuplicateAndTraversal\n"}
+{"Time":"2026-10-04T00:25:33.582455+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/../escape.md"}
+{"Time":"2026-10-04T00:25:33.582468+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/../escape.md","Output":"=== RUN   TestExportRejectsDuplicateAndTraversal/../escape.md\n"}
+{"Time":"2026-10-04T00:25:33.582712+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/../escape.md","Output":"--- PASS: TestExportRejectsDuplicateAndTraversal/../escape.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.582717+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/../escape.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.582723+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal//escape.md"}
+{"Time":"2026-10-04T00:25:33.582727+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal//escape.md","Output":"=== RUN   TestExportRejectsDuplicateAndTraversal//escape.md\n"}
+{"Time":"2026-10-04T00:25:33.583086+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal//escape.md","Output":"--- PASS: TestExportRejectsDuplicateAndTraversal//escape.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.583095+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal//escape.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.583103+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/folder/a.md"}
+{"Time":"2026-10-04T00:25:33.583109+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/folder/a.md","Output":"=== RUN   TestExportRejectsDuplicateAndTraversal/folder/a.md\n"}
+{"Time":"2026-10-04T00:25:33.583638+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/folder/a.md","Output":"--- PASS: TestExportRejectsDuplicateAndTraversal/folder/a.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58365+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/folder/a.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.583658+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/A\\x.md"}
+{"Time":"2026-10-04T00:25:33.583666+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/A\\x.md","Output":"=== RUN   TestExportRejectsDuplicateAndTraversal/A\\x.md\n"}
+{"Time":"2026-10-04T00:25:33.584235+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/A\\x.md","Output":"--- PASS: TestExportRejectsDuplicateAndTraversal/A\\x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.584246+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal/A\\x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.584255+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal","Output":"--- PASS: TestExportRejectsDuplicateAndTraversal (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.584263+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsDuplicateAndTraversal","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.584287+08:00","Action":"run","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch"}
+{"Time":"2026-10-04T00:25:33.584295+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch","Output":"=== RUN   TestExportManifestHashMismatchAndSourceMismatch\n"}
+{"Time":"2026-10-04T00:25:33.584303+08:00","Action":"run","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/body"}
+{"Time":"2026-10-04T00:25:33.58431+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/body","Output":"=== RUN   TestExportManifestHashMismatchAndSourceMismatch/body\n"}
+{"Time":"2026-10-04T00:25:33.584896+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/body","Output":"--- PASS: TestExportManifestHashMismatchAndSourceMismatch/body (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58493+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/body","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58494+08:00","Action":"run","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/manifest"}
+{"Time":"2026-10-04T00:25:33.584947+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/manifest","Output":"=== RUN   TestExportManifestHashMismatchAndSourceMismatch/manifest\n"}
+{"Time":"2026-10-04T00:25:33.585441+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/manifest","Output":"--- PASS: TestExportManifestHashMismatchAndSourceMismatch/manifest (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.585451+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/manifest","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.585458+08:00","Action":"run","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/source"}
+{"Time":"2026-10-04T00:25:33.585464+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/source","Output":"=== RUN   TestExportManifestHashMismatchAndSourceMismatch/source\n"}
+{"Time":"2026-10-04T00:25:33.585967+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/source","Output":"--- PASS: TestExportManifestHashMismatchAndSourceMismatch/source (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.585977+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch/source","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.585985+08:00","Action":"output","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch","Output":"--- PASS: TestExportManifestHashMismatchAndSourceMismatch (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.585991+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportManifestHashMismatchAndSourceMismatch","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.585999+08:00","Action":"run","Package":"folio-migration","Test":"TestExportRejectsSymlinkParent"}
+{"Time":"2026-10-04T00:25:33.586006+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsSymlinkParent","Output":"=== RUN   TestExportRejectsSymlinkParent\n"}
+{"Time":"2026-10-04T00:25:33.58666+08:00","Action":"output","Package":"folio-migration","Test":"TestExportRejectsSymlinkParent","Output":"--- PASS: TestExportRejectsSymlinkParent (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.586665+08:00","Action":"pass","Package":"folio-migration","Test":"TestExportRejectsSymlinkParent","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.586668+08:00","Action":"run","Package":"folio-migration","Test":"TestManifestRoundtripRetainsSourceMetadata"}
+{"Time":"2026-10-04T00:25:33.586671+08:00","Action":"output","Package":"folio-migration","Test":"TestManifestRoundtripRetainsSourceMetadata","Output":"=== RUN   TestManifestRoundtripRetainsSourceMetadata\n"}
+{"Time":"2026-10-04T00:25:33.586735+08:00","Action":"output","Package":"folio-migration","Test":"TestManifestRoundtripRetainsSourceMetadata","Output":"--- PASS: TestManifestRoundtripRetainsSourceMetadata (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.586742+08:00","Action":"pass","Package":"folio-migration","Test":"TestManifestRoundtripRetainsSourceMetadata","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58675+08:00","Action":"run","Package":"folio-migration","Test":"TestFixtures"}
+{"Time":"2026-10-04T00:25:33.586758+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures","Output":"=== RUN   TestFixtures\n"}
+{"Time":"2026-10-04T00:25:33.586765+08:00","Action":"run","Package":"folio-migration","Test":"TestFixtures/hugo-yaml.md"}
+{"Time":"2026-10-04T00:25:33.586771+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/hugo-yaml.md","Output":"=== RUN   TestFixtures/hugo-yaml.md\n"}
+{"Time":"2026-10-04T00:25:33.586877+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/hugo-yaml.md","Output":"--- PASS: TestFixtures/hugo-yaml.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.586885+08:00","Action":"pass","Package":"folio-migration","Test":"TestFixtures/hugo-yaml.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.586893+08:00","Action":"run","Package":"folio-migration","Test":"TestFixtures/hugo-toml.md"}
+{"Time":"2026-10-04T00:25:33.586899+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/hugo-toml.md","Output":"=== RUN   TestFixtures/hugo-toml.md\n"}
+{"Time":"2026-10-04T00:25:33.587103+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/hugo-toml.md","Output":"--- PASS: TestFixtures/hugo-toml.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587111+08:00","Action":"pass","Package":"folio-migration","Test":"TestFixtures/hugo-toml.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587116+08:00","Action":"run","Package":"folio-migration","Test":"TestFixtures/obsidian-yaml.md"}
+{"Time":"2026-10-04T00:25:33.587119+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/obsidian-yaml.md","Output":"=== RUN   TestFixtures/obsidian-yaml.md\n"}
+{"Time":"2026-10-04T00:25:33.587213+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures/obsidian-yaml.md","Output":"--- PASS: TestFixtures/obsidian-yaml.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587222+08:00","Action":"pass","Package":"folio-migration","Test":"TestFixtures/obsidian-yaml.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58723+08:00","Action":"output","Package":"folio-migration","Test":"TestFixtures","Output":"--- PASS: TestFixtures (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587234+08:00","Action":"pass","Package":"folio-migration","Test":"TestFixtures","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587237+08:00","Action":"run","Package":"folio-migration","Test":"TestParseBOMCRLFChinese"}
+{"Time":"2026-10-04T00:25:33.58724+08:00","Action":"output","Package":"folio-migration","Test":"TestParseBOMCRLFChinese","Output":"=== RUN   TestParseBOMCRLFChinese\n"}
+{"Time":"2026-10-04T00:25:33.587244+08:00","Action":"output","Package":"folio-migration","Test":"TestParseBOMCRLFChinese","Output":"--- PASS: TestParseBOMCRLFChinese (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587248+08:00","Action":"pass","Package":"folio-migration","Test":"TestParseBOMCRLFChinese","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587253+08:00","Action":"run","Package":"folio-migration","Test":"TestFilenameAndHeadingInference"}
+{"Time":"2026-10-04T00:25:33.587256+08:00","Action":"output","Package":"folio-migration","Test":"TestFilenameAndHeadingInference","Output":"=== RUN   TestFilenameAndHeadingInference\n"}
+{"Time":"2026-10-04T00:25:33.58726+08:00","Action":"output","Package":"folio-migration","Test":"TestFilenameAndHeadingInference","Output":"--- PASS: TestFilenameAndHeadingInference (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587271+08:00","Action":"pass","Package":"folio-migration","Test":"TestFilenameAndHeadingInference","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587274+08:00","Action":"run","Package":"folio-migration","Test":"TestDateNormalizesUTCAndDoesNotPublish"}
+{"Time":"2026-10-04T00:25:33.587277+08:00","Action":"output","Package":"folio-migration","Test":"TestDateNormalizesUTCAndDoesNotPublish","Output":"=== RUN   TestDateNormalizesUTCAndDoesNotPublish\n"}
+{"Time":"2026-10-04T00:25:33.587281+08:00","Action":"output","Package":"folio-migration","Test":"TestDateNormalizesUTCAndDoesNotPublish","Output":"--- PASS: TestDateNormalizesUTCAndDoesNotPublish (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587284+08:00","Action":"pass","Package":"folio-migration","Test":"TestDateNormalizesUTCAndDoesNotPublish","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587288+08:00","Action":"run","Package":"folio-migration","Test":"TestUnknownMetadataRetained"}
+{"Time":"2026-10-04T00:25:33.587291+08:00","Action":"output","Package":"folio-migration","Test":"TestUnknownMetadataRetained","Output":"=== RUN   TestUnknownMetadataRetained\n"}
+{"Time":"2026-10-04T00:25:33.587301+08:00","Action":"output","Package":"folio-migration","Test":"TestUnknownMetadataRetained","Output":"--- PASS: TestUnknownMetadataRetained (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587305+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnknownMetadataRetained","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587308+08:00","Action":"run","Package":"folio-migration","Test":"TestArraysQuotesAndComments"}
+{"Time":"2026-10-04T00:25:33.587311+08:00","Action":"output","Package":"folio-migration","Test":"TestArraysQuotesAndComments","Output":"=== RUN   TestArraysQuotesAndComments\n"}
+{"Time":"2026-10-04T00:25:33.587314+08:00","Action":"output","Package":"folio-migration","Test":"TestArraysQuotesAndComments","Output":"--- PASS: TestArraysQuotesAndComments (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587318+08:00","Action":"pass","Package":"folio-migration","Test":"TestArraysQuotesAndComments","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587321+08:00","Action":"run","Package":"folio-migration","Test":"TestTOMLMultilineArray"}
+{"Time":"2026-10-04T00:25:33.587331+08:00","Action":"output","Package":"folio-migration","Test":"TestTOMLMultilineArray","Output":"=== RUN   TestTOMLMultilineArray\n"}
+{"Time":"2026-10-04T00:25:33.587335+08:00","Action":"output","Package":"folio-migration","Test":"TestTOMLMultilineArray","Output":"--- PASS: TestTOMLMultilineArray (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587338+08:00","Action":"pass","Package":"folio-migration","Test":"TestTOMLMultilineArray","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587342+08:00","Action":"run","Package":"folio-migration","Test":"TestDraftDefaultsTrue"}
+{"Time":"2026-10-04T00:25:33.587345+08:00","Action":"output","Package":"folio-migration","Test":"TestDraftDefaultsTrue","Output":"=== RUN   TestDraftDefaultsTrue\n"}
+{"Time":"2026-10-04T00:25:33.587349+08:00","Action":"output","Package":"folio-migration","Test":"TestDraftDefaultsTrue","Output":"--- PASS: TestDraftDefaultsTrue (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587352+08:00","Action":"pass","Package":"folio-migration","Test":"TestDraftDefaultsTrue","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587359+08:00","Action":"run","Package":"folio-migration","Test":"TestIndentedDelimiterInsideBlockScalar"}
+{"Time":"2026-10-04T00:25:33.587362+08:00","Action":"output","Package":"folio-migration","Test":"TestIndentedDelimiterInsideBlockScalar","Output":"=== RUN   TestIndentedDelimiterInsideBlockScalar\n"}
+{"Time":"2026-10-04T00:25:33.587366+08:00","Action":"output","Package":"folio-migration","Test":"TestIndentedDelimiterInsideBlockScalar","Output":"--- PASS: TestIndentedDelimiterInsideBlockScalar (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58737+08:00","Action":"pass","Package":"folio-migration","Test":"TestIndentedDelimiterInsideBlockScalar","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587373+08:00","Action":"run","Package":"folio-migration","Test":"TestCategoryAliasesDisagree"}
+{"Time":"2026-10-04T00:25:33.587376+08:00","Action":"output","Package":"folio-migration","Test":"TestCategoryAliasesDisagree","Output":"=== RUN   TestCategoryAliasesDisagree\n"}
+{"Time":"2026-10-04T00:25:33.58738+08:00","Action":"output","Package":"folio-migration","Test":"TestCategoryAliasesDisagree","Output":"--- PASS: TestCategoryAliasesDisagree (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587383+08:00","Action":"pass","Package":"folio-migration","Test":"TestCategoryAliasesDisagree","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587386+08:00","Action":"run","Package":"folio-migration","Test":"TestInvalidSingleQuoteRejected"}
+{"Time":"2026-10-04T00:25:33.587474+08:00","Action":"output","Package":"folio-migration","Test":"TestInvalidSingleQuoteRejected","Output":"=== RUN   TestInvalidSingleQuoteRejected\n"}
+{"Time":"2026-10-04T00:25:33.587478+08:00","Action":"output","Package":"folio-migration","Test":"TestInvalidSingleQuoteRejected","Output":"--- PASS: TestInvalidSingleQuoteRejected (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587481+08:00","Action":"pass","Package":"folio-migration","Test":"TestInvalidSingleQuoteRejected","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.5875+08:00","Action":"run","Package":"folio-migration","Test":"TestMissingFinalNewlinePreserved"}
+{"Time":"2026-10-04T00:25:33.587503+08:00","Action":"output","Package":"folio-migration","Test":"TestMissingFinalNewlinePreserved","Output":"=== RUN   TestMissingFinalNewlinePreserved\n"}
+{"Time":"2026-10-04T00:25:33.587507+08:00","Action":"output","Package":"folio-migration","Test":"TestMissingFinalNewlinePreserved","Output":"--- PASS: TestMissingFinalNewlinePreserved (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58751+08:00","Action":"pass","Package":"folio-migration","Test":"TestMissingFinalNewlinePreserved","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587513+08:00","Action":"run","Package":"folio-migration","Test":"TestHashIgnoresPathWarningsButNotMetadata"}
+{"Time":"2026-10-04T00:25:33.587516+08:00","Action":"output","Package":"folio-migration","Test":"TestHashIgnoresPathWarningsButNotMetadata","Output":"=== RUN   TestHashIgnoresPathWarningsButNotMetadata\n"}
+{"Time":"2026-10-04T00:25:33.58752+08:00","Action":"output","Package":"folio-migration","Test":"TestHashIgnoresPathWarningsButNotMetadata","Output":"--- PASS: TestHashIgnoresPathWarningsButNotMetadata (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587524+08:00","Action":"pass","Package":"folio-migration","Test":"TestHashIgnoresPathWarningsButNotMetadata","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587527+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects"}
+{"Time":"2026-10-04T00:25:33.58753+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects","Output":"=== RUN   TestParserRejects\n"}
+{"Time":"2026-10-04T00:25:33.587924+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/duplicate"}
+{"Time":"2026-10-04T00:25:33.587932+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/duplicate","Output":"=== RUN   TestParserRejects/duplicate\n"}
+{"Time":"2026-10-04T00:25:33.587952+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/duplicate","Output":"--- PASS: TestParserRejects/duplicate (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58796+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/duplicate","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.587967+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/nested"}
+{"Time":"2026-10-04T00:25:33.587982+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nested","Output":"=== RUN   TestParserRejects/nested\n"}
+{"Time":"2026-10-04T00:25:33.587991+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nested","Output":"--- PASS: TestParserRejects/nested (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.587997+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/nested","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588003+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/anchor"}
+{"Time":"2026-10-04T00:25:33.588009+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/anchor","Output":"=== RUN   TestParserRejects/anchor\n"}
+{"Time":"2026-10-04T00:25:33.588017+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/anchor","Output":"--- PASS: TestParserRejects/anchor (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588023+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/anchor","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58803+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/alias"}
+{"Time":"2026-10-04T00:25:33.588036+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/alias","Output":"=== RUN   TestParserRejects/alias\n"}
+{"Time":"2026-10-04T00:25:33.588042+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/alias","Output":"--- PASS: TestParserRejects/alias (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588049+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/alias","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588065+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/unclosed"}
+{"Time":"2026-10-04T00:25:33.588071+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/unclosed","Output":"=== RUN   TestParserRejects/unclosed\n"}
+{"Time":"2026-10-04T00:25:33.588079+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/unclosed","Output":"--- PASS: TestParserRejects/unclosed (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588085+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/unclosed","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588091+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/badDate"}
+{"Time":"2026-10-04T00:25:33.588098+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badDate","Output":"=== RUN   TestParserRejects/badDate\n"}
+{"Time":"2026-10-04T00:25:33.588115+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badDate","Output":"--- PASS: TestParserRejects/badDate (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588122+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/badDate","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588128+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/badDraft"}
+{"Time":"2026-10-04T00:25:33.588134+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badDraft","Output":"=== RUN   TestParserRejects/badDraft\n"}
+{"Time":"2026-10-04T00:25:33.58814+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badDraft","Output":"--- PASS: TestParserRejects/badDraft (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588147+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/badDraft","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588153+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/tagBool"}
+{"Time":"2026-10-04T00:25:33.588159+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tagBool","Output":"=== RUN   TestParserRejects/tagBool\n"}
+{"Time":"2026-10-04T00:25:33.588165+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tagBool","Output":"--- PASS: TestParserRejects/tagBool (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588172+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/tagBool","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588179+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/tagScalar"}
+{"Time":"2026-10-04T00:25:33.588185+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tagScalar","Output":"=== RUN   TestParserRejects/tagScalar\n"}
+{"Time":"2026-10-04T00:25:33.588191+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tagScalar","Output":"--- PASS: TestParserRejects/tagScalar (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588198+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/tagScalar","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588204+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/categoryMany"}
+{"Time":"2026-10-04T00:25:33.58821+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/categoryMany","Output":"=== RUN   TestParserRejects/categoryMany\n"}
+{"Time":"2026-10-04T00:25:33.588216+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/categoryMany","Output":"--- PASS: TestParserRejects/categoryMany (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588222+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/categoryMany","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588228+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/excerptConflict"}
+{"Time":"2026-10-04T00:25:33.588234+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/excerptConflict","Output":"=== RUN   TestParserRejects/excerptConflict\n"}
+{"Time":"2026-10-04T00:25:33.588249+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/excerptConflict","Output":"--- PASS: TestParserRejects/excerptConflict (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588256+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/excerptConflict","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588262+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/remoteCover"}
+{"Time":"2026-10-04T00:25:33.588268+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/remoteCover","Output":"=== RUN   TestParserRejects/remoteCover\n"}
+{"Time":"2026-10-04T00:25:33.588275+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/remoteCover","Output":"--- PASS: TestParserRejects/remoteCover (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588281+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/remoteCover","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588287+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/slugTraversal"}
+{"Time":"2026-10-04T00:25:33.588293+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/slugTraversal","Output":"=== RUN   TestParserRejects/slugTraversal\n"}
+{"Time":"2026-10-04T00:25:33.588305+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/slugTraversal","Output":"--- PASS: TestParserRejects/slugTraversal (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588311+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/slugTraversal","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588322+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/slugUnicode"}
+{"Time":"2026-10-04T00:25:33.588328+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/slugUnicode","Output":"=== RUN   TestParserRejects/slugUnicode\n"}
+{"Time":"2026-10-04T00:25:33.588335+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/slugUnicode","Output":"--- PASS: TestParserRejects/slugUnicode (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588341+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/slugUnicode","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588347+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/nullByte"}
+{"Time":"2026-10-04T00:25:33.588353+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nullByte","Output":"=== RUN   TestParserRejects/nullByte\n"}
+{"Time":"2026-10-04T00:25:33.588367+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nullByte","Output":"--- PASS: TestParserRejects/nullByte (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588374+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/nullByte","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58838+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/invalidUTF8"}
+{"Time":"2026-10-04T00:25:33.588386+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/invalidUTF8","Output":"=== RUN   TestParserRejects/invalidUTF8\n"}
+{"Time":"2026-10-04T00:25:33.588393+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/invalidUTF8","Output":"--- PASS: TestParserRejects/invalidUTF8 (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588399+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/invalidUTF8","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588405+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/tomlTable"}
+{"Time":"2026-10-04T00:25:33.588411+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tomlTable","Output":"=== RUN   TestParserRejects/tomlTable\n"}
+{"Time":"2026-10-04T00:25:33.588417+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/tomlTable","Output":"--- PASS: TestParserRejects/tomlTable (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588423+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/tomlTable","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588438+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/unquotedTOML"}
+{"Time":"2026-10-04T00:25:33.588444+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/unquotedTOML","Output":"=== RUN   TestParserRejects/unquotedTOML\n"}
+{"Time":"2026-10-04T00:25:33.588451+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/unquotedTOML","Output":"--- PASS: TestParserRejects/unquotedTOML (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588457+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/unquotedTOML","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588467+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/badQuote"}
+{"Time":"2026-10-04T00:25:33.588473+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badQuote","Output":"=== RUN   TestParserRejects/badQuote\n"}
+{"Time":"2026-10-04T00:25:33.58848+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/badQuote","Output":"--- PASS: TestParserRejects/badQuote (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588486+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/badQuote","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588492+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/nestedArray"}
+{"Time":"2026-10-04T00:25:33.588498+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nestedArray","Output":"=== RUN   TestParserRejects/nestedArray\n"}
+{"Time":"2026-10-04T00:25:33.588504+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/nestedArray","Output":"--- PASS: TestParserRejects/nestedArray (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58851+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/nestedArray","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588517+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/overTitle"}
+{"Time":"2026-10-04T00:25:33.588522+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overTitle","Output":"=== RUN   TestParserRejects/overTitle\n"}
+{"Time":"2026-10-04T00:25:33.588528+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overTitle","Output":"--- PASS: TestParserRejects/overTitle (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588535+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/overTitle","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588541+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/overMarkdown"}
+{"Time":"2026-10-04T00:25:33.588547+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overMarkdown","Output":"=== RUN   TestParserRejects/overMarkdown\n"}
+{"Time":"2026-10-04T00:25:33.588839+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overMarkdown","Output":"--- PASS: TestParserRejects/overMarkdown (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588847+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/overMarkdown","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588854+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/overFrontmatter"}
+{"Time":"2026-10-04T00:25:33.58886+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overFrontmatter","Output":"=== RUN   TestParserRejects/overFrontmatter\n"}
+{"Time":"2026-10-04T00:25:33.588902+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/overFrontmatter","Output":"--- PASS: TestParserRejects/overFrontmatter (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58891+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/overFrontmatter","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588916+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/emptyArrayItem"}
+{"Time":"2026-10-04T00:25:33.588923+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/emptyArrayItem","Output":"=== RUN   TestParserRejects/emptyArrayItem\n"}
+{"Time":"2026-10-04T00:25:33.588939+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/emptyArrayItem","Output":"--- PASS: TestParserRejects/emptyArrayItem (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588945+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/emptyArrayItem","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588952+08:00","Action":"run","Package":"folio-migration","Test":"TestParserRejects/invalidBool"}
+{"Time":"2026-10-04T00:25:33.588958+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/invalidBool","Output":"=== RUN   TestParserRejects/invalidBool\n"}
+{"Time":"2026-10-04T00:25:33.588964+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects/invalidBool","Output":"--- PASS: TestParserRejects/invalidBool (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588971+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects/invalidBool","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588978+08:00","Action":"output","Package":"folio-migration","Test":"TestParserRejects","Output":"--- PASS: TestParserRejects (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.588985+08:00","Action":"pass","Package":"folio-migration","Test":"TestParserRejects","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.588991+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths"}
+{"Time":"2026-10-04T00:25:33.588997+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths","Output":"=== RUN   TestUnsafeSourcePaths\n"}
+{"Time":"2026-10-04T00:25:33.589003+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/../x.md"}
+{"Time":"2026-10-04T00:25:33.589017+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/../x.md","Output":"=== RUN   TestUnsafeSourcePaths/../x.md\n"}
+{"Time":"2026-10-04T00:25:33.589023+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/../x.md","Output":"--- PASS: TestUnsafeSourcePaths/../x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58903+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/../x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589036+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths//x.md"}
+{"Time":"2026-10-04T00:25:33.589042+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths//x.md","Output":"=== RUN   TestUnsafeSourcePaths//x.md\n"}
+{"Time":"2026-10-04T00:25:33.58905+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths//x.md","Output":"--- PASS: TestUnsafeSourcePaths//x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589056+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths//x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589062+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a/../x.md"}
+{"Time":"2026-10-04T00:25:33.589068+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a/../x.md","Output":"=== RUN   TestUnsafeSourcePaths/a/../x.md\n"}
+{"Time":"2026-10-04T00:25:33.589074+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a/../x.md","Output":"--- PASS: TestUnsafeSourcePaths/a/../x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589081+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a/../x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589087+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a\\x.md"}
+{"Time":"2026-10-04T00:25:33.589093+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a\\x.md","Output":"=== RUN   TestUnsafeSourcePaths/a\\x.md\n"}
+{"Time":"2026-10-04T00:25:33.5891+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a\\x.md","Output":"--- PASS: TestUnsafeSourcePaths/a\\x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589106+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a\\x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589122+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/C:x.md"}
+{"Time":"2026-10-04T00:25:33.589128+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/C:x.md","Output":"=== RUN   TestUnsafeSourcePaths/C:x.md\n"}
+{"Time":"2026-10-04T00:25:33.589135+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/C:x.md","Output":"--- PASS: TestUnsafeSourcePaths/C:x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589142+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/C:x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589148+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a//x.md"}
+{"Time":"2026-10-04T00:25:33.589154+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a//x.md","Output":"=== RUN   TestUnsafeSourcePaths/a//x.md\n"}
+{"Time":"2026-10-04T00:25:33.58916+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a//x.md","Output":"--- PASS: TestUnsafeSourcePaths/a//x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589166+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a//x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589173+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/./x.md"}
+{"Time":"2026-10-04T00:25:33.589178+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/./x.md","Output":"=== RUN   TestUnsafeSourcePaths/./x.md\n"}
+{"Time":"2026-10-04T00:25:33.589185+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/./x.md","Output":"--- PASS: TestUnsafeSourcePaths/./x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589195+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/./x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589201+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/x\\x00.md"}
+{"Time":"2026-10-04T00:25:33.589207+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/x\\x00.md","Output":"=== RUN   TestUnsafeSourcePaths/x\\x00.md\n"}
+{"Time":"2026-10-04T00:25:33.589216+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/x\\x00.md","Output":"--- PASS: TestUnsafeSourcePaths/x\\x00.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589223+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/x\\x00.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589229+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a._/x.md"}
+{"Time":"2026-10-04T00:25:33.589235+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a._/x.md","Output":"=== RUN   TestUnsafeSourcePaths/a._/x.md\n"}
+{"Time":"2026-10-04T00:25:33.589241+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a._/x.md","Output":"--- PASS: TestUnsafeSourcePaths/a._/x.md (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589248+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/a._/x.md","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589254+08:00","Action":"run","Package":"folio-migration","Test":"TestUnsafeSourcePaths/."}
+{"Time":"2026-10-04T00:25:33.58926+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/.","Output":"=== RUN   TestUnsafeSourcePaths/.\n"}
+{"Time":"2026-10-04T00:25:33.589267+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths/.","Output":"--- PASS: TestUnsafeSourcePaths/. (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589273+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths/.","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589279+08:00","Action":"output","Package":"folio-migration","Test":"TestUnsafeSourcePaths","Output":"--- PASS: TestUnsafeSourcePaths (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589286+08:00","Action":"pass","Package":"folio-migration","Test":"TestUnsafeSourcePaths","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.5893+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanDeterministicAndFrozen"}
+{"Time":"2026-10-04T00:25:33.589306+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanDeterministicAndFrozen","Output":"=== RUN   TestPlanDeterministicAndFrozen\n"}
+{"Time":"2026-10-04T00:25:33.589447+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanDeterministicAndFrozen","Output":"--- PASS: TestPlanDeterministicAndFrozen (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589472+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanDeterministicAndFrozen","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589485+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanConflicts"}
+{"Time":"2026-10-04T00:25:33.589493+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts","Output":"=== RUN   TestPlanConflicts\n"}
+{"Time":"2026-10-04T00:25:33.5895+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanConflicts/#00"}
+{"Time":"2026-10-04T00:25:33.589507+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/#00","Output":"=== RUN   TestPlanConflicts/#00\n"}
+{"Time":"2026-10-04T00:25:33.589516+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/#00","Output":"--- PASS: TestPlanConflicts/#00 (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589523+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanConflicts/#00","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58953+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanConflicts/error"}
+{"Time":"2026-10-04T00:25:33.589537+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/error","Output":"=== RUN   TestPlanConflicts/error\n"}
+{"Time":"2026-10-04T00:25:33.589544+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/error","Output":"--- PASS: TestPlanConflicts/error (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589551+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanConflicts/error","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589557+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanConflicts/skip"}
+{"Time":"2026-10-04T00:25:33.589562+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/skip","Output":"=== RUN   TestPlanConflicts/skip\n"}
+{"Time":"2026-10-04T00:25:33.589569+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/skip","Output":"--- PASS: TestPlanConflicts/skip (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589575+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanConflicts/skip","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58958+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanConflicts/update"}
+{"Time":"2026-10-04T00:25:33.589586+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/update","Output":"=== RUN   TestPlanConflicts/update\n"}
+{"Time":"2026-10-04T00:25:33.589593+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts/update","Output":"--- PASS: TestPlanConflicts/update (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589599+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanConflicts/update","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589605+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanConflicts","Output":"--- PASS: TestPlanConflicts (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589612+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanConflicts","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589617+08:00","Action":"run","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked"}
+{"Time":"2026-10-04T00:25:33.589622+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked","Output":"=== RUN   TestDuplicateSourcesAllBlocked\n"}
+{"Time":"2026-10-04T00:25:33.589634+08:00","Action":"run","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/slug"}
+{"Time":"2026-10-04T00:25:33.589656+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/slug","Output":"=== RUN   TestDuplicateSourcesAllBlocked/slug\n"}
+{"Time":"2026-10-04T00:25:33.589664+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/slug","Output":"--- PASS: TestDuplicateSourcesAllBlocked/slug (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58967+08:00","Action":"pass","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/slug","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589676+08:00","Action":"run","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/path"}
+{"Time":"2026-10-04T00:25:33.589682+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/path","Output":"=== RUN   TestDuplicateSourcesAllBlocked/path\n"}
+{"Time":"2026-10-04T00:25:33.589702+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/path","Output":"--- PASS: TestDuplicateSourcesAllBlocked/path (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589709+08:00","Action":"pass","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked/path","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589719+08:00","Action":"output","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked","Output":"--- PASS: TestDuplicateSourcesAllBlocked (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589725+08:00","Action":"pass","Package":"folio-migration","Test":"TestDuplicateSourcesAllBlocked","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589731+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanInvalidDocumentIsRecoverableDiagnostic"}
+{"Time":"2026-10-04T00:25:33.589737+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanInvalidDocumentIsRecoverableDiagnostic","Output":"=== RUN   TestPlanInvalidDocumentIsRecoverableDiagnostic\n"}
+{"Time":"2026-10-04T00:25:33.589744+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanInvalidDocumentIsRecoverableDiagnostic","Output":"--- PASS: TestPlanInvalidDocumentIsRecoverableDiagnostic (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.58975+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanInvalidDocumentIsRecoverableDiagnostic","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589755+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting"}
+{"Time":"2026-10-04T00:25:33.589761+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting\n"}
+{"Time":"2026-10-04T00:25:33.589767+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy"}
+{"Time":"2026-10-04T00:25:33.589772+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy\n"}
+{"Time":"2026-10-04T00:25:33.589786+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589793+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/policy","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589798+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug"}
+{"Time":"2026-10-04T00:25:33.589804+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug\n"}
+{"Time":"2026-10-04T00:25:33.58981+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589831+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateSlug","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589837+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID"}
+{"Time":"2026-10-04T00:25:33.589842+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID\n"}
+{"Time":"2026-10-04T00:25:33.58985+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589856+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/duplicateID","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589861+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID"}
+{"Time":"2026-10-04T00:25:33.589867+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID\n"}
+{"Time":"2026-10-04T00:25:33.589873+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589878+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/missingID","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589884+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision"}
+{"Time":"2026-10-04T00:25:33.589889+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision\n"}
+{"Time":"2026-10-04T00:25:33.589895+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589901+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badRevision","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589906+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug"}
+{"Time":"2026-10-04T00:25:33.589911+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug","Output":"=== RUN   TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug\n"}
+{"Time":"2026-10-04T00:25:33.589918+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589924+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting/badSlug","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.58993+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting","Output":"--- PASS: TestPlanRejectsGlobalOptionsAndAmbiguousExisting (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589936+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanRejectsGlobalOptionsAndAmbiguousExisting","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589941+08:00","Action":"run","Package":"folio-migration","Test":"TestRequestIgnoresSourcePublicationAndDates"}
+{"Time":"2026-10-04T00:25:33.589946+08:00","Action":"output","Package":"folio-migration","Test":"TestRequestIgnoresSourcePublicationAndDates","Output":"=== RUN   TestRequestIgnoresSourcePublicationAndDates\n"}
+{"Time":"2026-10-04T00:25:33.589962+08:00","Action":"output","Package":"folio-migration","Test":"TestRequestIgnoresSourcePublicationAndDates","Output":"--- PASS: TestRequestIgnoresSourcePublicationAndDates (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589968+08:00","Action":"pass","Package":"folio-migration","Test":"TestRequestIgnoresSourcePublicationAndDates","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589974+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanTamperRejected"}
+{"Time":"2026-10-04T00:25:33.589979+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanTamperRejected","Output":"=== RUN   TestPlanTamperRejected\n"}
+{"Time":"2026-10-04T00:25:33.589985+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanTamperRejected","Output":"--- PASS: TestPlanTamperRejected (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.589991+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanTamperRejected","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.589996+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed"}
+{"Time":"2026-10-04T00:25:33.590006+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed\n"}
+{"Time":"2026-10-04T00:25:33.590013+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion"}
+{"Time":"2026-10-04T00:25:33.590018+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion\n"}
+{"Time":"2026-10-04T00:25:33.590024+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.59003+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/unknownVersion","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590035+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/publish"}
+{"Time":"2026-10-04T00:25:33.590041+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/publish","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/publish\n"}
+{"Time":"2026-10-04T00:25:33.590048+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/publish","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/publish (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590054+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/publish","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590067+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey"}
+{"Time":"2026-10-04T00:25:33.590073+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey\n"}
+{"Time":"2026-10-04T00:25:33.590079+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590084+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/arbitraryKey","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.59009+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/createID"}
+{"Time":"2026-10-04T00:25:33.590095+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/createID","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/createID\n"}
+{"Time":"2026-10-04T00:25:33.590111+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/createID","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/createID (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590117+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/createID","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590123+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/missingHash"}
+{"Time":"2026-10-04T00:25:33.590128+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/missingHash","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/missingHash\n"}
+{"Time":"2026-10-04T00:25:33.590134+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/missingHash","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/missingHash (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590139+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/missingHash","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590145+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash"}
+{"Time":"2026-10-04T00:25:33.59015+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash","Output":"=== RUN   TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash\n"}
+{"Time":"2026-10-04T00:25:33.590157+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590162+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed/fakeHash","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590168+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed","Output":"--- PASS: TestPlanStructuralTamperRejectedEvenIfResealed (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590174+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanStructuralTamperRejectedEvenIfResealed","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590179+08:00","Action":"run","Package":"folio-migration","Test":"TestPlanDuplicateRetryPayloadAcrossPaths"}
+{"Time":"2026-10-04T00:25:33.590185+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanDuplicateRetryPayloadAcrossPaths","Output":"=== RUN   TestPlanDuplicateRetryPayloadAcrossPaths\n"}
+{"Time":"2026-10-04T00:25:33.590192+08:00","Action":"output","Package":"folio-migration","Test":"TestPlanDuplicateRetryPayloadAcrossPaths","Output":"--- PASS: TestPlanDuplicateRetryPayloadAcrossPaths (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590197+08:00","Action":"pass","Package":"folio-migration","Test":"TestPlanDuplicateRetryPayloadAcrossPaths","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590203+08:00","Action":"run","Package":"folio-migration","Test":"TestMemoryLimits"}
+{"Time":"2026-10-04T00:25:33.590208+08:00","Action":"output","Package":"folio-migration","Test":"TestMemoryLimits","Output":"=== RUN   TestMemoryLimits\n"}
+{"Time":"2026-10-04T00:25:33.590214+08:00","Action":"output","Package":"folio-migration","Test":"TestMemoryLimits","Output":"--- PASS: TestMemoryLimits (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590219+08:00","Action":"pass","Package":"folio-migration","Test":"TestMemoryLimits","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590224+08:00","Action":"run","Package":"folio-migration","Test":"FuzzParse"}
+{"Time":"2026-10-04T00:25:33.59023+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse","Output":"=== RUN   FuzzParse\n"}
+{"Time":"2026-10-04T00:25:33.590246+08:00","Action":"run","Package":"folio-migration","Test":"FuzzParse/seed#0"}
+{"Time":"2026-10-04T00:25:33.590261+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse/seed#0","Output":"=== RUN   FuzzParse/seed#0\n"}
+{"Time":"2026-10-04T00:25:33.590298+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse/seed#0","Output":"--- PASS: FuzzParse/seed#0 (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590305+08:00","Action":"pass","Package":"folio-migration","Test":"FuzzParse/seed#0","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590312+08:00","Action":"run","Package":"folio-migration","Test":"FuzzParse/seed#1"}
+{"Time":"2026-10-04T00:25:33.590317+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse/seed#1","Output":"=== RUN   FuzzParse/seed#1\n"}
+{"Time":"2026-10-04T00:25:33.590324+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse/seed#1","Output":"--- PASS: FuzzParse/seed#1 (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.59033+08:00","Action":"pass","Package":"folio-migration","Test":"FuzzParse/seed#1","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590338+08:00","Action":"output","Package":"folio-migration","Test":"FuzzParse","Output":"--- PASS: FuzzParse (0.00s)\n"}
+{"Time":"2026-10-04T00:25:33.590345+08:00","Action":"pass","Package":"folio-migration","Test":"FuzzParse","Elapsed":0}
+{"Time":"2026-10-04T00:25:33.590351+08:00","Action":"output","Package":"folio-migration","Output":"PASS\n"}
+{"Time":"2026-10-04T00:25:33.591008+08:00","Action":"output","Package":"folio-migration","Output":"ok  \tfolio-migration\t0.594s\n"}
+{"Time":"2026-10-04T00:25:33.595942+08:00","Action":"pass","Package":"folio-migration","Elapsed":0.599}

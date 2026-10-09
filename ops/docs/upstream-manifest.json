@@ -1,0 +1,74 @@
+{
+  "format": "agent-blog-ops-source",
+  "version": 1,
+  "files": {
+    ".gitignore": {
+      "size": 92,
+      "sha256": "dd82d5a7ac0621d2fd351e650d477df88a4a5116d8b59007cfd3f866ffff3c08"
+    },
+    ".dockerignore": {
+      "size": 76,
+      "sha256": "77c96683f98417e432cf9f6d65d5fe6e1e7b63f2f815cdb79d1ec91d82af1bc1"
+    },
+    "LICENSE": {
+      "size": 1084,
+      "sha256": "d321fd5241fbc2fdf15bef86a45970e58fee49d640b3385373df01aa1e412d55"
+    },
+    "Makefile": {
+      "size": 192,
+      "sha256": "fa22155f94a3698db35ffd39597ebf286884dafc1ee14be8fd1dc26b76138ca3"
+    },
+    "README.md": {
+      "size": 4135,
+      "sha256": "1bf1ce0036cdd7bcf98240b3857b895a51c6c215250e8b3437d5d6d468e59354"
+    },
+    "REFERENCES.md": {
+      "size": 1285,
+      "sha256": "59d75af471b4ff6bb9d552b7d6dede5f09633b2c61d116ee53822e38e9025f07"
+    },
+    "ops.py": {
+      "size": 37141,
+      "sha256": "3e3f9569280408cec6ac0b38e26007d4819a84e7774e413d76c34cc1736fde6b"
+    },
+    "deploy/Dockerfile": {
+      "size": 583,
+      "sha256": "075a3450f890ac0c63854300755882403e644ca3a95b6fcd090c31e964b4e91e"
+    },
+    "scripts/check.py": {
+      "size": 990,
+      "sha256": "c6a81e1e8e93516d4dcc8a235addad1492b9cf41ce678213eea6783d0e9cd465"
+    },
+    "scripts/package.py": {
+      "size": 1677,
+      "sha256": "95948e899de833954edf772dc0270b4afdc8553c2478aab6f0518a1fd4b91027"
+    },
+    "tests/test_ops.py": {
+      "size": 19061,
+      "sha256": "755b1901ed6600196cbc5fb14e9716f9ff8e3ef1a8a009abde896b3cac34b383"
+    },
+    "tests/fixtures/folio_fixture.py": {
+      "size": 1824,
+      "sha256": "ed310498e198e25293c31c76b58f90a38c909b351deff6cb6c565c9ff346e6c1"
+    },
+    "docs/deployment.md": {
+      "size": 3802,
+      "sha256": "1785b0e0e7479322eac6ce9c3c3d433ed7525fd6a17412b2c7de1efd6b89cc5a"
+    },
+    "docs/backup-recovery.md": {
+      "size": 3855,
+      "sha256": "c0d12e62370f2179a25a33d12de5991bb582cdcb188adfb2bf944803107de51c"
+    },
+    "docs/upgrade-rollback.md": {
+      "size": 2680,
+      "sha256": "1e223fe20b2194a04605bc37d95128720e8dcbdf16fe9fd9e1025f0936190ece"
+    },
+    "docs/security.md": {
+      "size": 2136,
+      "sha256": "26d65276c873ce48397288e0127d5ac7562f3a6482b561aa5168fd19694ddd00"
+    },
+    "docs/test-results.json": {
+      "size": 4769,
+      "sha256": "8f9a98ae2d1b749bf69275852d3c3801062ff2fcd2ef93b58bcc8b6a80c1a377"
+    }
+  }
+}

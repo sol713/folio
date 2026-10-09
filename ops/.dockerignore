@@ -1,0 +1,6 @@
+**
+!dist/
+!dist/folio
+!dist/ca-certificates.crt
+!deploy/
+!deploy/Dockerfile

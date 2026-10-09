@@ -1,0 +1,30 @@
+{
+  "source_library_version": 1,
+  "source_sha256": "e803bc1a3af9ede45e33254916d6782c2ff687cf623fd89756248c20fc45fa93",
+  "desktop_css_viewport": [
+    1440,
+    1000
+  ],
+  "mobile_css_viewport": [
+    390,
+    844
+  ],
+  "files": {
+    "01-home-desktop.jpg": {
+      "size": 91695,
+      "sha256": "7fddb71f846133a2ce9df9e6263f9745bef5df7831a5a88f78caea0ef8419ce9"
+    },
+    "09-mobile-article.jpg": {
+      "size": 35173,
+      "sha256": "f682c2d1a467ffc83427f58eb971aba6a402f69b12b8654d4a4cafb143d5dbf9"
+    },
+    "02-studio-desktop.jpg": {
+      "size": 87273,
+      "sha256": "debd39cb3bf709838dcec608251cee5494c56de16d69b9aadb85488b15329efb"
+    },
+    "12-mobile-editor.jpg": {
+      "size": 35794,
+      "sha256": "8bb14889a7eb43dafd043133db8e3d1082707631cdc115c8cc46724990568f79"
+    }
+  }
+}

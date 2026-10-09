@@ -1,0 +1,95 @@
+{
+  "format": "folio-migration-plan",
+  "version": 1,
+  "id": "f13d654344922f4aac82df890294a239b6d33d982d51fa32071118e96e311225",
+  "entries": [
+    {
+      "document": {
+        "source_path": "hugo-toml.md",
+        "title": "A quiet afternoon",
+        "slug": "quiet-afternoon",
+        "markdown": "# A quiet afternoon\n\nA body with a [remote link](https://example.invalid/never-fetch).\n",
+        "excerpt": "Plain, portable notes.",
+        "tags": [
+          "life",
+          "日常"
+        ],
+        "category": "Notes",
+        "cover": "",
+        "featured": false,
+        "date": "2023-10-15T00:00:00Z",
+        "draft": true,
+        "warnings": [
+          "date retained as metadata; existing posts API cannot set historical timestamps or schedule publication"
+        ],
+        "content_hash": "e35be85a685a56c3212f0194084a59bb0019878d6baad9d5769e26488940b164"
+      },
+      "action": "create",
+      "idempotency_key": "migration-b25f00fc83fe6ea42d48cdd3ade504fbf2223f0e8e895f65210662f45f5b36ba"
+    },
+    {
+      "document": {
+        "source_path": "hugo-yaml.md",
+        "title": "慢慢写 / Take your time",
+        "slug": "slow-notes",
+        "markdown": "# 慢慢写\n\n这里保留 UTF-8 中文，不会自动发布。\n\n```go\nfmt.Println(\"hello / 你好\")\n```\n\n![本地附件](images/local.png)\n",
+        "excerpt": "一篇带中文、代码和日期的迁移测试。",
+        "tags": [
+          "中文",
+          "writing"
+        ],
+        "category": "Field notes",
+        "cover": "",
+        "featured": false,
+        "date": "2024-02-02T12:14:54Z",
+        "publish_date": "2024-02-04T00:00:00Z",
+        "draft": false,
+        "extra": {
+          "aliases": "[\"/old-url/\"]",
+          "weight": "10"
+        },
+        "warnings": [
+          "unsupported metadata retained, not applied: aliases",
+          "date retained as metadata; existing posts API cannot set historical timestamps or schedule publication",
+          "draft:false is source metadata only; import always saves a private draft",
+          "publishdate retained as metadata; existing posts API cannot set historical timestamps or schedule publication",
+          "unsupported metadata retained, not applied: weight",
+          "attachment references preserved verbatim; no attachment copied, uploaded, rewritten, or remotely fetched"
+        ],
+        "content_hash": "a1138af89d71d72a3ee6b496f4d9698f820dfbb9c52fc4388324eeb9c3b52357"
+      },
+      "action": "create",
+      "idempotency_key": "migration-6331604c7f180efdd1dc6b5096328eb54d627fe3b185d51d88278e157b228705"
+    },
+    {
+      "document": {
+        "source_path": "obsidian-yaml.md",
+        "title": "来自笔记库的文章",
+        "slug": "vault-note",
+        "markdown": "# 来自笔记库的文章\n\n[[未转换的双链]] 与 ![[未复制的附件.png]] 原样保留。\n",
+        "excerpt": "第一行。\nSecond line.",
+        "tags": [
+          "notes",
+          "中文"
+        ],
+        "category": "",
+        "cover": "",
+        "featured": false,
+        "draft": true,
+        "extra": {
+          "aliases": "\n  - 旧名字",
+          "cssclasses": "[\"wide\"]"
+        },
+        "warnings": [
+          "unsupported metadata retained, not applied: aliases",
+          "unsupported metadata retained, not applied: cssclasses",
+          "attachment references preserved verbatim; no attachment copied, uploaded, rewritten, or remotely fetched"
+        ],
+        "content_hash": "b6f46561433d3f08aa3a87f559443bbda068cd2b807d1a7d5b561f2431027334"
+      },
+      "action": "create",
+      "idempotency_key": "migration-81d6b401483b644d354387684b6034e2f7e871af2baae78ba65018260680a9b9"
+    }
+  ],
+  "diagnostics": []
+}

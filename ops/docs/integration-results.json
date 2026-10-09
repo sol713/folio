@@ -1,0 +1,65 @@
+{
+  "at_utc": "2026-10-03T17:06:26.445341+00:00",
+  "status": "passed",
+  "binary_sha256": "723b663ca71324fa18d2a95ecbbf95493c827e871d65cae4c986ffef2775ad04",
+  "python": "3.12.14",
+  "platform": "Linux x86_64",
+  "checks": [
+    "real static Linux ELF and version 0.2.0",
+    "real init, private data, doctor, healthcheck and readiness probes",
+    "paused recovery daemon keeps overdue pinned schedule pending across scheduler ticks",
+    "v2 export preserves published/draft revisions, media, proposals and pinned schedules; excludes token",
+    "logical restore preserves content and independent token; exact restore audit/revision transition",
+    "non-empty target and corrupt checksum refused without changing target state",
+    "isolated real-binary recovery drill passes; source checksum unchanged",
+    "Compose rendering keeps private numeric ownership and rejects a mismatched runtime UID",
+    "stopped backup, manifest/SQLite verification, physical restore and real restart preserve state and media",
+    "actual ELF and OS CA bundle hash verification/staging; no container run claimed",
+    "real v0.1→v0.2 restore and drill explicitly report schema upgrade, preserve content/media and leave source unchanged",
+    "old v0.1 daemon rejects upgraded schema2 without rewriting database; v0.2 reopens unchanged",
+    "all owned daemons stopped gracefully; no credential in logs or logical exports"
+  ],
+  "doctor": {
+    "checks": [
+      {
+        "check": "python",
+        "ok": true,
+        "version": "3.12.14"
+      },
+      {
+        "check": "sqlite",
+        "ok": true,
+        "version": "3.53.1"
+      },
+      {
+        "check": "go",
+        "ok": true,
+        "version": "go version go1.27.1 linux/amd64"
+      },
+      {
+        "check": "docker",
+        "ok": false,
+        "detail": "unavailable or not ready"
+      },
+      {
+        "check": "compose",
+        "ok": false,
+        "detail": "unavailable or not ready"
+      },
+      {
+        "check": "git",
+        "ok": true,
+        "version": "git version 2.52.0"
+      },
+      {
+        "check": "data_permissions",
+        "ok": true
+      }
+    ],
+    "container_runtime_ready": false
+  },
+  "container_run": "not performed",
+  "runtime_data_retained": false,
+  "legacy_migration": "passed",
+  "legacy_binary_sha256": "74bf3c0b7228a68645dc21b810c4ad24f8e4e5d5fc4aa8f7b57d070522a55480"
+}

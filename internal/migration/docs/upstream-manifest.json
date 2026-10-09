@@ -1,0 +1,131 @@
+{
+  "format": "folio-migration-source",
+  "version": 1,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 28,
+      "sha256": "9158721b1fd19cf7d85c06b326060a00364b4aef89bca29f7e2d3e7992aec1e5"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 443,
+      "sha256": "f6a5193caf0df5d14d0edb62690d89a54da610955cb48aa50523f225dbe01ed2"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1075,
+      "sha256": "8edc104edf9a6ce134a02b0acfff665408c3f8296f33b7a3c1f7cb71b08143da"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 215,
+      "sha256": "7b38ea6eaae5c893e5ed2c6475080a370debc5f67e81bf0ab5252ff8d35e3419"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8346,
+      "sha256": "e57f1f2a138f1def2a3aacc309ffff019374f74db9de04d6c5b030180ce631c0"
+    },
+    {
+      "path": "REFERENCES.md",
+      "bytes": 2217,
+      "sha256": "15056680f60ebd5f47b68ec28bc809f93328db3775e0203cdfbe88e9a3133516"
+    },
+    {
+      "path": "apply.go",
+      "bytes": 2806,
+      "sha256": "7d69742f687424ce5ecc6ed52c4901a5e51ed40a28692b8af19f2cb782fb15d9"
+    },
+    {
+      "path": "apply_test.go",
+      "bytes": 5134,
+      "sha256": "ea7b2e137286a3cb63696e2ec34872a5f02db1ac5272d136d81290328e7af282"
+    },
+    {
+      "path": "cmd/folio-migrate-plan/main.go",
+      "bytes": 1295,
+      "sha256": "58b71672628f74b3e23c3494fc343ee94647de4f16049a36d2516f1e21f4725d"
+    },
+    {
+      "path": "docs/integration.md",
+      "bytes": 5505,
+      "sha256": "281e587721ae868277072152c5ff2b51208219ac2e92add2d3fb6efe52446a4c"
+    },
+    {
+      "path": "docs/sample-plan.json",
+      "bytes": 3751,
+      "sha256": "5b11380c7f3a6e81999a56b8ac135ee939128f757fee8ff0b76bd32a9a302297"
+    },
+    {
+      "path": "docs/test-results.jsonl",
+      "bytes": 75417,
+      "sha256": "4bd389c5a187a2236a19b6e87246ec4a31c9581d5d9a1742ab3477e5b0fbebf7"
+    },
+    {
+      "path": "docs/verification.json",
+      "bytes": 640,
+      "sha256": "5331b35fc529f5b9f4b3a8cf0f478f7fdc5441bd5d9853254c7c44e925debef3"
+    },
+    {
+      "path": "export.go",
+      "bytes": 5989,
+      "sha256": "f4f141344746243fffe4c189dddea6b93234c317c9c37351fcac4f90902bfb86"
+    },
+    {
+      "path": "fs.go",
+      "bytes": 4801,
+      "sha256": "70095782a74724448b12ecd2a4a735192a8146ea6c1980773f6c83629c511a32"
+    },
+    {
+      "path": "fs_export_test.go",
+      "bytes": 6227,
+      "sha256": "044a21d841a80cb81f83279d6b6b7d99f586d5d263e43ac5b6fbd047faacdb9b"
+    },
+    {
+      "path": "go.mod",
+      "bytes": 34,
+      "sha256": "ede992cc52e28e3dddd141ba9279c3a9ff60155ed326d7bf1df99a636d2fb428"
+    },
+    {
+      "path": "parse.go",
+      "bytes": 12632,
+      "sha256": "b95b6408892b1fd756aa9ade50fec3b52259721bc43ed0916524319667b58426"
+    },
+    {
+      "path": "parse_test.go",
+      "bytes": 6302,
+      "sha256": "aa0c22ea170c0697de43c8a73e7b95b2f498bde40951334a2a1faf9c5e1704fe"
+    },
+    {
+      "path": "plan.go",
+      "bytes": 6692,
+      "sha256": "7d60b2d0407acfa3f9929b6ecf3342ead4442e7bf10ad6b00231dcb9a77de958"
+    },
+    {
+      "path": "plan_test.go",
+      "bytes": 5175,
+      "sha256": "abec5b36c8c917027206fc5c839b8d66811325ee6bfbf562f8f5d5b6fc3b7892"
+    },
+    {
+      "path": "testdata/hugo-toml.md",
+      "bytes": 263,
+      "sha256": "cfae4d2f961002f8937af372818dd5e4a6904052d0ad2c2ed4fd3c967b70dc34"
+    },
+    {
+      "path": "testdata/hugo-yaml.md",
+      "bytes": 427,
+      "sha256": "a32cb16f430b1ea4e1e3d2d2f2a4b8f8fccca35fff67711aed9ddc8aa4007f75"
+    },
+    {
+      "path": "testdata/obsidian-yaml.md",
+      "bytes": 274,
+      "sha256": "acefc807e250255ef2345eafda3f1c310a8a94813c97e3b530474f2d17db997d"
+    },
+    {
+      "path": "types.go",
+      "bytes": 5706,
+      "sha256": "8a6b1d6ada5e9ad2eccd5cb848b6aea2ce1f7681ba5f60ea4bac266c7afeb2e6"
+    }
+  ]
+}

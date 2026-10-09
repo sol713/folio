@@ -1,0 +1,90 @@
+{
+  "format": "agent-blog-ops-source",
+  "version": 1,
+  "files": {
+    ".gitignore": {
+      "size": 92,
+      "sha256": "dd82d5a7ac0621d2fd351e650d477df88a4a5116d8b59007cfd3f866ffff3c08"
+    },
+    ".dockerignore": {
+      "size": 76,
+      "sha256": "77c96683f98417e432cf9f6d65d5fe6e1e7b63f2f815cdb79d1ec91d82af1bc1"
+    },
+    "LICENSE": {
+      "size": 1084,
+      "sha256": "d321fd5241fbc2fdf15bef86a45970e58fee49d640b3385373df01aa1e412d55"
+    },
+    "Makefile": {
+      "size": 286,
+      "sha256": "c19393349c08af06302b6fe666cf81e2bb8d04f0bb5005fb7038a3f61f3405c6"
+    },
+    "README.md": {
+      "size": 4791,
+      "sha256": "26b5acf3109a84201bb1a810ec1fc795c5cc24ae642a8f6f9648ca4e0873142c"
+    },
+    "REFERENCES.md": {
+      "size": 1285,
+      "sha256": "59d75af471b4ff6bb9d552b7d6dede5f09633b2c61d116ee53822e38e9025f07"
+    },
+    "ops.py": {
+      "size": 44090,
+      "sha256": "0463035db2f6bd3692c42000d520c9e72481ad6f023a40e6cb2b3bd27d7deae9"
+    },
+    "deploy/Dockerfile": {
+      "size": 583,
+      "sha256": "075a3450f890ac0c63854300755882403e644ca3a95b6fcd090c31e964b4e91e"
+    },
+    "scripts/check.py": {
+      "size": 1015,
+      "sha256": "3d58857a5985496ae4ddf660a7546604b8fccb4c8e8e2bd93bfea625cf1c6602"
+    },
+    "scripts/package.py": {
+      "size": 2224,
+      "sha256": "a29801200285f98b2d176b9de3cb7c37f3362a525b40d5c198a8c58ba22a76ca"
+    },
+    "tests/test_ops.py": {
+      "size": 27589,
+      "sha256": "378a8981680672481c94f87e817ac30b956914025725d12d5969068d62596299"
+    },
+    "tests/fixtures/folio_fixture.py": {
+      "size": 2477,
+      "sha256": "d36451a0a58fa1c4fafbbc37d65bb59084b0ad64aa1e8d39f70afcebb1e347d9"
+    },
+    "docs/deployment.md": {
+      "size": 4242,
+      "sha256": "0f005a2e410eb79d674d4e096a8a9360e037f63cb367abd68d36d73036731fd9"
+    },
+    "docs/backup-recovery.md": {
+      "size": 5971,
+      "sha256": "51e42119269741c35655b4f7e3bb083fd24f5e897564dfa654aa2771cb37ee17"
+    },
+    "docs/upgrade-rollback.md": {
+      "size": 3081,
+      "sha256": "8e6f68d042d89e77d2cdfba0ce48b49cda6892673fc98b63d7484efa4ad85394"
+    },
+    "docs/security.md": {
+      "size": 2327,
+      "sha256": "e0b158acfc0473b0711bad9f7446a0f61c92e5ec4d21ee92d416137ef3c9b1fd"
+    },
+    "docs/test-results.json": {
+      "size": 7158,
+      "sha256": "819e90d25b4acb9ef687ba06255f183dcf0242a4beccff35aad0726deeea12f2"
+    },
+    "tests/integration.py": {
+      "size": 17142,
+      "sha256": "309db0ef56ba872302a18d008793b4d0b2416cf52d578eaa5a0d9d6ddc001834"
+    },
+    "docs/integration.md": {
+      "size": 3777,
+      "sha256": "992ce725de24bd4dae14d702a039aae69f0056ab4d2e0cd78d49189118ff0ff0"
+    },
+    "docs/integration-results.json": {
+      "size": 2385,
+      "sha256": "220fcbc6723c0ee9bb6b0de4a6570e1994c624515f96e35bd9eb61f1e7e880ba"
+    },
+    "docs/upstream-manifest.json": {
+      "size": 2375,
+      "sha256": "2be9646bf731c0ff968bc7123a3e0b895618eab3caf4be974f98d5fb88c1e10d"
+    }
+  }
+}
