@@ -365,6 +365,8 @@ func (s *Store) execute(op string, raw json.RawMessage, actor string) (any, erro
 			return posts[i].UpdatedAt > posts[j].UpdatedAt
 		})
 		return map[string]any{"posts": posts}, nil
+	case "posts.compare":
+		return s.compareRevisions(raw)
 	case "posts.relations":
 		return s.articleRelations(raw)
 	case "posts.check":

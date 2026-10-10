@@ -71,10 +71,10 @@ def main():
                     require(r['saved_draft']['counts']['external_not_relations']==1 and r['saved_draft']['counts']['images_not_relations']==1 and not hits,'exclusions or network fetch')
                     require(h.cli(['--lang','en','call','posts.relations','--json',json.dumps(payload)],server)==api,'CLI differs from HTTP')
                     session=MCP(h,server,locale='en');tools=session.request('tools/list',{})['tools'];tool=next(t for t in tools if t['name']=='posts_relations')
-                    require(len(tools)==35 and tool['annotations']['readOnlyHint'] and set(tool['inputSchema']['required'])=={'id','revision'} and tool['inputSchema']['additionalProperties'] is False,'35-operation schema')
+                    require(len(tools)==36 and tool['annotations']['readOnlyHint'] and set(tool['inputSchema']['required'])=={'id','revision'} and tool['inputSchema']['additionalProperties'] is False,'36-operation schema')
                     require(session.call('posts.relations',payload)==api,'MCP differs from HTTP');session.close()
                     require(call('backup.export')['state']==before and relations(source)==r,'readonly/repeat changed state')
-                    done('real HTTP/CLI/MCP 35-operation parity; immutable saved/live, aliases, repeat counts, positions, exclusions and no state writes')
+                    done('real HTTP/CLI/MCP 36-operation parity; immutable saved/live, aliases, repeat counts, positions, exclusions and no state writes')
                     for token in [server['token'],server['draft'],server['read'],proposal]:require(http('posts.relations',payload,token=token)['ok'],'authorized private-read denied')
                     for token in ['', 'invalid']:
                         require(http('posts.relations',payload,token=token,status=401)==http('posts.relations',{'id':'unknown','revision':1},token=token,status=401),'unauthorized existence oracle')

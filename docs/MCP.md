@@ -33,7 +33,7 @@ The daemon stores images in individual SQLite BLOB rows and metadata separately.
 The daemon is the only writer. MCP does not open SQLite, acquire a separate
 writer lock, or implement another set of business rules. Run `folio serve` first.
 
-At startup the adapter calls `system.capabilities`. The v0.2 registry has 35 operations. Each returned operation
+At startup the adapter calls `system.capabilities`. The v0.2 registry has 36 operations. Each returned operation
 becomes one tool with the exact same input JSON Schema. Names replace dots with
 underscores: `posts.preview` becomes `posts_preview`; `backup.restore` becomes
 `backup_restore`. Descriptions include required scope when discovery supplies it.
@@ -80,7 +80,7 @@ silently alter its registry mid-session.
 Examples of tools returned by `tools/list`:
 
 - Read: `system_capabilities`, `system_info`, `posts_list`, `posts_get`,
-  `posts_preview`, `posts_check`, `posts_relations`, `settings_get`, `media_list`, `audit_list`, `backup_export`
+  `posts_preview`, `posts_check`, `posts_relations`, `posts_compare`, `settings_get`, `media_list`, `audit_list`, `backup_export`
 - Write: `posts_create`, `posts_update`, `posts_publish`, `posts_unpublish`,
   `posts_restore`, `posts_delete`, `posts_recover`, `settings_update`, `media_upload`, `backup_restore`
 - Proposal review: `proposals_create`, `proposals_list`, `proposals_get`,
@@ -151,3 +151,5 @@ This initializes disposable instances, performs real MCP discovery and writes,
 compares every tool schema with live HTTP discovery, exercises CLI/public read
 parity, and verifies that MCP stdout contains only JSON-RPC messages and captured
 outputs/logs contain no authentication token values.
+
+`posts_compare` requires `id`, current saved `revision`, `from_revision` and `to_revision`. It is private-read and read-only. The result includes full eight-field snapshots and a directional plain-text review. Its `restorable` flag is advisory, never authority. Existing `posts_restore` remains draft-scoped and CAS guarded. See [English / 中文 revision review](REVISION-REVIEW.md).

@@ -100,9 +100,9 @@ Always use discovery as the source of truth:
 folio capabilities | jq '.data.operations[] | {name, scope, read_only, input_schema}'
 ```
 
-The v0.2 registry contains 35 operations:
+The v0.2 registry contains 36 operations:
 
-- `posts.list`, `posts.get`, `posts.create`, `posts.update`, `posts.preview`, `posts.check`, `posts.relations`
+- `posts.list`, `posts.get`, `posts.create`, `posts.update`, `posts.preview`, `posts.check`, `posts.relations`, `posts.compare`
 - `posts.publish`, `posts.unpublish`, `posts.restore`, `posts.delete`, `posts.recover`
 - `settings.get`, `settings.update`
 - `media.list`, `media.upload`
@@ -112,7 +112,7 @@ The v0.2 registry contains 35 operations:
 - `schedules.create`, `schedules.list`, `schedules.get`, `schedules.cancel`, `schedules.reschedule`
 - `migration.plan`, `migration.apply`, `migration.export`
 
-`posts.preview` and `posts.check` are read-only. `posts.check` requires an explicit current saved `revision`; see [content-check semantics](CONTENT-CHECK.md). `posts.relations` shares its private-read scope and current saved revision guard; see [article links](ARTICLE-RELATIONS.md). Post changes stay private until an explicit publish.
+`posts.preview` and `posts.check` are read-only. `posts.check` requires an explicit current saved `revision`; see [content-check semantics](CONTENT-CHECK.md). `posts.relations` shares its private-read scope and current saved revision guard; see [article links](ARTICLE-RELATIONS.md). `posts.compare` compares two exact saved snapshots against the current saved revision; [revision review](REVISION-REVIEW.md) documents all eight fields, limits and safe restore. Post changes stay private until an explicit publish.
 Post mutation concurrency uses `expected_revision`, except for creation. Media
 upload and empty-instance backup restoration do not need a revision. Settings
 updates use the settings revision. Authorization is enforced by the daemon,

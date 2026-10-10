@@ -1,0 +1,234 @@
+{
+  "date_utc": "2026-10-10",
+  "base_commit": "90aed51e8e36cb22817d33c1871020b1fa6952e7",
+  "source_lineage": {
+    "archive": "folio-source-v0.2.0.tar.gz",
+    "library_id": "libfile_5f2e641715508191a792f0b4c4445b5c",
+    "version": 3,
+    "sha256": "528b0697e29c20abe0b5113b8c82641f13d22355c75675988d00bc83f791bc35",
+    "note": "Extends independently merged original Folio; original archive preserved."
+  },
+  "binary": {
+    "version": "0.2.0",
+    "target": "linux/amd64 static",
+    "sha256": "af5cff9ad37fae0fb4f7e17540a40b166c805fc8eb3bddab50ffd5f1890e1540"
+  },
+  "toolchain": {
+    "go": "1.27.2",
+    "node": "24.19.0",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.173",
+    "docker": "28.4.0"
+  },
+  "checks": {
+    "go_test": "passed",
+    "go_race": "passed",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "node_test_units": 14,
+    "bilingual_keys": 944,
+    "upstream_license_inventory": {
+      "modules": 43,
+      "license_files": 70,
+      "status": "passed"
+    },
+    "real_daemon_cli_mcp_groups": 12,
+    "real_workflow_groups": 11,
+    "real_initialization_groups": 3,
+    "ops_unit_tests": 66,
+    "ops_real_integration_groups": 11,
+    "actual_scratch_container_groups": 5,
+    "existing_real_browser_groups": 8,
+    "publication_review_identity_cases": 9,
+    "recovery_real_browser_groups": 16,
+    "recovery_held_read_cases": 9,
+    "content_check_full_groups": 10,
+    "content_check_delayed_cases": 14,
+    "publication_check_busy_cases": 4,
+    "relations_go_test_groups": 6,
+    "relations_api_cli_mcp_groups": 4,
+    "relations_full_groups": 12,
+    "relations_delayed_cases": 19,
+    "reference_network_requests": 0,
+    "browser_errors": [],
+    "revision_compare_go_groups": 5,
+    "revision_api_cli_mcp_groups": 3,
+    "revision_full_groups": 13,
+    "revision_held_response_cases": 26
+  },
+  "negative_control": {
+    "baseline_binary_sha256": "0edf9b450f54e83bddaa03241bec191b867ad4c9c5ed641a5948c45ab35d64a9",
+    "command": "scripts/revision_review_e2e.py --restore-race-only --binary BASELINE --chromium CHROMIUM --report REPORT",
+    "actual_committed_restore_later_typing_preserved": false,
+    "javascript_errors": [],
+    "fixed_binary_typing_caret_dirty_preserved": true,
+    "subsequent_save_used_acknowledged_revision": true
+  },
+  "source_boundary": {
+    "existing_public_screenshots": 7,
+    "changed_existing_screenshots": 0,
+    "no_committed_data_or_credentials": true,
+    "credential_and_local_path_pattern_hits": 0,
+    "licenses_and_original_source_preserved": true
+  },
+  "ai_assistance": "Implementation, regression design and documentation were AI-assisted; independent parent review is required before merge. No AI/provider generation or external network lookup is added.",
+  "limits": [
+    "No public deployment or production security audit",
+    "Linux amd64/Chromium executed; other OS and browser engines not executed",
+    "Linear single changed range, not a minimal diff; complete eight-field snapshots included",
+    "Selectors: latest 100 plus current/live/chosen; older rows accessible by eight-row pages and exact API revision numbers",
+    "Memory-only uncertain restore receipt; refresh/close requires reviewing server history",
+    "Restore authority remains owner/draft; read/proposal compare only",
+    "Existing approved schedules retain pinned snapshot/time and can publish later",
+    "CI result for the exact submitted head must be observed separately; local evidence does not imply remote CI"
+  ],
+  "revision_acceptance": {
+    "checks": [
+      "36-operation HTTP/CLI/MCP parity; all eight exact fields, source/live metadata, directional review and zero state writes",
+      "private-read roles, forbidden restore, anonymous/origin/strict schema/stale/missing guards and Chinese errors",
+      "restore retry creates one private revision; current/live/schedule isolation, no-op advisory and intervening-writer CAS",
+      "actual committed restore acknowledgement preserves newer typing/caret; subsequent Save uses acknowledged revision",
+      "draft-role explicit clean restore copies all eight fields; historical source and same-content duplicate restores stay blocked",
+      "paged older history; all eight escaped fields; EN/CN 320/390px and locale preserves selectors/editor/caret",
+      "read/proposal Studio roles compare without a restore control; draft restore scope unchanged",
+      "comparison excludes unsaved buffer; Restore stays disabled and Cancel preserves unsaved text",
+      "18 held real comparison responses: all fields/revert, cancel/Esc/backdrop/command/new/other/lock/back-return and late error",
+      "changing comparison while an older response is held preserves the newer selected report",
+      "read failure retries the same comparison without writes or editor replacement",
+      "six held committed restores: later dialog/edit-revert, exact lost/malformed-ack retry, intervening Agent and cached receipt after failed head check; busy Lock/Back guarded",
+      "intervening server writer rejects reviewed stale restoration without replacing the editor"
+    ],
+    "held_cases": [
+      {
+        "case": "typing during committed restore acknowledgement",
+        "buffer_caret_dirty_preserved": true
+      },
+      {
+        "case": "comparison title",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison slug",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison markdown",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison excerpt",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison tags",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison category",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison cover",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison featured",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison edit-revert",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison cancel",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison escape",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison backdrop",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison command",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison other",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison new",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison lock",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison back-return",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "comparison error-cancel",
+        "discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "newer comparison wins",
+        "discarded": true
+      },
+      {
+        "case": "restore close-command",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 1
+      },
+      {
+        "case": "restore edit-revert",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 1
+      },
+      {
+        "case": "restore lost-ack",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 2
+      },
+      {
+        "case": "restore malformed-ack",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 2
+      },
+      {
+        "case": "restore lost-ack-newer-writer",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 2
+      },
+      {
+        "case": "restore lost-ack-head-failure",
+        "buffer_and_identity_preserved": true,
+        "restore_requests": 2
+      }
+    ],
+    "browser_errors": []
+  }
+}
