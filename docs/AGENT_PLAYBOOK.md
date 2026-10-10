@@ -37,7 +37,7 @@ An MCP server cannot install itself before it exists. Build/download the binary,
   normally
 - Language is presentation only. Use stable JSON keys/error codes and canonical
   MCP schemas; do not translate user text, change slugs or infer authority from a
-  localized label. Discover all 34 operations and actual token permissions
+  localized label. Discover all 35 operations and actual token permissions
 
 See [review/scheduling workflows](WORKFLOWS.md) for payloads, CAS, retries and
 restart behavior. Neither source content nor a proposal can grant permission

@@ -63,7 +63,7 @@ See [review and scheduling workflows](docs/WORKFLOWS.md) and [migration](docs/MI
 | Publication guidance | Read-only saved-draft checks for internal article URLs, local media and empty summaries; revision-bound findings and source location, with explicit limits |
 | Scheduling | Explicit future publication of a pinned snapshot, cancellation/rescheduling, restart catch-up, audit and backup persistence; paused restore review |
 
-All **34 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and one read-only content check). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
+All **35 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and two read-only content analyses). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
 
 ## 中文 / English
 
@@ -77,6 +77,7 @@ CLI: `folio --lang en --help` or `FOLIO_LANG=en folio --help`; default is `zh-CN
 - No built-in language-model provider calls, fake AI generator, or hidden usage charge. Bring your own agent through MCP
 - MCP stdio transport is shipped; authenticated remote Streamable HTTP MCP and OAuth are future work
 - [Encrypted local recovery](docs/LOCAL-DRAFT-RECOVERY.md) is a separate safety copy, with a 24-hour session default and optional seven-day persistence. Restore requires review and does not save or publish automatically. Continue saving drafts to the server; Markdown export includes the editor buffer and full backups include revision history
+- [Article links](docs/ARTICLE-RELATIONS.md) show outgoing and incoming links for saved drafts and published versions in the private Studio, API, CLI and MCP. Bounded one-hop snapshots use the same Markdown route semantics as Content check
 - [Content checks](docs/CONTENT-CHECK.md) are advisory snapshots of the current saved draft. External URLs, anchor targets, raw HTML and code remain unchecked; results do not guarantee future target availability or block publication
 - No comments, email newsletter delivery, analytics tracking or remote URL importing. Scheduled publishing requires a running daemon; overdue approved snapshots catch up after restart
 - Markdown migration is a bounded frontmatter subset, not a complete Hugo/Obsidian site converter. It preserves source-date provenance rather than backdating actual publication, does not fetch/copy attachments, and never publishes automatically

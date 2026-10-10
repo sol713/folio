@@ -3,6 +3,7 @@ package i18n
 // Keys are canonical English templates. Values are Simplified Chinese. User text,
 // operation names, error codes, JSON field names and schemas are never translated.
 var messages = map[string]string{
+	"Article relations require a post ID and positive current draft revision":                           "文章引用关系须提供文章 ID 和正数的当前已保存草稿版本",
 	"Content check requires a post ID and positive current draft revision":                              "内容检查须提供文章 ID 和正数的当前已保存草稿版本",
 	"No public article or current private draft matches this article URL.":                              "没有公开文章或当前私密草稿与此文章网址匹配。",
 	"This URL points to a private draft, not a public article. Publish the target or use its live URL.": "此网址指向私密草稿，尚不是公开文章。请发布目标文章或改用其线上网址。",

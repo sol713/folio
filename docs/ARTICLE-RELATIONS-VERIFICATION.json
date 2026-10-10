@@ -1,0 +1,203 @@
+{
+  "date_utc": "2026-10-10",
+  "base_commit": "c63c664a3884fa42342d620adf8aaa8e024c17d1",
+  "source_lineage": {
+    "archive": "folio-source-v0.2.0.tar.gz",
+    "library_id": "libfile_5f2e641715508191a792f0b4c4445b5c",
+    "version": 3,
+    "sha256": "528b0697e29c20abe0b5113b8c82641f13d22355c75675988d00bc83f791bc35",
+    "note": "Extends independently merged original Folio; original archive preserved."
+  },
+  "binary": {
+    "version": "0.2.0",
+    "target": "linux/amd64 static",
+    "sha256": "0edf9b450f54e83bddaa03241bec191b867ad4c9c5ed641a5948c45ab35d64a9"
+  },
+  "toolchain": {
+    "go": "1.27.2",
+    "node": "24.19.0",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.173",
+    "docker": "28.4.0"
+  },
+  "checks": {
+    "go_test": "passed",
+    "go_race": "passed",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "node_test_units": 14,
+    "bilingual_keys": 907,
+    "upstream_license_inventory": {
+      "modules": 43,
+      "license_files": 70,
+      "status": "passed"
+    },
+    "real_daemon_cli_mcp_groups": 12,
+    "real_workflow_groups": 11,
+    "real_initialization_groups": 3,
+    "ops_unit_tests": 66,
+    "ops_real_integration_groups": 11,
+    "actual_scratch_container_groups": 5,
+    "existing_real_browser_groups": 8,
+    "publication_review_identity_cases": 9,
+    "recovery_real_browser_groups": 16,
+    "recovery_held_read_cases": 9,
+    "content_check_full_groups": 10,
+    "content_check_delayed_cases": 14,
+    "publication_check_busy_cases": 4,
+    "relations_go_test_groups": 6,
+    "relations_api_cli_mcp_groups": 4,
+    "relations_full_groups": 12,
+    "relations_delayed_cases": 19,
+    "reference_network_requests": 0,
+    "browser_errors": []
+  },
+  "relations_acceptance": {
+    "checks": [
+      "real HTTP/CLI/MCP 35-operation parity; immutable saved/live, aliases, repeat counts, positions, exclusions and no state writes",
+      "all four authorized roles, anonymous existence isolation, origin/schema/stale guards, Chinese errors and public privacy",
+      "bounded one-hop cycles; slug change and source deletion recompute immediately",
+      "actual relation navigation discards late article loads; save reaches only the newer article",
+      "escaped target titles, all four sections, EN/CN and 320/390px; locale preserves buffer and caret",
+      "real draft/read/proposal Studio read-only authority",
+      "14 held actual responses: every field, revert, new/other/back-return, lock and cancel preserve editor without writes",
+      "newer saved revision and report survive earlier response; one explicit save",
+      "cancel/retry isolates old success and network error; stale completed reports disable article navigation",
+      "lookup completing during failed publication settles and retries without changing the live version",
+      "read failure retries; successful publication enables lookup; renamed target opens correct current draft by ID",
+      "zero reference-network listener hits"
+    ],
+    "passed": 12,
+    "delayed_cases": [
+      {
+        "case": "relation navigation with delayed article load",
+        "newer_identity_buffer_caret_preserved": true
+      },
+      {
+        "case": "title",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "slug",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "markdown",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "excerpt",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "tags",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "category",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "cover",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "featured",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "edit-revert",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "existing",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "new",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "lock",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "back-return",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "cancel",
+        "obsolete_report_discarded": true,
+        "writes": 0
+      },
+      {
+        "case": "newer report wins",
+        "obsolete_report_discarded": true,
+        "intentional_save_count": 1
+      },
+      {
+        "case": "cancel then retry with old success",
+        "pending_panel_caret_and_buffer_preserved": true
+      },
+      {
+        "case": "cancel then retry with old network-error",
+        "pending_panel_caret_and_buffer_preserved": true
+      },
+      {
+        "case": "lookup settles during failed publish",
+        "retry_completed": true,
+        "live_revision_unchanged": true
+      }
+    ],
+    "browser_errors": [],
+    "reference_network_hits": []
+  },
+  "navigation_regression": {
+    "before_binary_sha256": "a5330710f520fc99d9632aa7c124bbd8ccd371a013e3ec246368aad484e5a773",
+    "negative": {
+      "checks": [],
+      "delayed_cases": [
+        {
+          "case": "relation navigation with delayed article load",
+          "newer_identity_buffer_caret_preserved": false
+        }
+      ],
+      "browser_errors": []
+    },
+    "fixed": {
+      "case": "relation navigation with delayed article load",
+      "newer_identity_buffer_caret_preserved": true
+    },
+    "scope": "Guard editor assignment and dirty reset by the render, route, location, token and instance that initiated posts.get. Later reads cannot change a newer editor or its save destination."
+  },
+  "source_boundary": "Selected public source contains no credential patterns, private host paths, runtime artifacts or symlinks. Fictional fixtures and unchanged original public images only. Bounded scan, not an independent security audit.",
+  "limits": [
+    "Only current saved and published snapshots; no historical graph or unsaved input",
+    "Canonical article routes shared with posts.check; external URLs, raw HTML, code and images excluded; anchors unverified",
+    "One hop; 1000 snapshots, 8 MiB Markdown, 20000 references, 2000 per source, 100 groups per list and 3 source positions per group",
+    "Counts describe checked snapshots; truncated and omitted counts mark incomplete results",
+    "Old aliases with multiple owners remain unresolved; current published slug takes priority",
+    "Reports are catalog snapshots; another writer can make them stale",
+    "Studio links open the current saved draft by ID; positions retain the actual source revision",
+    "Linux Chromium verified; other browser engines not verified",
+    "Prior vulnerability database HTTP 403 and missing trusted historical v0.1 executable remain outside this feature acceptance"
+  ],
+  "public_deployment": false,
+  "dependencies_changed": false,
+  "public_api_changed": false,
+  "permissions_expanded": false
+}

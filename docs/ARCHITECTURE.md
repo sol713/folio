@@ -55,3 +55,5 @@ Go embeds HTML/CSS/JavaScript. Anonymous APIs only return published snapshots. S
 ## Extension points
 
 The next substantial upgrades should preserve operation parity: content graph and exact Markdown-link backlinks, per-agent identities and finer-grained approval policies, richer editor integration, revision-row storage, scoped tokens with expiration, and verified remote MCP transport. A provider integration must expose configuration/cost/status honestly; an absent provider must not masquerade as a working AI capability.
+
+`posts.relations` reuses the shared Goldmark destination walker, canonical URL classification and ephemeral catalog index with `posts.check`. Each call holds the existing read transaction and computes one-hop outgoing and incoming groups separately for current saved and published snapshots. No persisted graph or cache is introduced. Query snapshots are scanned first; explicit budgets cap incoming catalog work, groups and positions. Ambiguous alias owners remain unresolved. Studio links use article IDs and open current drafts, with request/session guards and saved-buffer invalidation. See [ARTICLE-RELATIONS.md](ARTICLE-RELATIONS.md).
