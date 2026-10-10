@@ -317,6 +317,9 @@ def main():
                         review(page); assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
                         assert page.locator('#modal-title').bounding_box()['y'] >= 0
                         assert page.evaluate("document.querySelector('.modal').scrollTop") == 0
+                        if locale == 'en':
+                            page.evaluate("window.FolioI18n.setLocale('zh-CN')"); expect(page.locator('.local-metadata dd').nth(3)).to_have_text('否')
+                            page.evaluate("window.FolioI18n.setLocale('en')"); expect(page.locator('.local-metadata dd').nth(3)).to_have_text('No')
                         expect(page.locator('.local-comparison')).to_contain_text('Mobile recovery text')
                         page.screenshot(path=str(args.report.with_name('local-' + str(width) + '-' + locale + '.png')))
                         page.locator('[data-action="close-modal"]').last.click()
@@ -331,6 +334,17 @@ def main():
                     page.locator('[data-action="save"]').click()
                 assert_private(response.value.json()['data']['post']['id'])
                 done('blocked browser storage offers honest memory-only login and working private server Save')
+                ctx.close()
+                ctx = browser.new_context(); page = page_in(ctx); login(page); ready(page)
+                page.evaluate('''()=>{window.recoveryOriginalEncrypt=crypto.subtle.encrypt.bind(crypto.subtle);window.holdRecoveryOnce=true;crypto.subtle.encrypt=async(...args)=>{const result=await window.recoveryOriginalEncrypt(...args);if(window.holdRecoveryOnce){window.holdRecoveryOnce=false;return new Promise(resolve=>{window.releaseRecoveryCrypto=()=>resolve(result);});}return result;};}''')
+                page.locator('#post-title').fill('Fictional crypto concurrency'); page.locator('#post-markdown').fill('First encrypted text')
+                page.wait_for_function('()=>typeof window.releaseRecoveryCrypto==="function"')
+                page.locator('#post-markdown').fill('Newest text while crypto is pending')
+                page.evaluate('()=>window.releaseRecoveryCrypto()'); page.wait_for_timeout(30)
+                expect(page.locator('#local-status')).to_have_text('Writing local copy…')
+                copied(page); page.reload(); review(page); page.locator('#local-restore').click()
+                expect(page.locator('#post-markdown')).to_have_value('Newest text while crypto is pending')
+                done('completion of an older encryption never labels newer pending input as locally protected')
                 ctx.close(); browser.close()
                 assert not errors, 'browser errors: ' + repr(errors)
         finally:

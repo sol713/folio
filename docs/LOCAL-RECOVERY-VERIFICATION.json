@@ -9,7 +9,7 @@
   "binary": {
     "version": "0.2.0",
     "target": "linux/amd64 static",
-    "sha256": "bcc241921052a32933d4cee855f1882ba518c4d8cbeefc4d729ddd7c84af3b51"
+    "sha256": "dc62ae846e6b8a232785aa38ce9011469edc3ccd7d4585538888a3c833673438"
   },
   "toolchain": {
     "go": "1.27.2",
@@ -40,7 +40,7 @@
     "actual_scratch_container_groups": 5,
     "existing_real_browser_groups": 8,
     "publication_review_identity_cases": 9,
-    "recovery_real_browser_groups": 15,
+    "recovery_real_browser_groups": 16,
     "recovery_browser_errors": [],
     "source_boundary": "No credential patterns, host paths, runtime artifacts or symlinks found; bounded pattern scan and fictional fixture review."
   },
@@ -59,7 +59,8 @@
     "historical retry receipt refreshes the server head and never labels a divergent restored editor as saved",
     "failed latest-head check retains the acknowledged ID and dirty text across another refresh without duplicate create",
     "English/Chinese recovery review remains usable without horizontal overflow at 320 and 390 pixels",
-    "blocked browser storage offers honest memory-only login and working private server Save"
+    "blocked browser storage offers honest memory-only login and working private server Save",
+    "completion of an older encryption never labels newer pending input as locally protected"
   ],
   "behavior_limits": {
     "default": "Encrypted session copies, available for 24 hours; normal tab close ends tab storage",

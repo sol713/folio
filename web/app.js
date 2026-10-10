@@ -85,6 +85,7 @@
     // Capture before waiting for crypto readiness or any later input/navigation.
     const captured=JSON.parse(JSON.stringify(snapshot));localStatus(ctx,'local.writing');
     try{await ctx.ready;if(!localActive(ctx))return;const result=await ctx.vault.write(captured);if(!localActive(ctx))return;
+      if(result.status==='saved'&&JSON.stringify(captured.fields)!==JSON.stringify(editorDataFromFields())){localStatus(ctx,'local.writing');return;}
       if(result.status==='saved'){localStatus(ctx,result.mode==='persistent'?'local.saved.persistent':'local.saved.session');$('#local-error').textContent='';localCopies(ctx);}
       else if(result.status==='off')localStatus(ctx,'local.disabled');
     }catch(err){localError(ctx,err);}
@@ -92,7 +93,7 @@
   function localQueue(delay=180){const ctx=localEditor;if(!ctx||!localActive(ctx))return;clearTimeout(ctx.timer);localStatus(ctx,'local.writing');ctx.timer=setTimeout(()=>{localCapture();},delay);}
   function localConfirmed(){const ctx=localEditor;if(!ctx||!localActive(ctx)||!ctx.vault)return;if(state.dirty){localQueue(0);return;}clearTimeout(ctx.timer);try{ctx.vault.removeOwn();localStatus(ctx,'local.server.confirmed');localCopies(ctx);}catch(err){localError(ctx,err);}}
   function localModal(title,body,wide=false){modal(title,body,wide);queueMicrotask(()=>{const dialog=$('#modal-root .modal');if(!dialog)return;dialog.scrollTop=0;dialog.querySelector('[data-action="close-modal"]')?.focus({preventScroll:true});});}
-  function localPreview(fields){return `<h3 data-no-i18n>${esc(fields.title)}</h3><p data-no-i18n>/${esc(fields.slug)}</p><p data-no-i18n>${esc(fields.excerpt)}</p><dl class="local-metadata">${['tags','category','cover','featured'].map(key=>`<dt>${I18n.t('local.field.'+key)}</dt><dd data-no-i18n>${esc(key==='tags'?fields.tags.join(', '):key==='featured'?I18n.t(fields.featured?'local.yes':'local.no'):fields[key])}</dd>`).join('')}</dl><pre class="review-markdown" data-no-i18n>${esc(fields.markdown)}</pre>`;}
+  function localPreview(fields){return `<h3 data-no-i18n>${esc(fields.title)}</h3><p data-no-i18n>/${esc(fields.slug)}</p><p data-no-i18n>${esc(fields.excerpt)}</p><dl class="local-metadata">${['tags','category','cover','featured'].map(key=>`<dt>${I18n.t('local.field.'+key)}</dt><dd ${key==='featured'?'':'data-no-i18n'}>${esc(key==='tags'?fields.tags.join(', '):key==='featured'?I18n.t(fields.featured?'local.yes':'local.no'):fields[key])}</dd>`).join('')}</dl><pre class="review-markdown" data-no-i18n>${esc(fields.markdown)}</pre>`;}
   async function localReview(ctx,index){
     if(state.busy||!localActive(ctx))return;
     const selected=ctx.copies[index];if(!selected)return;const version=ctx.version;const current=()=>localActive(ctx)&&ctx.version===version&&!state.busy;
