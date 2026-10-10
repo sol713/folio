@@ -1,0 +1,88 @@
+{
+  "date_utc": "2026-10-10",
+  "base_commit": "6f30ee1ba4a47cac8bd676554392e62757e49406",
+  "source_lineage": {
+    "archive": "folio-source-v0.2.0.tar.gz",
+    "sha256": "528b0697e29c20abe0b5113b8c82641f13d22355c75675988d00bc83f791bc35",
+    "note": "Original delivery preserved; changes extend the merged Folio source."
+  },
+  "binary": {
+    "version": "0.2.0",
+    "target": "linux/amd64 static",
+    "sha256": "bcc241921052a32933d4cee855f1882ba518c4d8cbeefc4d729ddd7c84af3b51"
+  },
+  "toolchain": {
+    "go": "1.27.2",
+    "node": "24.19.0",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.173",
+    "docker": "28.4.0"
+  },
+  "checks": {
+    "go_test": "passed; existing local Go cache reused",
+    "go_race": "passed; existing local Go cache reused",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "javascript_syntax": "app.js, i18n.js, recovery.js passed",
+    "node_test_units": 14,
+    "bilingual_keys": 820,
+    "upstream_license_inventory": {
+      "modules": 43,
+      "license_files": 70,
+      "status": "passed"
+    },
+    "real_daemon_cli_mcp_groups": 12,
+    "real_workflow_groups": 11,
+    "real_initialization_groups": 3,
+    "ops_unit_tests": 66,
+    "ops_real_integration_groups": 11,
+    "actual_scratch_container_groups": 5,
+    "existing_real_browser_groups": 8,
+    "publication_review_identity_cases": 9,
+    "recovery_real_browser_groups": 15,
+    "recovery_browser_errors": [],
+    "source_boundary": "No credential patterns, host paths, runtime artifacts or symlinks found; bounded pattern scan and fictional fixture review."
+  },
+  "recovery_acceptance": [
+    "new draft refresh: all fields, escaped review, cancel, explicit restore and private Save",
+    "existing article refresh leaves revision and live snapshot unchanged until Save",
+    "explicit seven-day opt-in restores after closing and fresh same-token authentication",
+    "Lock/login and reader, proposal, draft-token isolation never expose owner recovery content",
+    "Lock from the article list clears previous editor session copies",
+    "already-authenticated offline editing retains recovery without an acknowledged server Save",
+    "quota failure is readable and never blocks explicit server Save",
+    "parallel tab copies coexist; changed base requires acknowledgement; later CAS conflict preserves local text",
+    "cross-tab clear invalidates pending copies and stops subsequent automatic writes",
+    "delayed actual recovery reads are invalidated by Clear, Lock and another article",
+    "refresh after lost committed create reuses the exact retry identity, then saves newer text without duplication",
+    "historical retry receipt refreshes the server head and never labels a divergent restored editor as saved",
+    "failed latest-head check retains the acknowledged ID and dirty text across another refresh without duplicate create",
+    "English/Chinese recovery review remains usable without horizontal overflow at 320 and 390 pixels",
+    "blocked browser storage offers honest memory-only login and working private server Save"
+  ],
+  "behavior_limits": {
+    "default": "Encrypted session copies, available for 24 hours; normal tab close ends tab storage",
+    "persistent": "Explicit encrypted seven-day opt-in; same currently authorized token required",
+    "expiry_cleanup": "Known expired records removed on later authenticated Studio use; no background timer while browser is closed",
+    "copy_limits": {
+      "plaintext_bytes": 524288,
+      "encoded_bytes_per_identity_storage_area": 4194304,
+      "copies_per_identity_storage_area": 20
+    },
+    "recovery": "Manual escaped comparison then restore into unsaved editor only; no automatic server write or publication",
+    "privacy": "No additional credential or key persistence. Existing bearer token remains session-scoped; compromised origin code or an unlocked browser profile is outside this protection.",
+    "crypto": "Secure context (localhost or HTTPS) required",
+    "interruption": "Only completed local writes can be recovered; browser eviction or clearing can remove copies"
+  },
+  "remaining_verification_limits": [
+    "Browser acceptance ran on Linux Chromium; Safari, Firefox and physical mobile devices not executed.",
+    "Official vulnerability database access returned HTTP 403 in earlier refinement; no vulnerability-clean claim.",
+    "No trusted v0.1 executable available for optional legacy-binary migration drill."
+  ],
+  "ci": "Workflow adds syntax, storage regression and actual recovery browser gates; exact feature-head CI is verified separately after the draft PR is created.",
+  "public_deployment": false,
+  "operations_count": 33,
+  "runtime_schema_changed": false,
+  "dependencies_changed": false
+}
