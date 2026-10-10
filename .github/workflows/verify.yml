@@ -50,6 +50,7 @@ jobs:
           python3 scripts/e2e.py --binary dist/folio
           python3 scripts/workflows_e2e.py --binary dist/folio
           python3 scripts/reliability_e2e.py --binary dist/folio
+          python3 scripts/crash_recovery_e2e.py --binary dist/folio --report /tmp/folio-crash-recovery-results.json
           python3 scripts/content_check_e2e.py --binary dist/folio --report /tmp/folio-content-api-results.json
           python3 scripts/article_relations_e2e.py --binary dist/folio --report /tmp/folio-relations-api-results.json
           python3 scripts/revision_review_e2e.py --binary dist/folio --report /tmp/folio-revision-api-results.json
