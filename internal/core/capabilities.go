@@ -48,6 +48,10 @@ func init() {
 	add("system.info", "Get version, instance revision, storage, counts and honest AI availability", "read", true, nil)
 	add("posts.list", "List current authoring drafts, including unpublished changes", "read", true, map[string]any{"status": str("Optional draft, changed, published, or trash"), "query": str("Case-insensitive title/content filter")})
 	add("posts.get", "Read a draft and immutable content revision history", "read", true, ref, "id")
+	positive := func(description string) map[string]any {
+		return map[string]any{"type": "integer", "minimum": 1, "description": description}
+	}
+	add("posts.compare", "Compare two saved article revisions and all editable fields. Read-only; private author workspace; never saves, restores or publishes.", "read", true, fields(ref, map[string]any{"revision": positive("Current saved draft revision; stale revisions fail"), "from_revision": positive("Saved source revision"), "to_revision": positive("Saved destination revision")}), "id", "revision", "from_revision", "to_revision")
 	add("posts.relations", "Read bounded outgoing and incoming article links from current saved drafts and published snapshots. Read-only; no network requests; author workspace only.", "read", true, fields(ref, map[string]any{"revision": map[string]any{"type": "integer", "minimum": 1, "description": "Current saved draft revision; stale revisions fail"}}), "id", "revision")
 	add("posts.check", "Check the current saved draft for internal article links, instance media and summary reminders. Read-only; no network requests; never gates publication.", "read", true, fields(ref, map[string]any{"revision": integer("Positive current saved draft revision; stale revisions fail")}), "id", "revision")
 	add("posts.preview", "Render a specific private revision without publishing. Fetch before publish.", "read", true, fields(ref, map[string]any{"revision": integer("Optional historical revision; defaults current")}), "id")

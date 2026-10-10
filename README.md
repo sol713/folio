@@ -61,9 +61,10 @@ See [review and scheduling workflows](docs/WORKFLOWS.md) and [migration](docs/MI
 | Migration | Reviewed frozen plan/hash and target instance; YAML/TOML frontmatter subset; create/skip/explicit draft replacement; per-item retry reports; portable Markdown plus provenance manifest |
 | Review | Immutable agent proposals, plain-text changes, owner approve/reject, stale-base protection; approval only creates/updates private drafts |
 | Publication guidance | Read-only saved-draft checks for internal article URLs, local media and empty summaries; revision-bound findings and source location, with explicit limits |
+| Revision review | Full saved-snapshot comparison, paged history and explicit guarded private restore; current typing and uncertain receipts stay protected |
 | Scheduling | Explicit future publication of a pinned snapshot, cancellation/rescheduling, restart catch-up, audit and backup persistence; paused restore review |
 
-All **35 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and two read-only content analyses). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
+All **36 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and three read-only content analyses). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
 
 ## 中文 / English
 
@@ -116,3 +117,5 @@ The [operations toolkit](docs/OPERATIONS.md) adds non-root Docker/Compose genera
 ## License
 
 FOLIO source is MIT licensed. Upstream dependencies retain their own licenses. Design research informed interaction principles; no upstream theme or component source was copied into the original frontend. See [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md).
+
+Saved revision comparison and restoration: [English / 中文 semantics and reproducible examples](docs/REVISION-REVIEW.md).

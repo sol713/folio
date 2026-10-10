@@ -107,13 +107,13 @@ def main():
                 require(cli==api, 'CLI differs from API')
                 session=MCP(h,server,locale='en')
                 tools=session.request('tools/list',{})['tools']; check=next(t for t in tools if t['name']=='posts_check')
-                require(len(tools)==35 and check['annotations']['readOnlyHint'] is True and
+                require(len(tools)==36 and check['annotations']['readOnlyHint'] is True and
                         set(check['inputSchema']['required'])=={'id','revision'} and
                         check['inputSchema']['additionalProperties'] is False, 'MCP schema or annotation mismatch')
                 require(session.call('posts.check',payload)==api, 'MCP differs from API')
                 session.close()
                 require(call('backup.export')['state']==before, 'read-only analysis changed state')
-                done('real API/CLI/MCP parity, 35-operation schema, read-only annotations and unchanged logical backup')
+                done('real API/CLI/MCP parity, 36-operation schema, read-only annotations and unchanged logical backup')
 
                 for role in ['token','draft','read']:
                     require(http('posts.check',payload,token=server[role])['ok'], 'authorized role denied')

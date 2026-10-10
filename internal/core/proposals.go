@@ -69,7 +69,11 @@ func reviewProposal(p Proposal) ProposalReview {
 	if p.Base != nil {
 		before = *p.Base
 	}
-	after := p.Candidate
+	return reviewContent(before, p.Candidate)
+}
+
+// Shared linear field/range comparison for proposal and saved-revision reviews.
+func reviewContent(before, after ProposalContent) ProposalReview {
 	review := ProposalReview{ChangedFields: []ProposalFieldChange{}, MarkdownDiff: []MarkdownChange{}}
 	fields := []struct {
 		name          string

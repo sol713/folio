@@ -73,3 +73,12 @@ body{font-size:16px}.meta,.eyebrow,.small-label,.section-title,.art-caption,.art
 
 .relations-limits { font-size:11px; color:var(--muted); margin-top:14px; }
 .relations-limits summary { cursor:pointer; }
+
+.revision-row-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+.revision-paging { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-top:14px; font-size:11px; }
+.revision-selectors select { display:block; width:100%; min-width:0; margin-top:8px; padding:10px; border:1px solid var(--line); background:var(--paper); }
+.revision-selectors label, .revision-snapshots section { min-width:0; overflow-wrap:anywhere; }
+.revision-snapshots pre { max-height:240px; white-space:pre-wrap; overflow-wrap:anywhere; }
+
+.wide-modal .modal-body.revision-review{padding:20px}.revision-selectors{gap:16px}.revision-snapshots>section{min-width:0;padding:16px}.revision-snapshots>section+section{border-left:1px solid var(--line);background:#eff3e8}
+@media(max-width:820px){.revision-snapshots>section+section{border-left:0;border-top:1px solid var(--line)}}
