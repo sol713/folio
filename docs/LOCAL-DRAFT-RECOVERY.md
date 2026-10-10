@@ -50,7 +50,10 @@ acknowledged ID is retained, text stays dirty and the UI reports the failed chec
 
 All asynchronous storage and restoration work is bound to its editor and login.
 Locking, navigation, disabling or clearing invalidates pending work. A changed
-editor buffer is not replaced by a late recovery response. UI content previews
+editor buffer is not replaced by a late recovery response. Each recovery review
+also captures the dialog generation: Cancel, Escape, backdrop close or a later
+dialog invalidates it. The normal selection-to-comparison transition explicitly
+adopts its new generation. Cancellation keeps encrypted copies and editor state. UI content previews
 are escaped plain text, including untrusted Markdown and metadata.
 
 ## Controls and limits

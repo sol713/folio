@@ -9,7 +9,7 @@
   "binary": {
     "version": "0.2.0",
     "target": "linux/amd64 static",
-    "sha256": "dc62ae846e6b8a232785aa38ce9011469edc3ccd7d4585538888a3c833673438"
+    "sha256": "c5e7b8b147333c275bbf581acca98cdeee2abb700fdbe9ff78e6970cd431a9a5"
   },
   "toolchain": {
     "go": "1.27.2",
@@ -54,7 +54,7 @@
     "quota failure is readable and never blocks explicit server Save",
     "parallel tab copies coexist; changed base requires acknowledgement; later CAS conflict preserves local text",
     "cross-tab clear invalidates pending copies and stops subsequent automatic writes",
-    "delayed actual recovery reads are invalidated by Clear, Lock and another article",
+    "delayed actual recovery reads are invalidated by Clear, Lock, navigation, Cancel, Escape and backdrop; later dialogs and copies preserved",
     "refresh after lost committed create reuses the exact retry identity, then saves newer text without duplication",
     "historical retry receipt refreshes the server head and never labels a divergent restored editor as saved",
     "failed latest-head check retains the acknowledged ID and dirty text across another refresh without duplicate create",
@@ -85,5 +85,154 @@
   "public_deployment": false,
   "operations_count": 33,
   "runtime_schema_changed": false,
-  "dependencies_changed": false
+  "dependencies_changed": false,
+  "modal_cancellation_regression": {
+    "negative_commit": "43e2113b89a3e024193d93a0ed62dc869f0c9a57",
+    "negative_binary_sha256": "dc62ae846e6b8a232785aa38ce9011469edc3ccd7d4585538888a3c833673438",
+    "negative_failures": [
+      {
+        "case": "cancel",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": true
+      },
+      {
+        "case": "escape",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": true
+      },
+      {
+        "case": "backdrop",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": true
+      },
+      {
+        "case": "cancel-command",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": false
+      },
+      {
+        "case": "escape-command",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": false
+      },
+      {
+        "case": "backdrop-command",
+        "passed": false,
+        "stale_restore_dialog": true,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "other_modal_preserved": false
+      }
+    ],
+    "fixed_cases": [
+      {
+        "case": "clear",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": false,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "lock",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": false,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "other",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": false,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "cancel",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "escape",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "backdrop",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": false
+      },
+      {
+        "case": "cancel-command",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": true
+      },
+      {
+        "case": "escape-command",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": true
+      },
+      {
+        "case": "backdrop-command",
+        "passed": true,
+        "stale_restore_dialog": false,
+        "source_unchanged": true,
+        "copies_preserved": true,
+        "copies_preservation_checked": true,
+        "other_modal_preserved": true,
+        "other_modal_checked": true
+      }
+    ],
+    "fixture": "Actual daemon posts.get response is fetched, held and delivered after cancellation; no fake API reply.",
+    "observation": "Six canceled reviews reopened; three also replaced a later command dialog. No server mutation or copy loss observed.",
+    "fix": "Every dialog close/open advances generation. Recovery captures it before awaits and explicitly adopts only its normal selection-to-comparison transition; stale responses/errors/focus are discarded without clearing the recovery context."
+  }
 }

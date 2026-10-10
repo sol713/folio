@@ -24,7 +24,7 @@ def main():
     args = parser.parse_args()
     args.report.parent.mkdir(parents=True, exist_ok=True)
     from playwright.sync_api import sync_playwright, expect
-    checks, errors = [], []
+    checks, errors, cancellation_cases = [], [], []
     env = {k: v for k, v in os.environ.items() if not k.startswith('FOLIO_')}
     with tempfile.TemporaryDirectory(prefix='folio-recovery-') as tmp:
         root = Path(tmp); data = root / 'data'
@@ -215,7 +215,7 @@ def main():
                 ctx.close()
 
                 # A held real recovery read cannot outlive Clear, Lock or navigation.
-                for destination in ['clear', 'lock', 'other']:
+                for destination in ['clear', 'lock', 'other', 'cancel', 'escape', 'backdrop', 'cancel-command', 'escape-command', 'backdrop-command']:
                     source, other = create('late-recovery-' + destination), create('late-other-' + destination)
                     ctx = browser.new_context(); page = page_in(ctx)
                     login(page, path='/studio/posts/' + source['id']); ready(page)
@@ -229,21 +229,41 @@ def main():
                         if held: break
                         page.wait_for_timeout(10)
                     assert held, 'real recovery read was not held'
-                    page.locator('[data-action="close-modal"]').last.click()
+                    before_storage = storage_plaintext(page)
+                    if destination.startswith('escape'): page.keyboard.press('Escape')
+                    elif destination.startswith('backdrop'): page.locator('.modal-backdrop').click(position={'x': 4, 'y': 4})
+                    else: page.locator('[data-action="close-modal"]').last.click()
                     if destination == 'clear': page.locator('#local-clear').click()
                     elif destination == 'lock':
                         page.locator('[data-action="logout"]').first.click(); expect(page.locator('#login-form')).to_be_visible()
-                    else:
+                    elif destination == 'other':
                         page.route('**/api/op/posts.get', lambda r: r.continue_())
                         page.locator('.studio-nav a[href="/studio"]').click(); expect(page.locator('.post-table')).to_be_visible()
                         page.locator('a[href="/studio/posts/' + other['id'] + '"]').first.click()
                         expect(page.locator('#post-markdown')).to_have_value(other['markdown'])
-                    route, response = held.pop(); route.fulfill(response=response); page.wait_for_timeout(200)
-                    assert page.locator('#local-restore').count() == 0
-                    assert assert_private(source['id'])['post'] == source
+                    elif destination.endswith('-command'):
+                        page.keyboard.press('Control+k'); expect(page.locator('#command-input')).to_be_visible()
+                        page.locator('#command-input').fill('Keep this command query')
+                    route, response = held.pop()
+                    with page.expect_response(lambda r: r.url.endswith('/api/op/posts.get')):
+                        route.fulfill(response=response)
+                    page.wait_for_timeout(200)
+                    stale_dialog = page.locator('#local-restore').count() > 0
+                    source_unchanged = assert_private(source['id'])['post'] == source
+                    preserved = True
+                    if destination not in ['clear', 'lock', 'other']:
+                        preserved = before_storage == storage_plaintext(page)
+                        expect(page.locator('#post-markdown')).to_have_value(source['markdown'])
+                    other_modal_preserved = not destination.endswith('-command') or (page.locator('#command-input').count() == 1 and page.locator('#command-input').input_value() == 'Keep this command query')
+                    case = {'case': destination, 'passed': not stale_dialog and source_unchanged and preserved and other_modal_preserved,
+                            'stale_restore_dialog': stale_dialog, 'source_unchanged': source_unchanged,
+                            'copies_preserved': preserved, 'copies_preservation_checked': destination not in ['clear', 'lock', 'other'],
+                            'other_modal_preserved': other_modal_preserved, 'other_modal_checked': destination.endswith('-command')}
+                    cancellation_cases.append(case); print(json.dumps(case), flush=True)
                     if destination == 'other': expect(page.locator('#post-markdown')).to_have_value(other['markdown'])
                     ctx.close()
-                done('delayed actual recovery reads are invalidated by Clear, Lock and another article')
+                if all(case['passed'] for case in cancellation_cases):
+                    done('delayed actual recovery reads are invalidated by Clear, Lock, navigation, Cancel, Escape and backdrop; later dialogs and copies preserved')
 
                 # The daemon commits a create, but the actual response is deliberately lost.
                 ctx = browser.new_context(); page = page_in(ctx); login(page); ready(page)
@@ -347,12 +367,13 @@ def main():
                 done('completion of an older encryption never labels newer pending input as locally protected')
                 ctx.close(); browser.close()
                 assert not errors, 'browser errors: ' + repr(errors)
+                assert all(case['passed'] for case in cancellation_cases), 'late recovery cancellation failures: ' + repr([case['case'] for case in cancellation_cases if not case['passed']])
         finally:
             proc.terminate()
             try: proc.wait(timeout=10)
             except subprocess.TimeoutExpired: proc.kill(); proc.wait(timeout=5)
             args.report.parent.mkdir(parents=True, exist_ok=True)
-            args.report.write_text(json.dumps({'checks': checks, 'browser_errors': errors, 'count': len(checks)}, indent=2)+'\n')
+            args.report.write_text(json.dumps({'checks': checks, 'browser_errors': errors, 'count': len(checks), 'cancellation_cases': cancellation_cases}, indent=2)+'\n')
 
 
 if __name__ == '__main__':
