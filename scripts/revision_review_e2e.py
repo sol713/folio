@@ -3,6 +3,7 @@
 import argparse
 from datetime import datetime, timedelta, timezone
 import json
+import hashlib
 from pathlib import Path
 import secrets
 import tempfile
@@ -18,21 +19,24 @@ def main():
     parser.add_argument('--chromium')
     parser.add_argument('--report',type=Path,required=True)
     parser.add_argument('--restore-race-only',action='store_true')
-    args=parser.parse_args();checks=[];held_cases=[];errors=[]
+    parser.add_argument('--published-restore-only',action='store_true')
+    parser.add_argument('--preview-restore-only',action='store_true')
+    args=parser.parse_args();checks=[];held_cases=[];derived_cases=[];errors=[]
     def done(name):checks.append(name);print('PASS '+name,flush=True)
     def report():
         args.report.parent.mkdir(parents=True,exist_ok=True)
-        args.report.write_text(json.dumps({'checks':checks,'held_cases':held_cases,'browser_errors':errors},indent=2)+'\n')
+        args.report.write_text(json.dumps({'checks':checks,'held_cases':held_cases,'derived_state_cases':derived_cases,'browser_errors':errors},indent=2)+'\n')
     try:
         with tempfile.TemporaryDirectory(prefix='folio-revisions-') as tmp:
             h=Harness(args.binary.resolve(),Path(tmp));proposal=secrets.token_hex(32)
             h.base_env['FOLIO_PROPOSAL_TOKEN']=proposal;h.secrets.append(proposal)
             try:
                 server=h.start('instance');base=server['url']
-                def http(op,payload=None,token=None,status=200,locale='en',origin=None):
-                    headers={'Content-Type':'application/json','Authorization':'Bearer '+(server['token'] if token is None else token),'Accept-Language':locale}
+                def http(op,payload=None,token=None,status=200,locale='en',origin=None,target=None):
+                    peer=target or server
+                    headers={'Content-Type':'application/json','Authorization':'Bearer '+(peer['token'] if token is None else token),'Accept-Language':locale}
                     if origin:headers['Origin']=origin
-                    req=urllib.request.Request(base+'/api/op/'+op,data=json.dumps(payload or {}).encode(),headers=headers)
+                    req=urllib.request.Request(peer['url']+'/api/op/'+op,data=json.dumps(payload or {}).encode(),headers=headers)
                     try:response=urllib.request.urlopen(req,timeout=15)
                     except urllib.error.HTTPError as e:response=e
                     with response:
@@ -75,6 +79,20 @@ def main():
                     changed=update(latest['post'],markdown='Fictional later writer');http('posts.restore',restore|{'idempotency_key':'different-key'},status=409)
                     require(call('posts.get',{'id':changed['id']})['post']==changed,'stale restore overwrote writer')
                     done('restore retry creates one private revision; current/live/schedule isolation, no-op advisory and intervening-writer CAS')
+                    if not args.published_restore_only and not args.preview_restore_only:
+                        first=call('posts.create',{'title':'Fictional legacy budget','slug':'legacy-budget','markdown':'Fictional first'})['post'];small=update(first,markdown='Fictional current')
+                        legacy=call('backup.export');legacy['state']['posts'][first['id']]['revisions'][0]['cover']='/media/'+'a'*(40*1024*1024)
+                        canonical=json.dumps(legacy['state'],ensure_ascii=False,separators=(',',':')).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026').replace('\u2028','\\u2028').replace('\u2029','\\u2029').encode()
+                        legacy['sha256']=hashlib.sha256(canonical).hexdigest();require(len(json.dumps(legacy).encode())<64*1024*1024,'legacy fixture exceeds backup bound')
+                        imported=h.start('legacy-budget-import');http('backup.restore',{'backup':legacy,'confirm':True},target=imported)
+                        q=payload(small,to=1,source=1);error=http('posts.compare',q,status=400,target=imported)
+                        require(error['error']['code']=='validation' and '64 MiB JSON budget' in error['error']['message'],'missing controlled response budget')
+                        require(h.cli(['--lang','en','call','posts.compare','--json',json.dumps(q)],imported,expect_ok=False)==error,'budget CLI parity')
+                        mcp=MCP(h,imported,locale='en');require(mcp.call('posts.compare',q,expect_ok=False)==error,'budget MCP parity');mcp.close()
+                        require('JSON 预算' in http('posts.compare',q,status=400,locale='zh-CN',target=imported)['error']['message'],'budget Chinese error')
+                        require(http('posts.compare',payload(small,to=2),target=imported)['ok'],'bounded current comparison denied')
+                        after=http('backup.export',target=imported)['data'];require(after['state']['posts'][first['id']]['revisions'][0]['cover']==legacy['state']['posts'][first['id']]['revisions'][0]['cover'],'rejected read changed legacy data')
+                        done('valid 40 MiB historical cover backup imports/exports unchanged; oversized comparison returns bounded EN/CN HTTP/CLI/MCP errors while current comparison works')
                 if args.chromium:
                     from playwright.sync_api import sync_playwright,expect
                     with sync_playwright() as pw:
@@ -95,6 +113,28 @@ def main():
                             raise AssertionError('actual response not held')
                         def release(p,held,pattern):
                             route,response=held.pop(0);route.fulfill(response=response);p.unroute(pattern);p.wait_for_timeout(100)
+                        # Published R2 -> restored private R3 must refresh derived status without replacing the editor.
+                        if not args.restore_race_only and not args.preview_restore_only:
+                            old,published=pair('published-status-restore');published=call('posts.publish',{'id':published['id'],'expected_revision':2,'confirm':True})['post']
+                            ctx=browser.new_context();p=ctx.new_page();login(p,published);expect(p.locator('.editor-sidebar > .panel-label .badge')).to_have_text('Published');review(p)
+                            p.locator('#confirm-revision').click();expect(p.locator('#modal-root')).to_be_empty();expect(p.locator('#save-state')).to_have_text('All changes saved')
+                            latest=call('posts.get',{'id':published['id']});badge=p.locator('.editor-sidebar > .panel-label .badge').text_content().strip();safe=badge=='Unpublished edits' and latest['post']['revision']==3 and latest['post']['status']=='changed' and latest['live']['revision']==2
+                            derived_cases.append({'case':'published R2 to restored private R3','badge_text':badge,'server_status':latest['post']['status'],'badge_matches_server':safe});report()
+                            require(safe,'published restore left stale publication badge')
+                            for field in FIELDS:
+                                el=p.locator('#post-'+field);actual=el.is_checked() if field=='featured' else el.input_value()
+                                require(actual==(old[field] if field!='tags' else ', '.join(old[field])),'published restore field '+field)
+                            ctx.close();done('published R2 to private restored R3 refreshes status badge; all eight fields restored and live R2 unchanged')
+                            if args.published_restore_only:browser.close();return
+                        if not args.restore_race_only:
+                            old,preview=pair('preview-restore');ctx=browser.new_context();p=ctx.new_page();login(p,preview);p.locator('[data-editor-mode="preview"]').click();expect(p.locator('#preview-content')).to_contain_text('Fictional second');review(p)
+                            p.locator('#confirm-revision').click();expect(p.locator('#modal-root')).to_be_empty();safe=p.locator('#write-panel').is_visible() and not p.locator('#preview-panel').is_visible() and p.locator('#preview-content').inner_html()=='' and p.locator('#post-markdown').input_value()==old['markdown']
+                            derived_cases.append({'case':'preview R2 then restore R1','write_view_and_content_match_saved_revision':safe});report();require(safe,'restore left the earlier revision preview visible');ctx.close();done('preview R2 then restore R1 returns to Write with exact restored source and clears stale HTML')
+                            if args.preview_restore_only:browser.close();return
+                            old,preview=pair('late-preview-restore');ctx=browser.new_context();p=ctx.new_page();login(p,preview);held=[]
+                            p.route('**/api/op/posts.preview',lambda route:held.append((route,route.fetch())));p.locator('[data-editor-mode="preview"]').click();waitheld(p,held);review(p);p.locator('#confirm-revision').click();expect(p.locator('#modal-root')).to_be_empty();release(p,held,'**/api/op/posts.preview')
+                            require(p.locator('#write-panel').is_visible() and p.locator('#preview-content').inner_html()=='' and p.locator('#post-markdown').input_value()==old['markdown'],'old preview reopened after restore')
+                            held_cases.append({'case':'held R2 preview after R3 restore','obsolete_preview_discarded':True});ctx.close();done('held real R2 preview is discarded after acknowledged R3 restore without reopening Preview')
                         # The old handler commits then rerenders, silently dropping later typing.
                         old,pairpost=pair('late-restore');ctx=browser.new_context();p=ctx.new_page();login(p,pairpost);review(p);held=[]
                         p.route('**/api/op/posts.restore',lambda route:held.append((route,route.fetch())))
@@ -131,8 +171,10 @@ def main():
                                     require(p.locator('#revision-result img, #revision-result script').count()==0 and not p.evaluate('window.revisionXSS||false'),'snapshot executed')
                                     require(p.evaluate('document.documentElement.scrollWidth<=innerWidth') and p.locator('.modal').evaluate('(e)=>e.scrollWidth<=e.clientWidth'),'mobile overflow')
                                     p.locator('#post-markdown').evaluate('(e)=>e.setSelectionRange(3,8)');p.evaluate('(v)=>window.FolioI18n.setLocale(v)', 'en' if locale=='zh-CN' else 'zh-CN')
+                                    expect(p.locator('#revision-result .revision-snapshots summary').first).to_have_text('Title' if locale=='zh-CN' else '标题')
                                     require(p.locator('#revision-to').input_value()=='1' and p.locator('#post-markdown').evaluate('(e)=>[e.selectionStart,e.selectionEnd]')==[3,8],'locale reset selectors/caret')
                                     p.evaluate('(v)=>window.FolioI18n.setLocale(v)',locale)
+                                    expect(p.locator('#revision-result .revision-snapshots summary').first).to_have_text('Title' if locale=='en' else '标题')
                                     require(('Current saved draft' if locale=='en' else '当前已保存草稿') in p.locator('#revision-from option:checked').inner_text(),'locale left stale option label')
                                     p.screenshot(path=str(args.report.with_name('revision-'+str(width)+'-'+locale+'.png')),full_page=False);ctx.close()
                             done('paged older history; all eight escaped fields; EN/CN 320/390px and locale preserves selectors/editor/caret')

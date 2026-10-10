@@ -11,7 +11,7 @@
   "binary": {
     "version": "0.2.0",
     "target": "linux/amd64 static",
-    "sha256": "af5cff9ad37fae0fb4f7e17540a40b166c805fc8eb3bddab50ffd5f1890e1540"
+    "sha256": "52689a442b1b2a166714c0d3adccf6c6f832de013bea6e4ba3a34aceffbb9fe2"
   },
   "toolchain": {
     "go": "1.27.2",
@@ -52,10 +52,11 @@
     "relations_delayed_cases": 19,
     "reference_network_requests": 0,
     "browser_errors": [],
-    "revision_compare_go_groups": 5,
-    "revision_api_cli_mcp_groups": 3,
-    "revision_full_groups": 13,
-    "revision_held_response_cases": 26
+    "revision_compare_go_groups": 7,
+    "revision_api_cli_mcp_groups": 4,
+    "revision_full_groups": 17,
+    "revision_held_response_cases": 27,
+    "revision_derived_state_cases": 2
   },
   "negative_control": {
     "baseline_binary_sha256": "0edf9b450f54e83bddaa03241bec191b867ad4c9c5ed641a5948c45ab35d64a9",
@@ -81,13 +82,18 @@
     "Memory-only uncertain restore receipt; refresh/close requires reviewing server history",
     "Restore authority remains owner/draft; read/proposal compare only",
     "Existing approved schedules retain pinned snapshot/time and can publish later",
-    "CI result for the exact submitted head must be observed separately; local evidence does not imply remote CI"
+    "CI result for the exact submitted head must be observed separately; local evidence does not imply remote CI",
+    "Conservative 64 MiB JSON response budget may reject smaller actual comparisons; oversized legacy cover remains valid in backup import/export. No new full-history retrieval pagination."
   ],
   "revision_acceptance": {
     "checks": [
       "36-operation HTTP/CLI/MCP parity; all eight exact fields, source/live metadata, directional review and zero state writes",
       "private-read roles, forbidden restore, anonymous/origin/strict schema/stale/missing guards and Chinese errors",
       "restore retry creates one private revision; current/live/schedule isolation, no-op advisory and intervening-writer CAS",
+      "valid 40 MiB historical cover backup imports/exports unchanged; oversized comparison returns bounded EN/CN HTTP/CLI/MCP errors while current comparison works",
+      "published R2 to private restored R3 refreshes status badge; all eight fields restored and live R2 unchanged",
+      "preview R2 then restore R1 returns to Write with exact restored source and clears stale HTML",
+      "held real R2 preview is discarded after acknowledged R3 restore without reopening Preview",
       "actual committed restore acknowledgement preserves newer typing/caret; subsequent Save uses acknowledged revision",
       "draft-role explicit clean restore copies all eight fields; historical source and same-content duplicate restores stay blocked",
       "paged older history; all eight escaped fields; EN/CN 320/390px and locale preserves selectors/editor/caret",
@@ -100,6 +106,10 @@
       "intervening server writer rejects reviewed stale restoration without replacing the editor"
     ],
     "held_cases": [
+      {
+        "case": "held R2 preview after R3 restore",
+        "obsolete_preview_discarded": true
+      },
       {
         "case": "typing during committed restore acknowledgement",
         "buffer_caret_dirty_preserved": true
@@ -229,6 +239,48 @@
         "restore_requests": 2
       }
     ],
+    "derived_state_cases": [
+      {
+        "case": "published R2 to restored private R3",
+        "badge_text": "Unpublished edits",
+        "server_status": "changed",
+        "badge_matches_server": true
+      },
+      {
+        "case": "preview R2 then restore R1",
+        "write_view_and_content_match_saved_revision": true
+      }
+    ],
     "browser_errors": []
+  },
+  "independent_review_regressions": {
+    "reviewed_head": "297fd92c5faf2fb258fbdb2768b2754fac08a203",
+    "published_to_private_restore": {
+      "before_ui_badge": "Published",
+      "server_status": "changed",
+      "after_ui_badge": "Unpublished edits",
+      "whole_editor_render": false
+    },
+    "preview_then_restore": {
+      "before_stale_R2_preview_visible": true,
+      "after_write_view_and_exact_restored_source": true,
+      "held_old_preview_discarded": true
+    },
+    "legacy_cover_budget": {
+      "valid_backup_historical_cover_bytes": 41943040,
+      "before_comparison_json_bytes": 83887114,
+      "after_controlled_error_code": "validation",
+      "after_http_status": 400,
+      "json_response_budget_bytes": 67108864,
+      "all_eight_fields_and_json_escaping_counted": true,
+      "legacy_import_export_preserved": true,
+      "actual_HTTP_CLI_MCP_EN_CN_parity": true,
+      "counter_saturates_before_allocating_escaped_response": true
+    },
+    "locale_caption": {
+      "before_Chinese_to_English_title": "Heading",
+      "after_title": "Title",
+      "EN_CN_toggle_assertions": true
+    }
   }
 }

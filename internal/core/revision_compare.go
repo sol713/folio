@@ -77,6 +77,9 @@ func (s *Store) compareRevisions(raw []byte) (any, error) {
 	if e != nil {
 		return nil, e
 	}
+	if !comparisonWithinBudget(from.Content, to.Content) {
+		return nil, Err("validation", "Revision comparison exceeds its conservative 64 MiB JSON budget; inspect the original backup offline")
+	}
 	review := reviewContent(from.Content, to.Content)
 	sameCurrentContent := reflect.DeepEqual(proposalContent(r.Draft), to.Content)
 	reason := "ready"
@@ -95,5 +98,5 @@ func (s *Store) compareRevisions(raw []byte) (any, error) {
 		live = r.Live.Revision
 	}
 	return RevisionComparison{a.ID, r.Draft.Revision, live, s.instanceID, s.State.Revision, from, to, review, reason == "ready", reason,
-		[]string{"saved_snapshots_only", "all_eight_editable_fields", "single_changed_range_not_minimal_diff", "post_content_limits_apply", "restore_availability_is_advisory_not_authority", "restore_requires_current_revision_CAS", "no_render_execution_or_network"}}, nil
+		[]string{"saved_snapshots_only", "all_eight_editable_fields", "single_changed_range_not_minimal_diff", "post_content_limits_apply", "conservative_json_response_budget_64_MiB", "restore_availability_is_advisory_not_authority", "restore_requires_current_revision_CAS", "no_render_execution_or_network"}}, nil
 }

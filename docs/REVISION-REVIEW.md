@@ -26,8 +26,16 @@ proposal review semantics: metadata has exact before/after values; Markdown has
 a linear shared-prefix/suffix changed range, at most four chunks. It is not a
 minimal per-line diff. Complete snapshots remain available even when unchanged;
 there is no truncation. Each Markdown snapshot retains the existing 1 MiB limit.
-The result remains below the existing 64 MiB CLI/MCP response limit even for
-worst-case JSON escaping of the two maximum-size snapshots and their review.
+Comparison has a conservative 64 MiB JSON response budget covering all eight
+fields, JSON escaping, complete snapshots, changed-field values, Markdown chunks
+and transport overhead. It counts before building the review or allocating an
+escaped response. A legacy backup can contain a very long cover URL because the
+existing cover validator has no length bound. Such a backup remains valid and
+readable by the existing import/export path; an oversized comparison returns a
+controlled `validation` error (HTTP 400), with an English/Chinese budget message.
+No snapshot is truncated. The conservative estimate can also reject some actual
+responses smaller than 64 MiB. Inspect the original backup offline or select
+bounded versions; this change does not add pagination to full article retrieval.
 Text is escaped in Studio. Comparison does not render HTML, load images, fetch
 URLs, probe files or contact an AI provider.
 
@@ -57,7 +65,11 @@ Inspect/cancel them separately if that intent has changed.
 
 Typing, including an edit followed by reverting the text, invalidates the review.
 A delayed comparison cannot reopen a closed dialog, replace a newer report,
-change another editor, or discard input. A delayed **committed restore** updates
+change another editor, or discard input. Successful restore updates the saved status badge in place, clears obsolete
+preview HTML and returns to Write without rebuilding editor fields. A held older
+preview cannot reopen after the new revision is acknowledged.
+
+A delayed **committed restore** updates
 its acknowledged head without replacing newer input/caret; remaining edits stay
 dirty and require a separate Save. Closing the restore dialog during that write
 preserves the editor and any subsequently opened dialog. Lock, navigation and
@@ -130,7 +142,11 @@ API / CLI / MCP 统一新增第 36 个操作 `posts.compare`，MCP 名为 `posts
 
 八个字段为标题、slug、Markdown、摘要、话题、分类、封面、精选标志。Markdown
 使用与提案审阅相同的线性前后缀比较，显示一个变化区间，最多四段，**不是最小逐行
-差异**。完整快照不会截断，每个 Markdown 仍最多 1 MiB。历史每页八行；选择器含
+差异**。完整快照不会截断，每个 Markdown 仍最多 1 MiB。比较先计算全部八字段、JSON 转义、
+快照、差异及包装开销的保守 64 MiB 预算；超限返回 `validation` / HTTP 400 的双语
+错误。历史备份的超长 cover 仍按原有规则导入及导出，不改旧数据；可离线审阅原备份
+或选择较小版本。估算保守，部分实际小于 64 MiB 的响应也可能被拒绝。
+历史每页八行；选择器含
 最近 100 个版本及当前、线上、已选版本。更早版本可从历史分页选择，或指定准确版本号。
 
 owner、draft、read、proposal 均沿用已有私有读取权限，可查看历史全文；read / proposal
@@ -144,7 +160,8 @@ owner、draft、read、proposal 均沿用已有私有读取权限，可查看历
 
 任何新输入（包括改动后改回）会使审阅过期。取消、Esc、遮罩、换文章、锁定或稍后的
 比较不会被旧响应改写。恢复已经提交而回执迟到时，后来输入、光标及新打开的对话框
-会保留；尚未保存的编辑须单独保存。写入进行中仍阻止锁定、导航和浏览器返回。
+会保留；尚未保存的编辑须单独保存。成功后只更新保存状态徽标、清空旧预览并回到 Write，
+不重建编辑字段；旧版本的迟到预览无法重新打开。写入进行中仍阻止锁定、导航和浏览器返回。
 
 恢复回执丢失或损坏时，请留在同一标签页重试原请求及原幂等键。确认前阻止后续保存、
 提案、发布及新建计划。重试确认后读取最新服务器草稿，避免把旧回执当作并发 Agent
