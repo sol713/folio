@@ -188,7 +188,9 @@ def pinned_publication(h, report):
     first = h.operation(server, "posts.create", {"title": "CRASH_APPROVED_R1 已审阅", "slug": "crash-approved-r1",
         "markdown": "# 已审阅\n\nCRASH_APPROVED_R1 only this text is approved.\n", "excerpt": "已批准 / Approved",
         "tags": ["已审阅", "approved"], "category": "Reviewed", "cover": "", "featured": True})["data"]["post"]
-    due = time.time() + 2
+    # Pause stops execution, not create-time validation. Allow substantially
+    # more than the HTTP client's five-second request budget before expiry.
+    due = time.time() + 15
     schedule_args = {"post_id": first["id"], "expected_revision": 1, "publish_at": timestamp(due),
                      "confirm": True, "idempotency_key": "crash-approved-schedule-once"}
     scheduled_result = h.operation(server, "schedules.create", schedule_args)["data"]
@@ -212,13 +214,14 @@ def pinned_publication(h, report):
         job["post_revision"] = 2
 
     control = clone_stopped(h, name, "control-drifted-snapshot", drift_snapshot)
-    # Bounded offline wait, independent of how long the fixture took to prepare.
-    deadline = time.monotonic() + 3
+    # Poll real wall-clock expiry offline; bound the wait with a monotonic
+    # deadline covering the remaining lead time plus clock/runner slack.
+    deadline = time.monotonic() + max(0, due - time.time()) + 5
     while time.time() <= due:
         require(time.monotonic() < deadline, "Clock prevented bounded overdue fixture")
         time.sleep(0.05)
     server = restart_same(h, name, before, report)
-    h.await_schedule(server, scheduled["id"], "published", timeout=5)
+    h.await_schedule(server, scheduled["id"], "published", timeout=15)
     terminal = inspect_pinned(h, server, first, second, scheduled)
     replay_receipt(h, server, "schedules.create", schedule_args, scheduled_result)
     require(h.call(server, "schedules.list")["data"]["schedules"] == [terminal], "Schedule retry duplicated a job")

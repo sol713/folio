@@ -42,6 +42,13 @@ positive recovery result.
    terminal job, instance revision and audit unchanged. Public API, search,
    article/index SSR, RSS and sitemap must not expose R2 or its URL.
 
+Schedule creation gets 15 seconds of future lead time: pausing execution does
+not suspend create-time validation, so the lead exceeds the HTTP client's
+five-second request budget. Offline expiry uses short real-clock polls and a
+monotonic cap of remaining lead time plus five seconds; terminal status is
+polled for at most 15 seconds after restart. There is no long fixed sleep,
+clock adjustment or replacement of the originally approved time.
+
 Two **negative controls** exercise those same recovery assertions through real
 daemons. After the first relevant SIGKILL, each control copies the entire stopped
 temporary instance, including WAL and its temporary credential. Only the clone
@@ -92,6 +99,11 @@ accessed. Runtime reports and raw verification logs are kept outside source.
   执行确认后再强杀一次，原库重启并跨过一个真实工作周期轮询，完整终态、实例
   版本和审计不得变化；公开 API、搜索、文章/首页 SSR、RSS 和站点地图不泄露
   R2 内容或 URL。
+
+创建计划预留 15 秒未来余量：暂停执行不会暂停创建时的未来时间校验，余量须
+超过 HTTP 客户端的 5 秒请求预算。强杀后用短轮询等待原定真实到期时间，单调
+时钟限定最多剩余余量加 5 秒；重启后的终态轮询最多 15 秒。没有长固定等待、
+修改时钟或替换原批准时间。
 
 两个负控各自在相关进程强杀后，复制完整已停止的临时实例（包括 WAL 和临时
 凭据），仅修改独立副本：删除一个创建回执，或把固定的 R1 快照和版本改成 R2。
