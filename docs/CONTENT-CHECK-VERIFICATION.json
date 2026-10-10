@@ -1,0 +1,157 @@
+{
+  "date_utc": "2026-10-10",
+  "base_commit": "c221bb5cabe4453d5f4a4447f4d10c68a62fe523",
+  "source_lineage": {
+    "archive": "folio-source-v0.2.0.tar.gz",
+    "sha256": "528b0697e29c20abe0b5113b8c82641f13d22355c75675988d00bc83f791bc35",
+    "note": "Original delivery preserved; extends the independently merged Folio source."
+  },
+  "binary": {
+    "version": "0.2.0",
+    "target": "linux/amd64 static",
+    "sha256": "2907e9bb76307be678e3df470ac458900aae0d7ea43bb2514a04b47b9d0867b8"
+  },
+  "toolchain": {
+    "go": "1.27.2",
+    "node": "24.19.0",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.173",
+    "docker": "28.4.0"
+  },
+  "checks": {
+    "go_test": "passed",
+    "go_race": "passed",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "javascript_syntax": [
+      "app.js",
+      "i18n.js",
+      "recovery.js"
+    ],
+    "node_test_units": 14,
+    "bilingual_keys": 863,
+    "upstream_license_inventory": {
+      "modules": 43,
+      "license_files": 70,
+      "status": "passed"
+    },
+    "real_daemon_cli_mcp_groups": 12,
+    "real_workflow_groups": 11,
+    "real_initialization_groups": 3,
+    "ops_unit_tests": 66,
+    "ops_real_integration_groups": 11,
+    "actual_scratch_container_groups": 5,
+    "existing_real_browser_groups": 8,
+    "publication_review_identity_cases": 9,
+    "recovery_real_browser_groups": 16,
+    "recovery_held_read_cases": 9,
+    "content_check_api_cli_mcp_groups": 4,
+    "content_check_full_groups": 10,
+    "content_check_delayed_cases": 14,
+    "reference_network_requests": 0,
+    "browser_errors": []
+  },
+  "content_acceptance": {
+    "checks": [
+      "actual canonical routes, old slug redirects, relative URLs, private targets, media and exclusions",
+      "real API/CLI/MCP parity, 34-operation schema, read-only annotations and unchanged logical backup",
+      "all existing private-read roles can check; anonymous checks and non-owner publication denied",
+      "bilingual messages, strict saved-revision inputs, stale conflict and no outbound reference requests",
+      "manual check, exact line/field focus, no implicit writes, stale locations and visible optional publication guidance",
+      "EN/CN findings, severity, evidence and limits; live locale preserves editor and 320/390px layouts",
+      "real draft/read/proposal Studio permissions retain read-only preflight",
+      "13 real held-response cases: all eight fields, reverted input, other/new editor, lock and return to same article",
+      "newer saved revision/report survives a late earlier report; one intentional save only",
+      "interrupted read retry, stale revision rejection, preserved buffer and legal exact-revision publication with warnings"
+    ],
+    "count": 10,
+    "delayed_cases": [
+      {
+        "case": "title",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "slug",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "markdown",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "excerpt",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "tags",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "category",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "cover",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "featured",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "edit-revert",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "existing",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "new",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "lock",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "back-return",
+        "obsolete_report_discarded": true,
+        "write_count": 0
+      },
+      {
+        "case": "newer-check-wins",
+        "obsolete_report_discarded": true,
+        "intentional_save_count": 1
+      }
+    ],
+    "browser_errors": [],
+    "reference_requests": 0
+  },
+  "source_boundary": "No credential patterns, host paths, runtime artifacts or symlinks found in the selected source; bounded scan and fictional fixture review, not an independent audit.",
+  "limits": [
+    "Current saved revision and point-in-time catalog only",
+    "Canonical origin and supported article/media routes; encoded slash/dot ambiguities remain unchecked",
+    "Anchor targets, external URLs, raw HTML and code not checked; no reference fetch or execution",
+    "2,000 references and 100 findings; evidence shortened to 512 UTF-8 bytes plus ellipsis",
+    "Warnings are advisory; exact-revision publication protocol unchanged",
+    "Linux Chromium tested; other browser engines not verified",
+    "Vulnerability database access previously returned HTTP 403; no vulnerability-clean claim",
+    "Trusted historical v0.1 executable unavailable for optional legacy-writer drill"
+  ],
+  "public_deployment": false,
+  "dependencies_changed": false
+}

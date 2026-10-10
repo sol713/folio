@@ -50,6 +50,7 @@ jobs:
           python3 scripts/e2e.py --binary dist/folio
           python3 scripts/workflows_e2e.py --binary dist/folio
           python3 scripts/reliability_e2e.py --binary dist/folio
+          python3 scripts/content_check_e2e.py --binary dist/folio --report /tmp/folio-content-api-results.json
           python3 -m unittest discover -s ops/tests -v
           python3 ops/tests/integration.py --binary dist/folio
       - name: Actual scratch container lifecycle
@@ -68,3 +69,4 @@ jobs:
           /tmp/folio-browser-env/bin/python scripts/browser_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --output /tmp/folio-browser-results
           /tmp/folio-browser-env/bin/python scripts/publication_review_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-review-results.json
           /tmp/folio-browser-env/bin/python scripts/local_recovery_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-local-recovery-results.json
+          /tmp/folio-browser-env/bin/python scripts/content_check_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-content-browser-results.json

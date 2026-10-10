@@ -33,7 +33,7 @@ The daemon stores images in individual SQLite BLOB rows and metadata separately.
 The daemon is the only writer. MCP does not open SQLite, acquire a separate
 writer lock, or implement another set of business rules. Run `folio serve` first.
 
-At startup the adapter calls `system.capabilities`. The v0.2 registry has 33 operations. Each returned operation
+At startup the adapter calls `system.capabilities`. The v0.2 registry has 34 operations. Each returned operation
 becomes one tool with the exact same input JSON Schema. Names replace dots with
 underscores: `posts.preview` becomes `posts_preview`; `backup.restore` becomes
 `backup_restore`. Descriptions include required scope when discovery supplies it.
@@ -80,7 +80,7 @@ silently alter its registry mid-session.
 Examples of tools returned by `tools/list`:
 
 - Read: `system_capabilities`, `system_info`, `posts_list`, `posts_get`,
-  `posts_preview`, `settings_get`, `media_list`, `audit_list`, `backup_export`
+  `posts_preview`, `posts_check`, `settings_get`, `media_list`, `audit_list`, `backup_export`
 - Write: `posts_create`, `posts_update`, `posts_publish`, `posts_unpublish`,
   `posts_restore`, `posts_delete`, `posts_recover`, `settings_update`, `media_upload`, `backup_restore`
 - Proposal review: `proposals_create`, `proposals_list`, `proposals_get`,
@@ -108,7 +108,7 @@ Follow [WORKFLOWS.md](WORKFLOWS.md) for immutable proposals and reviewed schedul
 1. Discover schemas and required scopes with `system_capabilities`
 2. Read the current draft and revision
 3. Create or update a private draft
-4. Preview the exact draft revision with `posts_preview`
+4. Preview the exact draft revision with `posts_preview`. Optionally call `posts_check` with that saved revision and review findings plus limits; its warnings do not change publishing authority
 5. Obtain explicit user intent for publication
 6. Call `posts_publish` with `id`, the reviewed `expected_revision`, and `confirm:true`
 7. Read back the result; do not conceal revision conflicts or overwrite newer work

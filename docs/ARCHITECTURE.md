@@ -48,6 +48,10 @@ Reader/Studio presentation defaults to zh-CN with an English switch. Locale chan
 
 Go embeds HTML/CSS/JavaScript. Anonymous APIs only return published snapshots. Server-rendered semantic article/index content is included in initial HTML for crawlers/no-JavaScript access and then replaced by the richer browser interface. RSS/sitemap are generated from the same published list. Search scans only public Markdown/title/tags, including one- and two-character Chinese queries. Raw Markdown HTML is omitted by Goldmark and rendered output is sanitized with Bluemonday before storage and backup restore.
 
+## Read-only content checks
+
+`posts.check` parses the current saved Markdown with the same Goldmark parser as rendering, and analyzes link/image destinations against a single authorized catalog snapshot. It returns draft and instance revisions, stable finding codes, bounded evidence and source locations. It does not fetch URLs, probe paths, alter the catalog, write audit/retry records or change the publication protocol. Studio invalidates pending or completed results on input, save, route, editor, token or instance changes. See [CONTENT-CHECK.md](CONTENT-CHECK.md).
+
 ## Extension points
 
 The next substantial upgrades should preserve operation parity: content graph and exact Markdown-link backlinks, per-agent identities and finer-grained approval policies, richer editor integration, revision-row storage, scoped tokens with expiration, and verified remote MCP transport. A provider integration must expose configuration/cost/status honestly; an absent provider must not masquerade as a working AI capability.

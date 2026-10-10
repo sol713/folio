@@ -48,6 +48,7 @@ func init() {
 	add("system.info", "Get version, instance revision, storage, counts and honest AI availability", "read", true, nil)
 	add("posts.list", "List current authoring drafts, including unpublished changes", "read", true, map[string]any{"status": str("Optional draft, changed, published, or trash"), "query": str("Case-insensitive title/content filter")})
 	add("posts.get", "Read a draft and immutable content revision history", "read", true, ref, "id")
+	add("posts.check", "Check the current saved draft for internal article links, instance media and summary reminders. Read-only; no network requests; never gates publication.", "read", true, fields(ref, map[string]any{"revision": integer("Positive current saved draft revision; stale revisions fail")}), "id", "revision")
 	add("posts.preview", "Render a specific private revision without publishing. Fetch before publish.", "read", true, fields(ref, map[string]any{"revision": integer("Optional historical revision; defaults current")}), "id")
 	add("posts.create", "Create a private draft. Never publishes implicitly.", "draft", false, postFields, "title", "slug", "markdown")
 	add("posts.update", "Replace draft fields using revision CAS; live published content stays unchanged", "draft", false, fields(postFields, map[string]any{"id": str("Post ID"), "expected_revision": integer("Current draft revision")}), "id", "expected_revision", "title", "slug", "markdown")
