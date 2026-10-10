@@ -86,14 +86,17 @@
     const c=checkState(editorSession);if(!checkSaved()||c.running){reflectCheck();return;}
     const sequence=++c.sequence, ticket=state.render, token=state.token, instance=state.info?.instance_id, route=state.route;
     const p=editorSession.post,id=p.id,revision=p.revision,fingerprint=checkFingerprint();
-    const active=()=>state.editor===editorSession&&state.render===ticket&&state.token===token&&state.info?.instance_id===instance&&state.route===route&&location.pathname+location.search+(location.hash||'')===route&&c.sequence===sequence&&editorSession.post.id===id&&editorSession.post.revision===revision&&checkSaved()&&checkFingerprint()===fingerprint&&!!$('#content-check');
+    // Request ownership survives a temporary write lock; result eligibility does not.
+    const ownsContext=()=>state.editor===editorSession&&state.render===ticket&&state.token===token&&state.info?.instance_id===instance&&state.route===route&&location.pathname+location.search+(location.hash||'')===route&&c.sequence===sequence&&editorSession.post.id===id&&editorSession.post.revision===revision&&!!$('#content-check');
+    const active=()=>ownsContext()&&checkSaved()&&checkFingerprint()===fingerprint;
     c.running=true;c.fresh=false;c.error='';reflectCheck();
     try{
       const result=await op('posts.check',{id,revision});
       if(!active())return;
       if(result.id!==id||result.revision!==revision||result.instance_id!==instance)throw new Error(I18n.t('check.identity'));
-      c.report=result;c.fresh=true;c.running=false;reflectCheck();
-    }catch(err){if(!active())return;c.running=false;c.error=err.message;reflectCheck();}
+      c.report=result;c.fresh=true;
+    }catch(err){if(!active())return;c.error=err.message;}
+    finally{if(ownsContext()){c.running=false;reflectCheck();}}
   }
   function checkLocation(index){
     const c=checkState(),f=c?.report?.findings[index];
@@ -276,6 +279,7 @@
     $('#confirm-publish').onclick=async()=>{
       if(state.busy||!reviewIsCurrent())return;
       const btn=$('#confirm-publish');btn.disabled=true;state.busy=true;
+      let renderedCheckContext=null;
       try{
         const result=await op('posts.publish',payload);
         closeModal();state.site=null;
@@ -291,11 +295,21 @@
             if(badge)badge.outerHTML=statusBadge(result.post);
             const remove=$('.editor-sidebar [data-action="delete"]');
             if(remove&&!$('.editor-sidebar [data-action="unpublish"]'))remove.insertAdjacentHTML('afterend','<button class="text-link" data-action="unpublish" style="display:flex;margin-top:15px">Unpublish story</button>');
-          }else await render();
+          }else{
+            const ticket=state.render+1;
+            await render();
+            if(state.render===ticket&&state.editor?.post.id===p.id)renderedCheckContext={editor:state.editor,ticket};
+          }
         }
         toast('Published. Your story is out in the world.');
       }catch(err){btn.disabled=false;toast(err.message,true);}
-      finally{state.busy=false;}
+      finally{
+        state.busy=false;
+        // A successful publish may have rendered a new editor while locked.
+        // Refresh only the original review context or the render it owns.
+        const ownsRendered=renderedCheckContext&&state.editor===renderedCheckContext.editor&&state.render===renderedCheckContext.ticket&&state.token===reviewToken&&state.route===reviewRoute&&location.pathname+location.search+(location.hash||'')===reviewRoute;
+        if(reviewIsCurrent()||ownsRendered)reflectCheck();
+      }
     };
   }
   function modal(title,body,wide=false) { closeModal(false);previousFocus=document.activeElement;const root=$('#modal-root');root.innerHTML=`<div class="modal-backdrop"><section class="modal ${wide?'wide-modal':''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><h2 id="modal-title">${title}</h2><button class="icon-btn" data-action="close-modal" aria-label="Close dialog">${icon('close',17)}</button></div><div class="modal-body">${body}</div></section></div>`;root.querySelector('.modal-backdrop').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});queueMicrotask(()=>root.querySelector('input,textarea,button:not([data-action="close-modal"])')?.focus()); }

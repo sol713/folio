@@ -9,7 +9,7 @@
   "binary": {
     "version": "0.2.0",
     "target": "linux/amd64 static",
-    "sha256": "2907e9bb76307be678e3df470ac458900aae0d7ea43bb2514a04b47b9d0867b8"
+    "sha256": "15d39fe2550836744635afe8766620ea72f53d5013c75dda11c48853a84c0787"
   },
   "toolchain": {
     "go": "1.27.2",
@@ -50,7 +50,8 @@
     "content_check_full_groups": 10,
     "content_check_delayed_cases": 14,
     "reference_network_requests": 0,
-    "browser_errors": []
+    "browser_errors": [],
+    "publication_check_busy_cases": 4
   },
   "content_acceptance": {
     "checks": [
@@ -153,5 +154,70 @@
     "Trusted historical v0.1 executable unavailable for optional legacy-writer drill"
   ],
   "public_deployment": false,
-  "dependencies_changed": false
+  "dependencies_changed": false,
+  "busy_state_regression": {
+    "reviewed_head": "d08ab2a6f3f2092d2c443e6c69b3d5b1c94102b2",
+    "before_binary_sha256": "2907e9bb76307be678e3df470ac458900aae0d7ea43bb2514a04b47b9d0867b8",
+    "negative": {
+      "cases": [
+        {
+          "case": "saved draft can check immediately after successful publication",
+          "passed": false,
+          "button_enabled": false,
+          "retry_completed": false,
+          "content_revision": 1,
+          "published_revision": 1
+        },
+        {
+          "case": "check arriving during failed publish settles and can retry",
+          "passed": false,
+          "button_enabled": false,
+          "status_before_retry": "Checking the saved draft…",
+          "retry_completed": false,
+          "server_unchanged": true
+        }
+      ],
+      "passed": 0,
+      "total": 2,
+      "browser_errors": []
+    },
+    "fixed": {
+      "cases": [
+        {
+          "case": "saved draft can check immediately after successful publication",
+          "passed": true,
+          "button_enabled": true,
+          "retry_completed": true,
+          "content_revision": 1,
+          "published_revision": 1
+        },
+        {
+          "case": "check arriving during failed publish settles and can retry",
+          "passed": true,
+          "button_enabled": true,
+          "status_before_retry": "This saved draft has not been checked.",
+          "retry_completed": true,
+          "server_unchanged": true
+        },
+        {
+          "case": "old editor success leaves new pending check untouched",
+          "passed": true,
+          "pending_panel_and_caret_unchanged": true,
+          "content_revision": 1,
+          "published_revision": 1
+        },
+        {
+          "case": "old editor network-error leaves new pending check untouched",
+          "passed": true,
+          "pending_panel_and_caret_unchanged": true,
+          "content_revision": 1,
+          "published_revision": 1
+        }
+      ],
+      "passed": 4,
+      "total": 4,
+      "browser_errors": []
+    },
+    "scope": "Only check request settlement and publication-completion check UI refresh; exact-revision publish protocol unchanged."
+  }
 }

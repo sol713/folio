@@ -70,3 +70,4 @@ jobs:
           /tmp/folio-browser-env/bin/python scripts/publication_review_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-review-results.json
           /tmp/folio-browser-env/bin/python scripts/local_recovery_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-local-recovery-results.json
           /tmp/folio-browser-env/bin/python scripts/content_check_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-content-browser-results.json
+          /tmp/folio-browser-env/bin/python scripts/content_check_busy_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-content-busy-results.json
