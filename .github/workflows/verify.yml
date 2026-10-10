@@ -1,0 +1,68 @@
+name: Verify Folio
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ['1.25.x', '1.27.x']
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: ${{ matrix.go }}
+          cache: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+      - name: Go tests, race detector, vet and module integrity
+        run: |
+          go test ./...
+          go test -race ./...
+          go vet ./...
+          go mod verify
+      - name: Frontend and license checks
+        run: |
+          node --check web/app.js
+          node --check web/i18n.js
+          node --test web/tests/*.test.cjs
+          python3 scripts/check_licenses.py
+      - name: Build and real daemon/CLI/MCP checks
+        run: |
+          CGO_ENABLED=0 go build -trimpath -buildvcs=false -o dist/folio ./cmd/folio
+          python3 scripts/e2e.py --binary dist/folio
+          python3 scripts/workflows_e2e.py --binary dist/folio
+          python3 scripts/reliability_e2e.py --binary dist/folio
+          python3 -m unittest discover -s ops/tests -v
+          python3 ops/tests/integration.py --binary dist/folio
+      - name: Actual scratch container lifecycle
+        if: matrix.go == '1.27.x'
+        run: python3 scripts/docker_e2e.py --binary dist/folio --report /tmp/folio-docker-results.json
+      - name: Install pinned browser tooling
+        if: matrix.go == '1.27.x'
+        run: |
+          python3 -m venv /tmp/folio-browser-env
+          /tmp/folio-browser-env/bin/pip install playwright==1.62.0
+          /tmp/folio-browser-env/bin/python -m playwright install --with-deps chromium
+      - name: Actual browser workflows and mobile regression
+        if: matrix.go == '1.27.x'
+        run: |
+          CHROMIUM_PATH=$(/tmp/folio-browser-env/bin/python -c "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
+          /tmp/folio-browser-env/bin/python scripts/browser_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --output /tmp/folio-browser-results
+          /tmp/folio-browser-env/bin/python scripts/publication_review_e2e.py --binary dist/folio --chromium "$CHROMIUM_PATH" --report /tmp/folio-review-results.json

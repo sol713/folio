@@ -103,6 +103,8 @@ for test in web/tests/*.test.cjs; do node "$test"; done
 
 See [architecture](docs/ARCHITECTURE.md), [security](docs/SECURITY.md), [verification record](docs/VERIFICATION.md), and [GitHub research/provenance](docs/INSPIRATION.md). The verification record preserves the v0.1 coverage history and distinguishes later checks; historical browser screenshots or benchmarks are not automatically v0.2 coverage.
 
+The [2026-10-09 cloud refinement](docs/CLOUD-REFINEMENT.md) records a fresh original-source baseline, bootstrap/unsaved-editor/mobile regressions, and actual Docker and Chromium acceptance. Its new reusable gates live in `scripts/reliability_e2e.py`, `scripts/docker_e2e.py`, `scripts/browser_e2e.py`, and `scripts/check_licenses.py`.
+
 The [operations toolkit](docs/OPERATIONS.md) adds non-root Docker/Compose generation, diagnostics, paused online recovery drills, offline backup validation and upgrade/rollback tooling. Consult its [integration record](ops/docs/integration.md) for executed checks. Docker container build/run and live upgrade/rollback require target-host verification; configuration tests are not runtime verification. No public GitHub release or production deployment is claimed.
 
 ## License
