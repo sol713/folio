@@ -23,3 +23,5 @@ This is pre-production v0.2 software. Automated checks do not replace independen
 - Secrets, credentials and user data should not enter source archives, screenshots, test artifacts or bug reports
 
 For production: terminate TLS, set the canonical base URL, configure authenticated backup storage, restrict network reachability of administrative clients, rotate demo/local tokens, disable demo content, and review dependency updates. Media confidentiality, comprehensive rate limiting, OAuth, audit retention policy, multi-user roles, large-scale search and denial-of-service hardening remain outside this release's promise.
+
+- `posts.relations` uses the existing private `read` scope: owner, draft, read and proposal tokens already authorized to read drafts can see related article IDs, titles and snapshot metadata. Authorization precedes post lookup. No anonymous operation, public graph endpoint or permission is added; the existing public live-only backlinks response remains unchanged. Only saved snapshots are parsed; no outbound URL, filesystem probe, script or provider runs. Relationship evidence and article titles are escaped before Studio display.

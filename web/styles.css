@@ -57,3 +57,19 @@ body{font-size:16px}.meta,.eyebrow,.small-label,.section-title,.art-caption,.art
 .check-limits summary { cursor: pointer; }
 .content-check [disabled] { opacity: .55; cursor: default; }
 #publish-check { margin: 18px 0; padding-top: 14px; border-top: 1px solid var(--line); }
+
+/* Bounded author-only article relationships. */
+.article-relations { min-width:0; overflow-wrap:anywhere; }
+.article-relations .check-heading { flex-wrap:wrap; gap:8px; }
+.relations-list { border-top:1px solid var(--line); padding:12px 0; }
+.relations-list summary { cursor:pointer; font-size:12px; font-weight:600; }
+.relations-list ul { list-style:none; padding:0; margin:12px 0 0; }
+.relations-list ul > li { padding:10px 0; border-bottom:1px solid var(--line); }
+.relations-list a { text-decoration:underline; text-underline-offset:3px; }
+.relations-list small { display:block; color:var(--muted); font-size:11px; margin-top:5px; }
+.relations-list p { margin:5px 0; }
+.relations-list ol { padding-left:18px; }
+.relations-list code { display:block; font-size:11px; white-space:pre-wrap; overflow-wrap:anywhere; }
+
+.relations-limits { font-size:11px; color:var(--muted); margin-top:14px; }
+.relations-limits summary { cursor:pointer; }
