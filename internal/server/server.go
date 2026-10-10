@@ -242,6 +242,12 @@ func (s *Server) operation(w http.ResponseWriter, r *http.Request) {
 		failure(w, e)
 		return
 	}
+	if result, ok := data.(core.ContentCheck); ok {
+		for i := range result.Findings {
+			result.Findings[i].Message = i18n.Message(i18n.RequestLocale(r), result.Findings[i].Message)
+		}
+		data = result
+	}
 	if op == "system.capabilities" {
 		w.Header().Set("Content-Language", "en")
 	}

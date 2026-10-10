@@ -42,3 +42,18 @@ body{font-size:16px}.meta,.eyebrow,.small-label,.section-title,.art-caption,.art
 .local-copy-list{display:grid;gap:12px}.local-copy-choice{display:grid;text-align:left;border:1px solid var(--line);padding:16px;background:var(--paper);gap:5px;min-width:0;font:inherit}.local-copy-choice strong{overflow-wrap:anywhere}.local-copy-choice span{font-size:12px;color:var(--muted)}
 .local-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:20px 0}.local-comparison section{min-width:0;border:1px solid var(--line);padding:14px}.local-comparison h3,.local-comparison p{overflow-wrap:anywhere}.local-comparison h4{font-size:12px;color:var(--muted);margin-bottom:12px}.local-comparison .review-markdown{white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;font-size:12px}.local-metadata{display:grid;grid-template-columns:90px minmax(0,1fr);font-size:12px;gap:5px;margin:12px 0}.local-metadata dd{margin:0;overflow-wrap:anywhere}
 @media(max-width:600px){.local-comparison{grid-template-columns:minmax(0,1fr)}.local-controls{gap:10px}.local-controls label{width:100%}.local-copy-choice{padding:12px}.local-recovery{padding:12px}}
+
+/* Read-only publication guidance shares the existing editor panels. */
+.content-check { min-width: 0; font-size: 12px; line-height: 1.65; }
+.content-check p { margin: 8px 0; }
+.check-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+.check-findings { padding-left: 20px; margin: 16px 0; }
+.check-findings li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.check-findings code { display: block; overflow-wrap: anywhere; white-space: pre-wrap; }
+.check-findings small, .check-findings button { display: block; margin-top: 6px; }
+.check-severity { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.check-warning { color: #ac422c; }
+.check-snapshot, .check-scope, .check-limits { color: var(--muted); }
+.check-limits summary { cursor: pointer; }
+.content-check [disabled] { opacity: .55; cursor: default; }
+#publish-check { margin: 18px 0; padding-top: 14px; border-top: 1px solid var(--line); }

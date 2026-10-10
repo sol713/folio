@@ -365,6 +365,8 @@ func (s *Store) execute(op string, raw json.RawMessage, actor string) (any, erro
 			return posts[i].UpdatedAt > posts[j].UpdatedAt
 		})
 		return map[string]any{"posts": posts}, nil
+	case "posts.check":
+		return s.checkContent(raw)
 	case "posts.get", "posts.preview":
 		var a actionInput
 		if e := decode(raw, &a); e != nil {
