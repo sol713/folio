@@ -62,9 +62,10 @@ See [review and scheduling workflows](docs/WORKFLOWS.md) and [migration](docs/MI
 | Review | Immutable agent proposals, plain-text changes, owner approve/reject, stale-base protection; approval only creates/updates private drafts |
 | Publication guidance | Read-only saved-draft checks for internal article URLs, local media and empty summaries; revision-bound findings and source location, with explicit limits |
 | Revision review | Full saved-snapshot comparison, paged history and explicit guarded private restore; current typing and uncertain receipts stay protected |
+| Saved story search | Private title/summary/Markdown search, short CJK phrases, ranked plain-source snippets and revision-checked editor location; existing slug/tag search retained |
 | Scheduling | Explicit future publication of a pinned snapshot, cancellation/rescheduling, restart catch-up, audit and backup persistence; paused restore review |
 
-All **36 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and three read-only content analyses). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
+All **37 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations, three read-only content analyses and saved-story search). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
 
 ## 中文 / English
 
@@ -84,7 +85,8 @@ CLI: `folio --lang en --help` or `FOLIO_LANG=en folio --help`; default is `zh-CN
 - Markdown migration is a bounded frontmatter subset, not a complete Hugo/Obsidian site converter. It preserves source-date provenance rather than backdating actual publication, does not fetch/copy attachments, and never publishes automatically
 - Migration is per-item, not one atomic batch: committed private drafts remain after a later failure. Preserve and retry the exact reviewed plan against the same instance; inspect every outcome
 - Proposals and schedules use fixed role tokens, not per-agent accounts, expiring grants or a multi-user approval system
-- Search is a bounded in-memory Unicode substring scan, not a large-scale full-text engine
+- [Saved-story search](docs/STORY-SEARCH.md) reads current saved drafts in the private workspace; first plain-source match per field, up to 50 ranked stories, with no unsaved buffer/history search. Refine a truncated query. Public search remains a separate published-snapshot scan
+- Search uses an in-memory Unicode literal substring scan within the existing 64 MiB dataset cap, without an index, fuzzy matching, stemming or semantic retrieval
 - Current logical dataset cap: **64 MiB** including revision history/base64 backup representation; one Markdown revision up to **1 MiB**; one media image up to **5 MiB**. SQLite writes are per-post/per-asset, but the small-site catalog remains cached in memory. Do not claim multi-gigabyte media-library scalability
 - Uploaded media URLs are public immutable assets. Do not upload confidential images, even when attaching them to a private draft
 - Audit history retains the most recent 10,000 events; retry records are retained until logical export/restore
