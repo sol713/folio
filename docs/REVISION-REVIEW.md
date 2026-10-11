@@ -39,8 +39,8 @@ bounded versions; this change does not add pagination to full article retrieval.
 Text is escaped in Studio. Comparison does not render HTML, load images, fetch
 URLs, probe files or contact an AI provider.
 
-History pages show eight rows. The selector includes the latest 100 versions,
-current, live and the chosen row. Choose an older row through history pages to
+History pages load eight metadata rows from the server. The selector includes
+the current history page, current, live and the chosen row. Choose an older row through history pages to
 include that exact version; CLI/API/MCP can compare arbitrary retained versions.
 Current and live labels refer to actual snapshots, not status inferred from a
 historical row. A live snapshot missing from sparse imported history is readable
@@ -147,7 +147,7 @@ API / CLI / MCP 统一新增第 36 个操作 `posts.compare`，MCP 名为 `posts
 错误。历史备份的超长 cover 仍按原有规则导入及导出，不改旧数据；可离线审阅原备份
 或选择较小版本。估算保守，部分实际小于 64 MiB 的响应也可能被拒绝。
 历史每页八行；选择器含
-最近 100 个版本及当前、线上、已选版本。更早版本可从历史分页选择，或指定准确版本号。
+本页历史及当前、线上、已选版本。更早版本可从历史分页选择，或指定准确版本号。
 
 owner、draft、read、proposal 均沿用已有私有读取权限，可查看历史全文；read / proposal
 没有恢复权限，owner / draft 保留原有 draft scope。`restorable` 只是提示，不授予权限。

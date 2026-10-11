@@ -3,8 +3,11 @@ package i18n
 // Keys are canonical English templates. Values are Simplified Chinese. User text,
 // operation names, error codes, JSON field names and schemas are never translated.
 var messages = map[string]string{
-	"Revision comparison exceeds its conservative 64 MiB JSON budget; inspect the original backup offline": "版本比较超过保守的 64 MiB JSON 预算；请离线审阅原备份",
-	"Revision comparison requires a post ID and positive current, source and destination revisions": "版本比较须提供文章 ID 及正数的当前、来源和目标版本",
+	"include_revisions must be a boolean": "include_revisions 须为布尔值",
+	"Revision history requires a post ID, positive current revision, limit 1–50 and an optional positive before_revision": "修订历史须提供文章 ID、正数当前版本、1–50 条页大小及可选的正数 before_revision 游标",
+	"History cursor cannot exceed the current saved revision":                                                             "历史游标不能超过当前已保存版本",
+	"Revision comparison exceeds its conservative 64 MiB JSON budget; inspect the original backup offline":                "版本比较超过保守的 64 MiB JSON 预算；请离线审阅原备份",
+	"Revision comparison requires a post ID and positive current, source and destination revisions":                       "版本比较须提供文章 ID 及正数的当前、来源和目标版本",
 
 	"Article relations require a post ID and positive current draft revision":                           "文章引用关系须提供文章 ID 和正数的当前已保存草稿版本",
 	"Content check requires a post ID and positive current draft revision":                              "内容检查须提供文章 ID 和正数的当前已保存草稿版本",

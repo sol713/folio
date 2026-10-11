@@ -47,14 +47,16 @@ func init() {
 	add("system.capabilities", "Discover exact operation schemas, permissions, and safe automation workflow", "read", true, nil)
 	add("system.info", "Get version, instance revision, storage, counts and honest AI availability", "read", true, nil)
 	add("posts.list", "List current authoring drafts, including unpublished changes", "read", true, map[string]any{"status": str("Optional draft, changed, published, or trash"), "query": str("Case-insensitive title/content filter")})
-	add("posts.get", "Read a draft and immutable content revision history", "read", true, ref, "id")
+	lightRead := fields(ref, map[string]any{"include_revisions": boolean("Include full historical content; defaults true for compatibility. False returns an empty revisions array and revision_count.")})
+	add("posts.get", "Read a draft and immutable content revision history", "read", true, lightRead, "id")
 	positive := func(description string) map[string]any {
 		return map[string]any{"type": "integer", "minimum": 1, "description": description}
 	}
+	add("posts.history", "Read a bounded page of private saved revision metadata, newest first; no historical content or writes", "read", true, fields(ref, map[string]any{"revision": positive("Exact current saved draft revision; a changed head returns conflict"), "limit": map[string]any{"type": "integer", "minimum": 1, "maximum": 50, "description": "Rows per page, default 8"}, "before_revision": positive("Exclusive revision-number cursor; omit for the first page")}), "id", "revision")
 	add("posts.compare", "Compare two saved article revisions and all editable fields. Read-only; private author workspace; never saves, restores or publishes.", "read", true, fields(ref, map[string]any{"revision": positive("Current saved draft revision; stale revisions fail"), "from_revision": positive("Saved source revision"), "to_revision": positive("Saved destination revision")}), "id", "revision", "from_revision", "to_revision")
 	add("posts.relations", "Read bounded outgoing and incoming article links from current saved drafts and published snapshots. Read-only; no network requests; author workspace only.", "read", true, fields(ref, map[string]any{"revision": map[string]any{"type": "integer", "minimum": 1, "description": "Current saved draft revision; stale revisions fail"}}), "id", "revision")
 	add("posts.check", "Check the current saved draft for internal article links, instance media and summary reminders. Read-only; no network requests; never gates publication.", "read", true, fields(ref, map[string]any{"revision": integer("Positive current saved draft revision; stale revisions fail")}), "id", "revision")
-	add("posts.preview", "Render a specific private revision without publishing. Fetch before publish.", "read", true, fields(ref, map[string]any{"revision": integer("Optional historical revision; defaults current")}), "id")
+	add("posts.preview", "Render a specific private revision without publishing. Fetch before publish.", "read", true, fields(lightRead, map[string]any{"revision": integer("Optional historical revision; defaults current")}), "id")
 	add("posts.create", "Create a private draft. Never publishes implicitly.", "draft", false, postFields, "title", "slug", "markdown")
 	add("posts.update", "Replace draft fields using revision CAS; live published content stays unchanged", "draft", false, fields(postFields, map[string]any{"id": str("Post ID"), "expected_revision": integer("Current draft revision")}), "id", "expected_revision", "title", "slug", "markdown")
 	add("posts.publish", "Publish the exact reviewed draft revision; requires publisher role and explicit confirmation", "publish", false, actionFields, "id", "expected_revision", "confirm")

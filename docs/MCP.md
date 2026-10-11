@@ -33,7 +33,7 @@ The daemon stores images in individual SQLite BLOB rows and metadata separately.
 The daemon is the only writer. MCP does not open SQLite, acquire a separate
 writer lock, or implement another set of business rules. Run `folio serve` first.
 
-At startup the adapter calls `system.capabilities`. The v0.2 registry has 36 operations. Each returned operation
+At startup the adapter calls `system.capabilities`. The v0.2 registry has 37 operations. Each returned operation
 becomes one tool with the exact same input JSON Schema. Names replace dots with
 underscores: `posts.preview` becomes `posts_preview`; `backup.restore` becomes
 `backup_restore`. Descriptions include required scope when discovery supplies it.
