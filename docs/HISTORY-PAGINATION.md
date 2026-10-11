@@ -56,13 +56,27 @@ adds `revision_count`. It does not alter the exact selected version or privacy.
 Studio uses light reads and eight metadata rows per page. Compare selectors use
 the current page plus current, live and selected versions. Older/Newer requests
 update only the history region; typing, selections and unsaved input stay intact.
-Only one page request runs at a time. Cancel invalidates its result. An article,
+The comparison window also pages metadata while retaining both selected versions,
+so two old snapshots on different pages remain directly comparable. Only one
+page request runs at a time. Cancel invalidates its result and offers Try again;
+the prior page/cursors remain available. Cancelling a post-save automatic refresh
+also leaves an explicit retry to retrieve the new head’s first page. An article,
 route, editor, token, instance or saved-head change invalidates late successes
 and errors. Local save/restore resets pages and reads the new head. A 409 leaves
 the editor and its original CAS base intact and offers an explicit reopen;
 unsaved changes still require the existing discard confirmation. No unseen
 external edit becomes the base of a subsequent Save. Compare/restore keep their
 original dirty guards, current-head CAS and exact retry receipts.
+
+A real 404 marks history unavailable and disables old history actions while
+retaining the editor and original CAS base. Export unsaved edits before an explicit
+reopen; the existing discard confirmation still applies. Delete then recover
+creates a new saved revision, so an old anchor returns 409 until reopened.
+A successful read completed before deletion can still display that older snapshot;
+there is no push invalidation, and the next read detects the deletion. First create
+commits its article route before starting metadata refresh. Save/restore/publish completion
+refreshes sidebar controls when the write lock ends, including explicit errors;
+it does not rebuild editable fields.
 
 This is response pagination. SQLite still stores and loads full revision arrays
 inside each post record, under the existing 64 MiB logical-instance limit. It
@@ -75,6 +89,7 @@ Reproduce with a built binary:
 ```sh
 python3 scripts/history_pagination_e2e.py --binary dist/folio --report /tmp/folio-history-api.json
 python3 scripts/history_pagination_e2e.py --binary dist/folio --chromium /path/to/chromium --report /tmp/folio-history-browser.json
+python3 scripts/history_lifecycle_e2e.py --binary dist/folio --chromium /path/to/chromium --report /tmp/folio-history-lifecycle.json
 ```
 
 ## 中文
@@ -107,7 +122,15 @@ python3 scripts/history_pagination_e2e.py --binary dist/folio --chromium /path/t
 已选版本。翻页只更新历史侧栏，不重建编辑字段；取消、文章/路由/会话/实例/
 已保存版本变化使旧响应失效。新保存/恢复重置分页。409 保留输入及原始 CAS 基线，
 明确提示重新打开；未保存内容仍需既有的放弃确认，不自动把外部改动设成保存基线。
-比较/恢复的脏稿保护、CAS 和精确幂等回执保持。
+比较窗口也可翻阅元数据，并保留来源/目标两个已选版本，可直接比较跨页的两个旧版本。
+取消后保留原页面及游标，提供明确重试；保存后的自动刷新即使取消也能重新加载首页。
+保存/恢复/发布结束（包括明确失败）会解除侧栏按钮的禁用，不重建编辑字段。首次创建先
+切换为文章路由，再启动历史刷新；比较/恢复的脏稿保护、CAS 和精确幂等回执保持。
+
+真实 404 会把历史标记为不可用、禁用旧历史操作，但保留输入及原 CAS 基线；导出
+未保存输入后再明确重新打开，放弃确认仍有效。删除再回收产生新版本，旧锚点返回
+409。删除前已经成功完成的读取仍可能显示旧快照；没有推送失效通知，下次读取
+才发现删除。
 
 本轮分页限制的是**响应传输**。SQLite 仍在单条文章记录内保存、加载完整历史，
 64 MiB 逻辑实例上限不变；没有进行修订表迁移、作者目录分页或给所有旧版单快照
