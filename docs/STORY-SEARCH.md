@@ -25,7 +25,9 @@ configured. These calls do not write, publish, schedule or contact external
 services. No database migration, dependency, search service or provider is added.
 
 The strict object schema requires a nonblank `query`, at most 128 Unicode
-characters before trimming. Matching trims outer whitespace and uses Unicode
+characters before trimming. Studio and the server trim the same 25 Unicode
+White_Space code points used by Go `strings.TrimSpace`, including U+0085.
+U+200B and U+FEFF remain literal characters. Matching uses Unicode
 simple lowercasing plus a **literal substring**. One-character Chinese queries
 work. No regular expressions, accent folding, normalization, fuzzy matching,
 stemming or semantic ranking are implied. `status` is optional: empty, `draft`,
@@ -43,7 +45,8 @@ Stories rank by their strongest matching field in that order, then saved update
 time descending, then ID ascending. Results retain at most `limit` candidates
 while counting all current matching stories; there is no continuation cursor.
 
-Each match has `field`, one-based source `line`, zero-based **Unicode rune**
+Each match has `field`, one-based source `line` (LF, CRLF and CR each count
+as one line break), zero-based **Unicode rune**
 `start_rune`/exclusive `end_rune`, exact original `text`, a plain `snippet`,
 `snippet_start_rune` and truncation flags. A snippet contains at most 40 runes
 before, the match (at most 128), and 60 after: 228 total. Tags refer to their
@@ -60,7 +63,13 @@ reappear after logout. Failed reads preserve the query and have an explicit retr
 Language changes preserve query/caret and translate labels, never authored text.
 
 Clicking a match opens the latest saved draft and checks its revision **and exact
-source range** before selecting text. A later writer triggers a clear notice
+source range** before selecting text. It then verifies the whole displayed
+field against the saved source and maps raw rune positions to normalized LF /
+UTF-16 input coordinates. Original CRLF/CR bytes stay unchanged on the server;
+leading LF is retained in the textarea. Repeated identical characters still
+select the first original occurrence. Pending targets belong to one render and
+route, so Back cannot apply them to a list or later editor. New input preserves
+its own buffer/caret and declines automatic location. A later writer triggers a clear notice
 instead of selecting obsolete coordinates. Selection changes no content and
 performs no save or publish. Ordinary/new-tab links still open the story; match
 coordinates remain in memory, never in URLs. Existing unsaved-navigation
@@ -88,7 +97,9 @@ HTTP、CLI、MCP 共用第 37 个操作 `posts.search`（MCP 名称 `posts_searc
 服务；无需数据库迁移、新依赖、搜索服务或付费模型。
 
 `query` 必填，去除首尾空白后不能为空，原输入最多 128 个 Unicode 字符。
-采用 Unicode 简单小写转换后的字面子串匹配，支持单个汉字；不支持正则、
+两端均裁剪 Go `strings.TrimSpace` 使用的 25 个 Unicode White_Space 字符，
+包括 U+0085；U+200B 和 U+FEFF 保留为字面字符。采用 Unicode 简单小写转换
+后的字面子串匹配，支持单个汉字；不支持正则、
 模糊匹配、同音词、词干、Unicode 归一化或语义搜索。`status` 可省略，或设为
 空字符串、`draft`、`changed`、`published`、`trash`；只有显式请求 `trash` 才包含
 回收站。`limit` 默认 20，范围 1 至 50，未知字段和 null 被拒绝。Studio 最多
@@ -97,7 +108,8 @@ HTTP、CLI、MCP 共用第 37 个操作 `posts.search`（MCP 名称 `posts_searc
 每篇只返回各字段的首次命中；排序依次优先标题、摘要、正文、网址短名、标签，
 再按保存时间倒序、ID 正序。返回当前版本、线上版本号、实例身份、快照版本、
 总命中数和截断提示，不返回全文、HTML 或历史/线上正文。每个片段最多 228 个
-字符：命中前 40、搜索词最多 128、命中后 60。行号从 1 开始，源位置是从 0
+字符：命中前 40、搜索词最多 128、命中后 60。行号从 1 开始，LF、CRLF、CR
+各算一次换行；源位置是从 0
 开始的 Unicode rune 区间，末尾不含；不是 UTF-8 字节或 JavaScript UTF-16
 位置。大小写转换改变字节宽度时仍对应原文，标签对应以逗号空格连接的编辑框。
 
@@ -105,7 +117,11 @@ HTTP、CLI、MCP 共用第 37 个操作 `posts.search`（MCP 名称 `posts_searc
 中间请求。乱序返回、清空、换页、退出登录后到达的旧成功或错误不会污染当前
 页面；失败保留搜索词并提供重试。中英切换保留搜索词和光标，只翻译界面。
 
-点击命中后先打开最新草稿，再核对已保存版本和原文区间；其他写入者已改稿时
+点击命中后先打开最新草稿，核对已保存版本、原始源码命中区间及整个显示字段，
+再把原始 rune 位置投影为浏览器 LF / UTF-16 选区。服务器上的 CRLF/CR 字节不改，
+textarea 保留开头 LF；重复相同字符也选择原始首次命中。待定位目标绑定单次渲染
+与路由，Back 后不会作用于列表或后来编辑器；新输入保留自己的内容和光标，
+不自动定位。其他写入者已改稿时
 提示重新搜索，不选取过时坐标。定位本身不改稿、不保存、不发布；坐标只保留
 在内存中，不写入 URL，新标签页链接仍正常打开文章。原有未保存离开确认与
 Markdown 导出保持可用。定位后编辑会清除提示。搜索是当前快照，编辑或并发

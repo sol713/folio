@@ -130,3 +130,41 @@ func TestStorySearchTopFiftyAndStableTieOrder(t *testing.T) {
 		}
 	}
 }
+
+func TestStorySearchRawNewlinesAndLineNumbers(t *testing.T) {
+	for _, sample := range []struct {
+		source, query    string
+		start, end, line int
+	}{
+		{"first\r\n雨声", "雨声", 7, 9, 2},
+		{"a\r\n声声", "声", 3, 4, 2},
+		{"\n雨声", "雨声", 1, 3, 2},
+		{"first\r雨声", "雨声", 6, 8, 2},
+		{"🐾\r\n雨声🐾", "雨声", 3, 5, 2},
+		{"\n🐾\r\nfirst\r声声\r\n雨声🐾", "雨声", 14, 16, 5},
+		{"İ\r\n🐾声声", "声", 4, 5, 2},
+	} {
+		m, ok := storyMatch("markdown", sample.source, strings.ToLower(sample.query))
+		if !ok || m.Start != sample.start || m.End != sample.end || m.Line != sample.line || m.Text != sample.query || m.Snippet != sample.source {
+			t.Fatalf("raw source changed or CRLF/CR/LF line mapping drifted: %+v", m)
+		}
+	}
+}
+
+func TestStorySearchUnicodeWhitespaceContract(t *testing.T) {
+	s := testStore(t)
+	call(t, s, "posts.create", map[string]any{"title": "Fictional Unicode boundary", "slug": "whitespace-contract", "markdown": "雨声 \u200b雨声\u200b \ufeff雨声\ufeff"})
+	spaces := []rune{9, 10, 11, 12, 13, 32, 0x85, 0xa0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200a, 0x2028, 0x2029, 0x202f, 0x205f, 0x3000}
+	for _, space := range spaces {
+		r := searchSaved(t, s, map[string]any{"query": string(space) + "雨声" + string(space)})
+		if r.Query != "雨声" || r.Total != 1 || r.Results[0].Matches[0].Start != 0 {
+			t.Fatalf("Unicode White_Space U+%04X disagrees with documented query contract", space)
+		}
+	}
+	for _, literal := range []string{"\u200b雨声\u200b", "\ufeff雨声\ufeff"} {
+		r := searchSaved(t, s, map[string]any{"query": literal})
+		if r.Query != literal || r.Total != 1 || r.Results[0].Matches[0].Text != literal {
+			t.Fatal("U+200B or U+FEFF was treated as trimming whitespace")
+		}
+	}
+}

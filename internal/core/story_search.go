@@ -131,6 +131,12 @@ func storyMatch(field, source, needle string) (StoryMatch, bool) {
 	runes := []rune(source)
 	end := start + width
 	left, right := max(0, start-40), min(len(runes), end+60)
-	return StoryMatch{Field: field, Line: strings.Count(string(runes[:start]), "\n") + 1, Start: start, End: end,
+	line := 1
+	for i, r := range runes[:start] {
+		if r == '\r' || r == '\n' && (i == 0 || runes[i-1] != '\r') {
+			line++
+		}
+	}
+	return StoryMatch{Field: field, Line: line, Start: start, End: end,
 		Text: string(runes[start:end]), Snippet: string(runes[left:right]), SnippetStart: left, TruncatedStart: left > 0, TruncatedEnd: right < len(runes)}, true
 }

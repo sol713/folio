@@ -13,12 +13,192 @@ from e2e import Harness, MCP, require
 FIELDS = ['title', 'slug', 'markdown', 'excerpt', 'tags', 'category', 'cover', 'featured']
 
 
+def review_regressions(args, h, server, call, create, result, done, kind='all'):
+    """Real source-coordinate, navigation-owner and Unicode query boundary probes."""
+    from playwright.sync_api import sync_playwright, expect
+    observations = result.setdefault('review_cases', [])
+    failures = []
+    base = server['url']
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(executable_path=args.chromium, headless=True)
+
+        def page():
+            ctx = browser.new_context()
+            p = ctx.new_page()
+            errors, writes = [], []
+            p.on('pageerror', lambda e: errors.append(str(e)))
+            p.on('request', lambda req: writes.append(req.url.rsplit('/', 1)[-1]) if req.url.rsplit('/', 1)[-1] in ['posts.create', 'posts.update', 'posts.restore', 'posts.publish', 'schedules.create'] else None)
+            p.goto(base + '/studio')
+            expect(p.locator('#login-form')).to_be_visible()
+            p.evaluate("window.FolioI18n.setLocale('en')")
+            p.locator('#access-token').fill(server['token'])
+            p.locator('#login-form button[type="submit"]').click()
+            expect(p.locator('.post-table')).to_be_visible()
+            return ctx, p, errors, writes
+
+        def settle(p):
+            p.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+
+        def snapshot(p):
+            return p.locator('#post-markdown').evaluate('(e)=>({value:e.value,start:e.selectionStart,end:e.selectionEnd})')
+
+        def record(case, passed, **data):
+            observations.append({'case':case, 'passed':passed, **data})
+            if not passed:
+                failures.append(case)
+
+        def normalized(text):
+            return text.replace('\r\n', '\n').replace('\r', '\n')
+
+        def utf16(text):
+            return len(text.encode('utf-16-le')) // 2
+
+        if kind in ['all', 'newlines']:
+            samples = [('crlf-api', 'first\r\n雨声', '雨声', 'markdown', False),
+                       ('repeated-api', 'a\r\n声声', '声', 'markdown', False),
+                       ('leading-lf-api', '\n雨声', '雨声', 'markdown', False),
+                       ('cr-api', 'first\r雨声', '雨声', 'markdown', False),
+                       ('emoji-crlf-cli', '🐾\r\n雨声🐾', '雨声', 'markdown', True),
+                       ('emoji-lf-cli', '🐾\n雨声🐾', '雨声', 'markdown', True),
+                       ('mixed-api', '\n🐾\r\nfirst\r声声\r\n雨声🐾', '雨声', 'markdown', False),
+                       ('mixed-crlf-cli', 'first\r\n🐾\r\n雨声🐾', '雨声', 'markdown', True),
+                       ('excerpt-leading-lf-api', '\n雨声', '雨声', 'excerpt', False),
+                       ('title-crlf-api', 'first\r\n雨声', '雨声', 'title', False)]
+            for name, source, query, field, cli in samples:
+                payload = {'title':'Fictional '+name, 'slug':'review-'+name, 'markdown':'Fictional unrelated body', field:source}
+                post = (h.call(server, 'posts.create', payload)['data'] if cli else call('posts.create', payload))['post']
+                require(post[field] == source, 'saved source changed before probe '+name)
+                before = call('backup.export')['state']
+                r = call('posts.search', {'query':query, 'limit':50})
+                hit = next(p for p in r['results'] if p['id'] == post['id'])
+                match = next(m for m in hit['matches'] if m['field'] == field)
+                raw_start = source.index(query)
+                raw_end = raw_start + len(query)
+                require((match['start_rune'], match['end_rune'], match['text']) == (raw_start,raw_end,query), 'raw API range drift '+name)
+                expected = [utf16(normalized(source[:raw_start])), utf16(normalized(source[:raw_end]))]
+                ctx,p,errors,writes = page()
+                p.locator('#studio-search').fill(query)
+                link = p.locator('[data-story-hit="'+post['id']+'"] .story-match').filter(has=p.locator('.story-match-label', has_text={'title':'Title','excerpt':'Summary','markdown':'Markdown'}[field])).first
+                expect(link).to_be_visible()
+                link.click()
+                expect(p.locator('#post-markdown')).to_be_visible()
+                settle(p)
+                actual = p.locator('#post-'+field).evaluate('(e)=>({value:e.value,start:e.selectionStart,end:e.selectionEnd,selected:e.value.slice(e.selectionStart,e.selectionEnd)})')
+                notice = p.locator('#story-search-location').text_content() if p.locator('#story-search-location').count() else ''
+                unchanged = call('backup.export')['state'] == before
+                saved = p.locator('#save-state').text_content() == 'All changes saved'
+                passed = actual['value']==normalized(source) and [actual['start'],actual['end']]==expected and actual['selected']==normalized(query) and notice.startswith('Located ') and match['line']==normalized(source[:raw_start]).count('\n')+1 and saved and unchanged and not errors and not writes
+                record(name,passed,field=field,via='CLI' if cli else 'API',raw_range=[raw_start,raw_end],expected_utf16_range=expected,actual=actual,notice=notice,source_line=match['line'],saved=saved,persisted_state_unchanged=unchanged,browser_errors=errors,writes=writes)
+                ctx.close()
+            article = create('review-same-revision-buffer', markdown='雨声 Fictional initial source')
+            for dirty in [False,True]:
+                before=call('backup.export')['state']
+                ctx,p,errors,writes=page()
+                p.locator('#studio-search').fill('雨声')
+                link=p.locator('[data-story-hit="'+article['id']+'"] .story-match')
+                expect(link).to_be_visible()
+                text='雨声 Fictional subsequent buffer'
+                p.evaluate('''({text,dirty})=>{window.reviewInputObserved=false;const observer=new MutationObserver(()=>{const el=document.querySelector('#post-markdown');if(!el)return;observer.disconnect();window.reviewInputObserved=true;el.value=text;el.setSelectionRange(3,11);if(dirty)el.dispatchEvent(new InputEvent('input',{bubbles:true}));});observer.observe(document.querySelector('#app'),{childList:true,subtree:true});}''', {'text':text,'dirty':dirty})
+                link.click();expect(p.locator('#post-markdown')).to_be_visible();settle(p)
+                require(p.evaluate('window.reviewInputObserved'),'native DOM/input probe did not run')
+                actual=snapshot(p)
+                notice=p.locator('#story-search-location').text_content() if p.locator('#story-search-location').count() else ''
+                passed=actual=={'value':text,'start':3,'end':11} and not notice.startswith('Located ') and p.locator('#save-state').text_content()==('Unsaved changes' if dirty else 'All changes saved') and call('backup.export')['state']==before and not errors and not writes
+                record('same-revision-'+('dirty-input' if dirty else 'whole-DOM-mismatch'),passed,actual=actual,notice=notice,browser_errors=errors,writes=writes,persisted_state_unchanged=call('backup.export')['state']==before)
+                ctx.close()
+            if not failures:
+                done('ten raw newline/Unicode fixtures plus two same-revision text/input guards: exact first-match UTF16 range, leading LF, CR/CRLF, emoji and title/summary; bytes/buffer/caret preserved')
+
+        if kind in ['all', 'back']:
+            article = create('review-back', title='Fictional previously open A', markdown='Fictional BACK_MATCH source')
+            for destination in ['list', 'new-dirty', 'reopen-same']:
+                before = call('backup.export')['state']
+                ctx,p,errors,writes = page()
+                p.locator('a[href="/studio/posts/'+article['id']+'"]').first.click()
+                expect(p.locator('#post-markdown')).to_have_value(article['markdown'])
+                p.locator('.studio-nav a[href="/studio"]').evaluate('(e)=>e.click()')
+                expect(p.locator('#studio-search')).to_be_visible()
+                p.locator('#studio-search').fill('BACK_MATCH')
+                expect(p.locator('[data-story-hit="'+article['id']+'"] .story-match')).to_be_visible()
+                held = []
+                captured = [False]
+                def hold_editor(route):
+                    if captured[0]:
+                        route.continue_()
+                    else:
+                        captured[0] = True
+                        held.append((route,route.fetch()))
+                p.route('**/api/op/posts.get',hold_editor)
+                p.locator('[data-story-hit="'+article['id']+'"] .story-match').click()
+                for _ in range(400):
+                    if held:
+                        break
+                    p.wait_for_timeout(20)
+                require(len(held)==1 and held[0][1].status==200,'actual successful editor response was not held')
+                p.evaluate('history.back()')
+                expect(p.locator('#studio-search')).to_be_visible()
+                expect(p.locator('[data-story-hit="'+article['id']+'"] .story-match')).to_be_visible()
+                settle(p)
+                errors_before_release = list(errors)
+                if destination=='new-dirty':
+                    p.locator('a[href="/studio/new"]').first.click()
+                    expect(p.locator('#post-markdown')).to_be_visible()
+                    p.locator('#post-markdown').fill('Fictional subsequent unsaved buffer')
+                    p.locator('#post-markdown').evaluate('(e)=>e.setSelectionRange(3,11)')
+                elif destination=='reopen-same':
+                    p.locator('#studio-search-clear').click()
+                    p.locator('a[href="/studio/posts/'+article['id']+'"]').first.click()
+                    expect(p.locator('#post-markdown')).to_have_value(article['markdown'])
+                    p.locator('#post-markdown').evaluate('(e)=>e.setSelectionRange(2,5)')
+                route_before = p.url
+                snapshot_before = snapshot(p) if p.locator('#post-markdown').count() else p.locator('#post-rows').inner_html()
+                with p.expect_response(lambda r:r.url.endswith('/api/op/posts.get')) as event:
+                    route,response=held.pop();route.fulfill(response=response)
+                event.value.body();settle(p)
+                p.unroute('**/api/op/posts.get')
+                snapshot_after = snapshot(p) if p.locator('#post-markdown').count() else p.locator('#post-rows').inner_html()
+                unchanged = call('backup.export')['state']==before
+                passed=p.url==route_before and snapshot_after==snapshot_before and not errors and not writes and unchanged and not p.locator('#story-search-location').count()
+                if destination=='list':
+                    passed=passed and p.url==base+'/studio' and not p.locator('#post-markdown').count()
+                if destination=='new-dirty':
+                    passed=passed and p.locator('#save-state').text_content()=='Unsaved changes'
+                record('held-editor-back-'+destination,passed,route_unchanged=p.url==route_before,buffer_or_rows_unchanged=snapshot_after==snapshot_before,browser_errors_before_release=errors_before_release,browser_errors=errors,writes=writes,persisted_state_unchanged=unchanged)
+                ctx.close()
+            if not failures:
+                done('three held real posts.get after previously open A/search/Back: list, dirty new editor and same-article reopen retain route/content/caret; zero pageerrors or writes')
+
+        if kind in ['all', 'whitespace']:
+            spaces=[9,10,11,12,13,32,0x85,0xa0,0x1680,*range(0x2000,0x200b),0x2028,0x2029,0x202f,0x205f,0x3000]
+            for code in spaces+[0x200b,0xfeff]:
+                char=chr(code);raw=char+'雨声'+char
+                wanted='雨声' if code in spaces else raw
+                article=create('review-space-'+format(code,'x'),markdown='Fictional '+wanted+' source')
+                r=call('posts.search',{'query':raw,'limit':50})
+                require(r['query']==wanted,'Go Unicode whitespace contract drift')
+                before=call('backup.export')['state']
+                ctx,p,errors,writes=page()
+                with p.expect_response(lambda r:r.url.endswith('/api/op/posts.search')) as event:
+                    p.locator('#studio-search').fill(raw)
+                response=event.value.json();settle(p)
+                hit=p.locator('[data-story-hit="'+article['id']+'"]')
+                marks=hit.locator('mark').all_text_contents() if hit.count() else []
+                passed=response['ok'] and response['data']['query']==wanted and wanted in marks and not p.locator('#story-search-retry').count() and not errors and not writes and call('backup.export')['state']==before
+                record('query-U+'+format(code,'04X'),passed,canonical_query=wanted,browser_response_query=response.get('data',{}).get('query'),marked_text=marks,browser_errors=errors,writes=writes)
+                ctx.close()
+            if not failures:
+                done('all 25 Go Unicode White_Space boundaries agree with Studio; U+200B/U+FEFF remain literal; response identity checks and state isolation retained')
+        browser.close()
+    require(not failures,'review regressions failed: '+', '.join(failures))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--binary', type=Path, required=True)
     parser.add_argument('--chromium')
     parser.add_argument('--report', type=Path, required=True)
     parser.add_argument('--baseline', action='store_true', help='Run the same body-search product assertion on the prior build')
+    parser.add_argument('--review-case', choices=['newlines','back','whitespace'], help='Run one independently reproducible review probe against an exact prior or candidate build')
     args = parser.parse_args()
     checks, cases, errors = [], [], []
     result = {'binary_sha256': hashlib.sha256(args.binary.read_bytes()).hexdigest(), 'baseline': args.baseline,
@@ -76,6 +256,11 @@ def main():
                 changed = update(live, markdown='PRIVATE_NEW_SEARCH 暗词', excerpt='PRIVATE_NEW_SUMMARY')
                 require([p['id'] for p in call('posts.list', {'query': 'PRIVATE_BODY_MATCH'})['posts']] == [body['id']], 'body fixture is not saved/queryable through the existing API')
                 result['body_fixture_saved_and_queryable'] = True
+                if args.review_case:
+                    require(args.chromium, '--review-case requires Chromium')
+                    review_regressions(args,h,server,call,create,result,done,args.review_case)
+                    h.check_no_secrets()
+                    return
                 if not args.baseline:
                     before = call('backup.export')['state']
                     query = {'query': '雨声', 'limit': 50}
@@ -280,6 +465,7 @@ def main():
                         require(not writes and not errors,'browser search/location wrote content or raised errors')
                         done('seven actual delayed/failed reads: out-of-order, clear, dirty-route, late validation, logout, mismatched identity and retry; zero browser writes/errors')
                         browser.close()
+                    review_regressions(args,h,server,call,create,result,done)
                 h.check_no_secrets()
                 done('captured CLI/MCP/public output and daemon logs contain no access credentials')
             finally:
