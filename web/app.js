@@ -281,13 +281,14 @@
   function reflectRevisionActions(){
     const c=revisionContext;if(!c||!revisionModalActive(c))return;
     const b=$('#confirm-revision'),status=$('#revision-restore-message');if(!status)return;
-    const pending=c.editor.pendingRestore;
+    const pending=c.editor.pendingRestore,history=historyState(c.editor);
     for(const label of $$('#modal-root [data-revision-field]'))label.textContent=I18n.text(fieldLabel(label.dataset.revisionField));
     for(const select of [$('#revision-from'),$('#revision-to')])if(select)for(const option of select.options){const n=Number(option.value);option.textContent=`R${n}${n===c.head?' · '+I18n.t('revision.current'):''}${n===c.editor.post.published_revision?' · '+I18n.t('revision.live'):''}`;}
-    const allowed=pending||c.report&&revisionFresh(c)&&checkSaved()&&c.report.from.current&&c.report.restorable;
+    // Stale metadata blocks a new restore, but never strands its exact retry receipt.
+    const allowed=pending||!history.stale&&c.report&&revisionFresh(c)&&checkSaved()&&c.report.from.current&&c.report.restorable;
     if(b){b.disabled=state.busy||c.running||!allowed||!can('posts.restore');b.textContent=I18n.t(state.busy?'revision.restoring':pending?(pending.acknowledged?'revision.retryhead':'revision.retry'):'revision.restore');}
     const retry=$('#revision-reload');if(retry)retry.disabled=state.busy||c.running||!!pending||!revisionFresh(c);
-    let key=pending?'revision.unconfirmed':c.running?'revision.loading':!revisionFresh(c)?'revision.stale':state.dirty?'revision.savefirst':!c.report||!can('posts.restore')?'revision.readonly':!c.report.from.current?'revision.currentfirst':!c.report.restorable?'revision.reason.'+c.report.restore_reason:'revision.restorenotice';
+    let key=pending?'revision.unconfirmed':history.unavailable?'history.unavailable':history.stale?'history.stale':c.running?'revision.loading':!revisionFresh(c)?'revision.stale':state.dirty?'revision.savefirst':!c.report||!can('posts.restore')?'revision.readonly':!c.report.from.current?'revision.currentfirst':!c.report.restorable?'revision.reason.'+c.report.restore_reason:'revision.restorenotice';
     status.textContent=I18n.t(key);I18n.apply($('#modal-root'));
   }
   async function loadRevisionComparison(c){
@@ -316,7 +317,7 @@
   async function restoreReviewedRevision(c){
     if(!revisionModalActive(c)||state.busy||!can('posts.restore'))return;
     let pending=c.editor.pendingRestore;
-    if(!pending){if(!revisionFresh(c)||!checkSaved()||!c.report?.from.current||!c.report.restorable)return;pending={head:c.head,target:c.report.to.revision,report:c.report,inputSequence:c.inputSequence,fingerprint:c.fingerprint,payload:{id:c.editor.post.id,revision:c.report.to.revision,expected_revision:c.head,idempotency_key:crypto.randomUUID()},uncertain:false,acknowledged:null};c.editor.pendingRestore=pending;}
+    if(!pending){if(historyState(c.editor).stale||!revisionFresh(c)||!checkSaved()||!c.report?.from.current||!c.report.restorable)return;pending={head:c.head,target:c.report.to.revision,report:c.report,inputSequence:c.inputSequence,fingerprint:c.fingerprint,payload:{id:c.editor.post.id,revision:c.report.to.revision,expected_revision:c.head,idempotency_key:crypto.randomUUID()},uncertain:false,acknowledged:null};c.editor.pendingRestore=pending;}
     state.busy=true;reflectCheck();$('#revision-error').textContent='';
     try{
       const receipt=pending.acknowledged||await op('posts.restore',pending.payload);

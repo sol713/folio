@@ -18,7 +18,7 @@ def main():
     parser.add_argument('--binary',type=Path,required=True)
     parser.add_argument('--chromium')
     parser.add_argument('--report',type=Path,required=True)
-    parser.add_argument('--case',choices=['all','create-success','deletion','busy-save-success','busy-save-cancel','busy-restore-success','busy-restore-cancel','busy-publish-success','busy-publish-cancel','publish-render','refresh-cancel','cross-page'],default='all')
+    parser.add_argument('--case',choices=['all','create-success','deletion','busy-save-success','busy-save-cancel','busy-restore-success','busy-restore-cancel','busy-publish-success','busy-publish-cancel','publish-render','refresh-cancel','cross-page','comparison-conflict','comparison-deleted','comparison-conflict-dirty','comparison-deleted-dirty','comparison-conflict-late','comparison-deleted-late','comparison-pending-retry'],default='all')
     args=parser.parse_args();checks=[];cases=[];errors=[];failure=None;failure_state=None
     def done(message):checks.append(message);print('PASS '+message,flush=True)
     try:
@@ -220,6 +220,115 @@ def main():
                                 require(q.locator('#revision-from').input_value()=='2' and q.locator('#revision-to').input_value()=='10','newer metadata page lost selected pair')
                                 require(comparisons[-1]=={'id':p['id'],'revision':18,'from_revision':2,'to_revision':10} and reads and all(r.get('include_revisions') is False for r in reads),'cross-page comparison drifted or fetched full history bodies')
                                 cases.append({'case':'cross-page','pairs':[[10,2],[2,10]],'bounded_reads':True});done('two old revisions on different pages compare both directions; selected pair retained, bounded metadata only')
+                            finally:ctx.close()
+                        comparison_modes=['comparison-conflict','comparison-deleted','comparison-conflict-dirty','comparison-deleted-dirty','comparison-conflict-late','comparison-deleted-late']
+                        for mode in comparison_modes if args.case=='all' else [args.case] if args.case in comparison_modes else []:
+                            p=create(mode);ctx,q=login();held=[];writes=[];statuses=[]
+                            deleted='deleted' in mode;dirty=mode.endswith('dirty');late=mode.endswith('late');expected_status=404 if deleted else 409
+                            q.on('request',lambda r:writes.append(r.post_data_json) if r.url.endswith('/api/op/posts.restore') else None)
+                            def held_stale(route):
+                                payload=route.request.post_data_json
+                                if payload['id']==p['id'] and payload['revision']==18 and payload.get('before_revision'):
+                                    response=route.fetch();statuses.append(response.status);held.append((route,response))
+                                else:route.continue_()
+                            def snapshot():
+                                return q.evaluate('()=>({fields:Object.fromEntries(["title","slug","markdown","excerpt","tags","category","cover","featured"].map(k=>{const e=document.querySelector("#post-"+k);return [k,k==="featured"?e.checked:e.value]})),selection:[document.querySelector("#post-markdown").selectionStart,document.querySelector("#post-markdown").selectionEnd],comparison:document.querySelector("#revision-result").innerHTML,from:document.querySelector("#revision-from").value,to:document.querySelector("#revision-to").value})')
+                            try:
+                                open_post(q,p);expect(q.locator('[data-revision="18"]')).to_have_count(1)
+                                q.locator('[data-compare="17"]').click();expect(q.locator('#confirm-revision')).to_be_enabled()
+                                q.locator('#post-markdown').evaluate('(e)=>e.setSelectionRange(3,11)')
+                                if dirty:
+                                    q.evaluate('()=>{const e=document.querySelector("#post-markdown");e.value="UNSAVED_STALE_RESTORE_KEEP";e.dispatchEvent(new Event("input",{bubbles:true}));e.setSelectionRange(3,11)}')
+                                    expect(q.locator('#confirm-revision')).to_be_disabled()
+                                before=snapshot()
+                                if deleted:delete(p)
+                                else:p=call('posts.update',content(p)|{'id':p['id'],'expected_revision':18,'markdown':'EXTERNAL_STALE_RESTORE_R19'})['post']
+                                unchanged=call('backup.export')['state']
+                                q.route('**/api/op/posts.history',held_stale)
+                                q.locator('#revision-history-pages [data-revision-page="older"]').click();wait_held(q,held)
+                                require(statuses==[expected_status],mode+': response is not the genuine expected history error')
+                                if late:
+                                    if deleted:p=recover(p)
+                                    q.keyboard.press('Escape');q.locator('.studio-nav a[href="/studio"]').click();open_post(q,p)
+                                    expect(q.locator('[data-revision="19"]')).to_have_count(1)
+                                    q.locator('[data-compare="17"]').click();expect(q.locator('#confirm-revision')).to_be_enabled()
+                                    q.locator('#post-markdown').evaluate('(e)=>e.setSelectionRange(3,11)')
+                                    newer=snapshot();newer_status=q.locator('#revision-restore-message').inner_text()
+                                    deliver(q,held)
+                                    require(snapshot()==newer and q.locator('#revision-restore-message').inner_text()==newer_status,'late history error changed the reopened comparison or editor')
+                                    expect(q.locator('#confirm-revision')).to_be_enabled();expect(q.locator('[data-action="history-reopen"]')).to_have_count(0)
+                                    require(not writes,'late history error submitted a restore')
+                                    cases.append({'case':mode,'history_status':expected_status,'reopened_head':19,'new_comparison_unchanged':True,'restore_enabled':True});done(mode+'; held real error ignored after reopening the same story at R19');continue
+                                deliver(q,held)
+                                require(snapshot()==before,mode+': history error changed fields, selection or reviewed comparison')
+                                enabled=q.locator('#confirm-revision').is_enabled()
+                                if enabled:
+                                    # On the old binary, prove this is a clickable product defect,
+                                    # including the real backend rejection; no synthetic error JSON.
+                                    with q.expect_response(lambda r:r.url.endswith('/api/op/posts.restore')) as rejected:q.locator('#confirm-revision').click()
+                                    rejected.value.body()
+                                    failure_state={'case':mode,'history_status':statuses[0],'restore_was_clickable':True,'restore_http_status':rejected.value.status,'buffer_and_comparison_preserved':snapshot()==before,'server_state_unchanged':call('backup.export')['state']==unchanged}
+                                    require(rejected.value.status==expected_status and failure_state['server_state_unchanged'],'stale restore backend CAS/404 did not reject safely')
+                                    raise AssertionError(mode+': known-stale Restore remained clickable; real backend rejected only after click')
+                                expect(q.locator('#confirm-revision')).to_be_disabled()
+                                key='history.unavailable' if deleted else 'history.stale'
+                                expected=q.evaluate('(key)=>window.FolioI18n.t(key)',key)
+                                require(q.locator('#revision-restore-message').inner_text()==expected,mode+': comparison lacks the history invalidation/export hint')
+                                # Exercise the actual handler as well as the disabled DOM control.
+                                q.evaluate('async()=>await document.querySelector("#confirm-revision").onclick()')
+                                require(not writes and call('backup.export')['state']==unchanged,'known-stale handler sent a restore or changed server state')
+                                h.operation(server,'posts.restore',{'id':p['id'],'revision':17,'expected_revision':18,'idempotency_key':mode+'-backend-guard'},status=expected_status)
+                                require(call('backup.export')['state']==unchanged,'backend stale rejection changed state')
+                                q.set_viewport_size({'width':320,'height':850});q.evaluate("()=>window.FolioI18n.setLocale('zh-CN')")
+                                expect(q.locator('#confirm-revision')).to_be_disabled()
+                                require(q.locator('#revision-restore-message').inner_text()==q.evaluate('(key)=>window.FolioI18n.t(key)',key),'localized invalidation hint missing')
+                                require(q.evaluate('document.documentElement.scrollWidth<=innerWidth'),'stale comparison overflowed at 320px')
+                                require(q.locator('#post-markdown').input_value()==before['fields']['markdown'] and q.locator('#post-markdown').evaluate('(e)=>[e.selectionStart,e.selectionEnd]')==before['selection'],'locale/status changed unsaved input or selection')
+                                q.keyboard.press('Escape')
+                                with q.expect_download() as download:q.locator('[data-action="export-markdown"]').click()
+                                exported=Path(tmp)/(mode+'.md');download.value.save_as(exported)
+                                require(exported.read_text()==before['fields']['markdown'],'stale comparison lost exportable editor content')
+                                if deleted:p=recover(p)
+                                if dirty:
+                                    q.once('dialog',lambda d:d.dismiss());q.locator('[data-action="history-reopen"]').click()
+                                    kept(q,'UNSAVED_STALE_RESTORE_KEEP')
+                                    q.once('dialog',lambda d:d.accept())
+                                q.locator('[data-action="history-reopen"]').click()
+                                expect(q.locator('[data-revision="19"]')).to_have_count(1);expect(q.locator('#post-markdown')).to_have_value(p['markdown'])
+                                q.locator('[data-compare="17"]').click();expect(q.locator('#confirm-revision')).to_be_enabled()
+                                latest=call('posts.get',{'id':p['id']});live=latest['live']
+                                q.locator('#confirm-revision').click();expect(q.locator('#modal-root')).to_be_empty();expect(q.locator('#post-markdown')).to_have_value('HISTORY_LIFE_R17')
+                                after=call('posts.get',{'id':p['id']})
+                                require(len(writes)==1 and writes[0]['expected_revision']==19 and after['post']['revision']==20 and after['live']==live,'reopened restore drifted, duplicated, or published')
+                                receipt=call('posts.restore',writes[0]);state_after=call('backup.export')['state']
+                                require(receipt==call('posts.restore',writes[0]) and call('backup.export')['state']==state_after and receipt['post']==after['post'],'reopened restore exact retry drifted')
+                                cases.append({'case':mode,'history_status':expected_status,'restore_disabled':True,'status_bilingual':True,'fields_selection_comparison_preserved':True,'export_preserved':True,'reopened_restore_revision':20,'exact_retry_preserved':True});done(mode+'; stale Restore disabled before any write; bilingual hint, buffer/export, explicit reopen and exact retry preserved')
+                            finally:ctx.close()
+                        if args.case in ['all','comparison-pending-retry']:
+                            p=create('comparison-pending-retry');ctx,q=login();requests=[];history_held=[];restore_held=[];payloads=[];receipts=[]
+                            def defer_history(route):
+                                if route.request.post_data_json.get('before_revision'):requests.append(route)
+                                else:route.continue_()
+                            def hold_restore(route):
+                                payloads.append(route.request.post_data);response=route.fetch();receipts.append(response.json()['data']);restore_held.append((route,response))
+                            try:
+                                open_post(q,p);expect(q.locator('[data-revision="18"]')).to_have_count(1)
+                                q.locator('[data-compare="17"]').click();expect(q.locator('#confirm-revision')).to_be_enabled()
+                                original_live=call('posts.get',{'id':p['id']})['live']
+                                q.route('**/api/op/posts.history',defer_history);q.route('**/api/op/posts.restore',hold_restore)
+                                q.locator('#revision-history-pages [data-revision-page="older"]').click();wait_held(q,requests)
+                                q.locator('#confirm-revision').click();wait_held(q,restore_held)
+                                route=requests.pop(0);response=route.fetch();require(response.status==409,'pending retry did not overlap a genuine history conflict');history_held.append((route,response))
+                                deliver(q,history_held);deliver(q,restore_held,abort=True)
+                                expect(q.locator('#history-status')).to_have_text('Saved revisions changed. Export unsaved edits before reopening this story. Your editor has not changed.')
+                                expect(q.locator('#confirm-revision')).to_have_text('Retry exact restore');expect(q.locator('#confirm-revision')).to_be_enabled()
+                                expect(q.locator('#revision-restore-message')).to_contain_text('The restore result is unconfirmed.')
+                                require(call('posts.get',{'id':p['id']})['post']['revision']==19,'first real restore did not commit once')
+                                q.locator('#confirm-revision').click();wait_held(q,restore_held);deliver(q,restore_held)
+                                expect(q.locator('#modal-root')).to_be_empty();expect(q.locator('#post-markdown')).to_have_value('HISTORY_LIFE_R17')
+                                latest=call('posts.get',{'id':p['id']})
+                                require(len(payloads)==2 and payloads[0]==payloads[1] and receipts[0]==receipts[1] and latest['post']['revision']==19 and len(latest['revisions'])==19 and latest['live']==original_live,'known-stale history blocked or changed the existing exact restore retry')
+                                cases.append({'case':'comparison-pending-retry','history_status':409,'lost_restore_receipt':True,'exact_payload_and_receipt':True,'single_restore_revision':19});done('comparison-pending-retry; genuine 409 after committed restore does not block its lost-receipt exact retry')
                             finally:ctx.close()
                         if args.case in ['all','deletion']:
                             for mode in ['delete-before-page','held-success-before-delete','delete-before-initial-history','late-delete-error-switch','recover-before-page']:

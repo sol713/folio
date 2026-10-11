@@ -78,6 +78,12 @@ commits its article route before starting metadata refresh. Save/restore/publish
 refreshes sidebar controls when the write lock ends, including explicit errors;
 it does not rebuild editable fields.
 
+An already-open comparison also disables a new Restore after a history 409/404
+and explains that saved history changed or the story is unavailable. Its reviewed
+content, editor fields and selection remain intact; Markdown export and explicit
+reopen still work. An unconfirmed restore keeps its exact retry available so a
+lost receipt can be resolved without creating another restore.
+
 This is response pagination. SQLite still stores and loads full revision arrays
 inside each post record, under the existing 64 MiB logical-instance limit. It
 does not normalize revision storage, paginate the whole author catalog, or bound
@@ -131,6 +137,10 @@ python3 scripts/history_lifecycle_e2e.py --binary dist/folio --chromium /path/to
 未保存输入后再明确重新打开，放弃确认仍有效。删除再回收产生新版本，旧锚点返回
 409。删除前已经成功完成的读取仍可能显示旧快照；没有推送失效通知，下次读取
 才发现删除。
+
+已经打开的比较窗口在历史读取返回 409/404 后也会禁用新的恢复操作，并明确提示
+版本已变化或文章不可用；比较内容、编辑字段和选区保持，仍可导出 Markdown 后
+明确重新打开。尚未确认的恢复请求仍可按原请求精确重试，避免回执丢失造成重复恢复。
 
 本轮分页限制的是**响应传输**。SQLite 仍在单条文章记录内保存、加载完整历史，
 64 MiB 逻辑实例上限不变；没有进行修订表迁移、作者目录分页或给所有旧版单快照
