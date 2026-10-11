@@ -371,10 +371,21 @@ func (s *Store) execute(op string, raw json.RawMessage, actor string) (any, erro
 		return s.articleRelations(raw)
 	case "posts.check":
 		return s.checkContent(raw)
+	case "posts.history":
+		return s.revisionHistory(raw)
 	case "posts.get", "posts.preview":
-		var a actionInput
+		var a struct {
+			ID               string `json:"id"`
+			Revision         int    `json:"revision"`
+			IncludeRevisions *bool  `json:"include_revisions"`
+		}
 		if e := decode(raw, &a); e != nil {
 			return nil, e
+		}
+		var supplied map[string]json.RawMessage
+		_ = json.Unmarshal(raw, &supplied)
+		if string(supplied["include_revisions"]) == "null" {
+			return nil, Err("validation", "include_revisions must be a boolean")
 		}
 		r, e := s.record(a.ID)
 		if e != nil {
@@ -393,6 +404,9 @@ func (s *Store) execute(op string, raw json.RawMessage, actor string) (any, erro
 			if !found {
 				return nil, Err("not_found", "Revision not found")
 			}
+		}
+		if a.IncludeRevisions != nil && !*a.IncludeRevisions {
+			return map[string]any{"post": p, "html": Render(p.Markdown), "revisions": []Post{}, "revision_count": len(r.Revisions), "live": r.Live}, nil
 		}
 		return map[string]any{"post": p, "html": Render(p.Markdown), "revisions": r.Revisions, "live": r.Live}, nil
 	case "posts.create", "posts.update":

@@ -5,6 +5,15 @@
 (() => {
   'use strict';
   const entries = [
+    ["cap.posts.history", "Read a bounded page of private saved revision metadata, newest first; no historical content or writes", "按新到旧读取私有已保存版本的有界元数据分页，不含历史正文，不写入数据"],
+    ["history.loading", "Loading saved history…", "正在加载已保存历史…"],
+    ["history.stale", "Saved revisions changed. Export unsaved edits before reopening this story. Your editor has not changed.", "已保存版本发生变化。重新打开文章前请导出未保存输入；编辑区内容未变。"],
+    ["history.unavailable", "This story is unavailable or in trash. Export unsaved edits before reopening. Your editor is unchanged.", "文章已不可用或在回收站中。重新打开前请导出未保存输入；编辑区内容未变。"],
+    ["history.cancelled", "History loading cancelled. Your editor is unchanged.", "已取消历史加载；编辑区内容未变。"],
+    ["history.snapshot", "Saved history at R{revision}", "已保存历史 R{revision}"],
+    ["history.reopen", "Reopen saved story", "重新打开已保存文章"],
+    ["history.nodate", "Unknown date", "日期未知"],
+    ["history.empty", "No saved revisions on this page.", "本页没有已保存版本。"],
     ["cap.posts.compare", "Compare two saved article revisions and all editable fields. Read-only; private author workspace; never saves, restores or publishes.", "比较文章的两个已保存版本及全部可编辑字段。仅私有作者工作区，只读，不会保存、恢复或发布。"],
     ["revision.review", "Review saved revisions", "审阅已保存版本"],
     ["revision.compare", "Compare", "比较"],
@@ -17,7 +26,7 @@
     ["revision.source", "Source version", "来源版本"],
     ["revision.target", "Destination version", "目标版本"],
     ["revision.savedonly", "This compares saved snapshots only. Your unsaved editor is excluded. Nothing is saved or published by a comparison.", "仅比较已保存快照，不含编辑区中未保存的输入。比较不会保存或发布。"],
-    ["revision.selectionlimit", "Select from the latest 100 revisions plus current, live and chosen versions. Older history remains available through its pages and exact CLI/API/MCP revision numbers.", "可选择最近 100 个版本及当前、线上和已选版本；更早版本可通过历史分页及准确版本号的 CLI/API/MCP 访问。"],
+    ["revision.selectionlimit", "Page through saved history here while keeping both selected versions. Only page metadata and the exact selected comparison are read.", "可在此翻阅已保存历史，并保留来源与目标两个已选版本；只读取本页元数据和选定版本的比较。"],
     ["revision.versions", "R{from} → R{to} · saved R{current} · live R{live}", "R{from} → R{to} · 草稿 R{current} · 线上 R{live}"],
     ["revision.changes", "Editable field changes", "可编辑字段差异"],
     ["revision.nochanges", "No editable field changes.", "可编辑字段没有变化。"],
