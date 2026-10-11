@@ -100,9 +100,9 @@ Always use discovery as the source of truth:
 folio capabilities | jq '.data.operations[] | {name, scope, read_only, input_schema}'
 ```
 
-The v0.2 registry contains 36 operations:
+The v0.2 registry contains 37 operations:
 
-- `posts.list`, `posts.get`, `posts.create`, `posts.update`, `posts.preview`, `posts.check`, `posts.relations`, `posts.compare`
+- `posts.list`, `posts.search`, `posts.get`, `posts.create`, `posts.update`, `posts.preview`, `posts.check`, `posts.relations`, `posts.compare`
 - `posts.publish`, `posts.unpublish`, `posts.restore`, `posts.delete`, `posts.recover`
 - `settings.get`, `settings.update`
 - `media.list`, `media.upload`
