@@ -84,6 +84,12 @@ for(const match of source.matchAll(/'((?:[^'\\]|\\.)*)'/g)){const value=match[1]
  context.fetch=async endpoint=>({ok:true,status:200,json:async()=>endpoint.includes('/api/public/posts/')?{post}:endpoint.includes('/api/public/search')?{posts:[post]}:{ok:true,data:endpoint.endsWith('proposals.list')?{proposals:[proposal]}:endpoint.endsWith('proposals.get')?{proposal,review}:endpoint.endsWith('posts.get')?{post}:endpoint.endsWith('schedules.list')?{schedules:[schedule]}:endpoint.endsWith('posts.list')?{posts:[post]}:endpoint.endsWith('settings.get')?{settings:api.state.site.settings,revision:1}:endpoint.endsWith('media.list')?{media:[{name:'Settings',url:'/media/pic.png',size:12000,created_at:post.created_at}]}:endpoint.endsWith('system.capabilities')?{operations}: {version:'0.1.0'}}});
  for(const [name,fn] of [['article',()=>api.article('journal')],['search',()=>api.searchPage('Settings')],['posts',()=>api.studioPosts()],['settings',()=>api.settingsPage()],['media',()=>api.mediaPage()],['tools',()=>api.toolsPage()],['proposals',()=>api.proposalsPage()],['proposal',()=>api.proposalsPage(proposal.id)],['schedules',()=>api.schedulesPage()],['migration-empty',()=>api.migrationPage()]]){
   const tree=audit(name,await fn());
+  if(name==='tools'){
+   const badges=tree.querySelectorAll('.badge');
+   assert.equal(badges[0].textContent,'v0.1.0','version remains visible');
+   assert.ok(badges.length>1,'capability scope labels are exercised');
+   for(const badge of badges)assert.equal(badge.getAttribute('class'),'badge','version and permission scopes are not publication/success states');
+  }
   if(name==='article')assert.ok(tree.querySelector('.journal-article'),'article opts into the reading surface');
   else if(name==='posts'){
    assert.ok(tree.querySelector('.studio-shell'),'writing list shares the global Studio surface');
