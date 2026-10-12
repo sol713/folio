@@ -82,3 +82,226 @@ body{font-size:16px}.meta,.eyebrow,.small-label,.section-title,.art-caption,.art
 
 .wide-modal .modal-body.revision-review{padding:20px}.revision-selectors{gap:16px}.revision-snapshots>section{min-width:0;padding:16px}.revision-snapshots>section+section{border-left:1px solid var(--line);background:#eff3e8}
 @media(max-width:820px){.revision-snapshots>section+section{border-left:0;border-top:1px solid var(--line)}}
+
+/* Magpie-inspired pilot: only journal home, articles and the writing workspace. */
+.journal-home,.journal-article,.studio-writing{--paper:#f5f5f7;--paper-dark:#ececf1;--white:#fff;--ink:#24242b;--muted:#666670;--line:#dedee6;--orange:#5749d1;--orange-dark:#4638b5;--surface-shadow:0 1px 3px #24242b06}
+body:has(.journal-home,.journal-article,.studio-writing){background:#f5f5f7}
+.journal-home,.journal-article{max-width:1240px;padding:0 48px}
+.journal-home .site-header,.journal-article .site-header{height:80px;gap:24px}
+.journal-home .brand,.journal-article .brand{font-size:25px;letter-spacing:-1px}
+.journal-home .brand-mark,.journal-article .brand-mark{width:25px;height:25px}
+.journal-home .header-nav,.journal-article .header-nav{gap:8px;margin-right:16px}
+.journal-home .header-nav a,.journal-article .header-nav a{padding:8px 14px;border-radius:7px;color:var(--muted)}
+.journal-home .header-nav a.active,.journal-article .header-nav a.active{background:var(--white);color:var(--ink);box-shadow:var(--surface-shadow)}
+.journal-home .header-nav a.active:after,.journal-article .header-nav a.active:after{display:none}
+.journal-home .header-actions,.journal-article .header-actions{gap:12px}
+.journal-home .studio-link,.journal-article .studio-link{background:var(--white);border-radius:7px}
+.journal-home .hero{display:block;padding:44px 0 36px;border:0}
+.journal-home .hero .eyebrow{margin-bottom:18px;letter-spacing:.3px;font-family:var(--sans)}
+.journal-home .hero h1{font-size:clamp(42px,4.8vw,64px);line-height:1.12;letter-spacing:-1.5px;max-width:860px}
+html[lang="zh-CN"] .journal-home .hero h1{font-size:clamp(36px,4vw,54px);line-height:1.3;letter-spacing:-.8px}
+.journal-home .hero-bottom{margin-top:20px}
+.journal-home .hero p{max-width:620px;color:var(--muted)}
+.journal-home .section-top,.journal-article .section-top{padding:24px 0 16px;gap:16px}
+.journal-home .section-title,.journal-article .section-title{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:14px}
+.journal-home .featured{grid-template-columns:1fr 1.1fr;min-height:310px;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:var(--surface-shadow)}
+.journal-home .featured-image{min-height:310px}
+.journal-home .featured-content{padding:32px;gap:24px}
+.journal-home .featured h2{font-size:36px;line-height:1.2;margin:16px 0}
+html[lang="zh-CN"] .journal-home .featured h2{font-size:32px;line-height:1.4}
+.journal-home .featured p{max-width:100%;color:var(--muted)}
+.journal-home .featured .feature-label{background:#ffffffed;color:#34343e;border-radius:5px;letter-spacing:.3px}
+.journal-home .meta,.journal-article .meta{font-family:var(--sans);letter-spacing:.2px;text-transform:none}
+.journal-home .latest,.journal-article .latest{padding-bottom:32px}
+.journal-home .post-grid,.journal-article .post-grid{gap:20px}
+.journal-home .post-card,.journal-article .post-card{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:0 20px 18px;box-shadow:var(--surface-shadow)}
+.journal-home .card-image,.journal-article .card-image{margin:0 -20px 20px;height:190px;border:0;border-radius:0}
+.journal-home .post-card h3,.journal-article .post-card h3{font-size:27px;line-height:1.3;margin-top:12px}
+html[lang="zh-CN"] .journal-home .post-card h3,html[lang="zh-CN"] .journal-article .post-card h3{font-size:25px;line-height:1.4}
+.journal-home .post-card p,.journal-article .post-card p{font-size:15px;color:var(--muted);line-height:1.75}
+.journal-home .card-bottom,.journal-article .card-bottom{border-top:1px solid var(--line);margin-top:auto;padding-top:14px}
+.journal-home .filter-pills{background:var(--paper-dark);border-radius:8px;padding:4px;gap:2px}
+.journal-home .filter-pill{border-radius:5px;padding:7px 12px;line-height:1.4;color:var(--muted)}
+.journal-home .filter-pill.active{background:var(--white);color:var(--ink);box-shadow:0 1px 3px #24242b18}
+.journal-home .home-note{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:24px;gap:24px;margin:8px 0 32px}
+.journal-home .home-note h3{font:500 21px/1.5 var(--sans)}
+.journal-home .note-icon{font-size:38px}
+.journal-home .site-footer,.journal-article .site-footer{padding:24px 0;color:var(--muted)}
+.journal-article .article-shell{max-width:860px;margin:28px auto 0;padding:28px 56px 0;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--surface-shadow)}
+.journal-article .article-back{margin-top:0}
+.journal-article .article-head{padding:32px 0}
+.journal-article .article-head h1{font-size:48px;line-height:1.15;letter-spacing:-1px;margin:16px 0 18px}
+.journal-article .article-deck{font-size:17px;line-height:1.8;color:var(--muted)}
+.journal-article .article-byline{margin-top:22px}
+.journal-article .author-avatar{background:var(--paper-dark);color:var(--orange);border-radius:50%}
+.journal-article .article-cover{height:340px;border-radius:9px;margin-bottom:36px}
+.journal-article .prose{font-size:18px;line-height:1.95;max-width:70ch;margin:auto}
+.journal-article .prose h2{font-size:32px}
+.journal-article .prose h3{font-size:25px}
+.journal-article .prose blockquote{font-size:24px;color:var(--muted)}
+.journal-article .prose pre{background:var(--paper);border-radius:8px}
+.journal-article .article-end{margin:32px 0 0;padding:24px 0;border-bottom:0;flex-wrap:wrap}
+.studio-writing{background:var(--paper);grid-template-columns:212px minmax(0,1fr)}
+.studio-writing .studio-sidebar{background:var(--paper);width:212px;padding:24px 16px 18px}
+.studio-writing .studio-sidebar .brand{font-size:24px;margin:0 10px 32px}
+.studio-writing .studio-sidebar .brand-mark{width:24px;height:24px}
+.studio-writing .small-label{font-family:var(--sans);text-transform:none;letter-spacing:.3px}
+.studio-writing .studio-nav{gap:4px}
+.studio-writing .studio-nav a{padding:10px 12px;gap:10px;border-radius:7px;color:var(--muted);font-size:14px}
+.studio-writing .studio-nav a:hover,.studio-writing .sidebar-bottom a:hover,.studio-writing .sidebar-bottom button:hover{background:var(--paper-dark);color:var(--ink)}
+.studio-writing .studio-nav a.active{background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line),var(--surface-shadow)}
+.studio-writing .sidebar-bottom{border-color:var(--line)}
+.studio-writing .sidebar-bottom a,.studio-writing .sidebar-bottom button{color:var(--muted);border-radius:7px;font-size:13px}
+.studio-writing .studio-topbar{padding:12px 32px;min-height:64px;gap:16px;background:var(--paper)}
+.studio-writing .studio-topbar .breadcrumb strong{font-weight:600}
+.studio-writing .studio-body{padding:32px;max-width:1280px}
+.studio-writing .studio-page-title{margin-bottom:24px;align-items:center}
+.studio-writing .studio-page-title h1{font:600 28px/1.4 var(--sans);letter-spacing:-.6px}
+html[lang="zh-CN"] .studio-writing .studio-page-title h1{font:600 28px/1.4 var(--sans)}
+.studio-writing .studio-page-title p{font-size:14px;margin-top:6px}
+.studio-writing .button{border-radius:7px;min-height:38px}
+.studio-writing .button.secondary{background:var(--white);border-color:var(--line)}
+.studio-writing .studio-summary{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:var(--surface-shadow);margin-bottom:24px}
+.studio-writing .summary-item{padding:18px 22px}
+.studio-writing .summary-item strong{font:600 30px/1.3 var(--sans);letter-spacing:-1px;margin-top:8px}
+.studio-writing .posts-toolbar{gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.studio-writing .studio-tabs{gap:2px;background:var(--paper-dark);padding:4px;border-radius:8px;flex-wrap:wrap}
+.studio-writing .studio-tabs button{border:0;border-radius:5px;padding:7px 13px;line-height:1.4;color:var(--muted)}
+.studio-writing .studio-tabs button.active{background:var(--white);color:var(--ink);box-shadow:0 1px 3px #24242b18}
+.studio-writing .post-search{background:var(--white);border:1px solid var(--line);border-radius:7px;padding:9px 12px;max-width:260px}
+.studio-writing .post-search input{background:transparent}
+.studio-writing .writing-list{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--surface-shadow)}
+.studio-writing .post-table th{background:#fafafc;font-family:var(--sans);letter-spacing:0;text-transform:none;padding:13px 18px}
+.studio-writing .post-table td{padding:18px;color:var(--muted)}
+.studio-writing .post-table tbody tr:last-child td{border-bottom:0}
+.studio-writing .post-table tbody tr:hover{background:#fafafc}
+.studio-writing .post-table .post-title{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.studio-writing .post-table .post-slug{font-family:var(--sans)}
+.studio-writing .badge{border-radius:6px;letter-spacing:0;text-transform:none}
+.studio-writing .badge.draft{background:#eeeef4;color:#595967}
+.studio-writing .badge.published{background:#e9f5ee;color:#286342}
+.studio-writing .badge.unsaved{background:#fff2dc;color:#805316}
+.studio-writing .studio-note{background:var(--white);border-radius:12px;padding:20px;margin-top:24px;gap:16px}
+.studio-writing .studio-note h3{font-size:15px;font-weight:500}
+.studio-writing .studio-note p{font-size:14px}
+.studio-writing .editor-layout{grid-template-columns:minmax(0,1fr) 264px;gap:24px;align-items:start}
+.studio-writing .editor-panel{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:28px;box-shadow:var(--surface-shadow)}
+.studio-writing .editor-title{font:500 32px/1.4 var(--sans);letter-spacing:-.6px;padding-bottom:12px}
+html[lang="zh-CN"] .studio-writing .editor-title{font:500 32px/1.4 var(--sans)}
+.studio-writing .editor-title::placeholder{color:var(--muted)}
+.studio-writing .editor-title:focus-visible{outline:2px solid var(--orange);outline-offset:4px;border-radius:4px}
+.studio-writing .editor-description{font-size:14px;margin-bottom:20px}
+.studio-writing .editor-file-actions{gap:12px 20px;padding-bottom:20px}
+.studio-writing .editor-file-actions .text-link{font-size:13px}
+.studio-writing .editor-mode-tabs{gap:4px;align-items:center;background:var(--paper);border-radius:8px;padding:4px;margin-bottom:16px}
+.studio-writing .editor-mode-tabs button{border:0;border-radius:5px;padding:7px 13px;line-height:1.4}
+.studio-writing .editor-mode-tabs button.active{background:var(--white);box-shadow:0 1px 3px #24242b18}
+.studio-writing .editor-toolbar{background:var(--paper);border-radius:8px 8px 0 0;border-color:var(--line)}
+.studio-writing .editor-toolbar button{width:32px;height:32px;border-radius:5px}
+.studio-writing .editor-toolbar button:hover{background:var(--paper-dark)}
+.studio-writing .markdown-editor{padding:20px;background:var(--white);border-color:var(--line);border-radius:0 0 8px 8px;color:var(--ink);font-size:14px;line-height:1.9;min-height:470px}
+.studio-writing .markdown-editor:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.studio-writing .editor-foot{font-family:var(--sans);gap:12px;flex-wrap:wrap}
+.studio-writing .editor-sidebar{border:1px solid var(--line);background:var(--white);border-radius:12px;padding:20px;min-width:0;margin:0;box-shadow:var(--surface-shadow)}
+.studio-writing .editor-sidebar .field input,.studio-writing .editor-sidebar .field textarea{background:var(--white);border-radius:6px;border-color:var(--line);padding:9px 10px}
+.studio-writing .editor-sidebar-section{margin-top:20px;padding-top:20px}
+.studio-writing .editor-preview{border-radius:8px;background:var(--white)}
+.studio-writing .revision-row{gap:10px;flex-wrap:wrap}
+.studio-writing .revision-row-actions{flex-wrap:wrap;gap:8px}
+.studio-writing .language-switch,.journal-home .language-switch,.journal-article .language-switch{border-radius:7px;background:var(--white)}
+.journal-home .button,.journal-article .button{border-radius:7px}
+@media(max-width:1100px){
+  .studio-writing .studio-topbar{flex-wrap:wrap;padding:12px 24px}
+  .studio-writing .studio-body{padding:24px}
+  .studio-writing .editor-top-actions{flex-wrap:wrap}
+  .studio-writing .editor-layout{grid-template-columns:minmax(0,1fr) 240px;gap:18px}
+  .studio-writing .editor-panel{padding:22px}
+  .journal-home,.journal-article{padding:0 32px}
+}
+@media(max-width:900px){
+  .studio-writing .editor-layout{display:block}
+  .studio-writing .editor-sidebar{margin-top:20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px}
+  .studio-writing .editor-sidebar>.panel-label,.studio-writing .editor-sidebar>.editor-sidebar-section{grid-column:1/-1}
+  .journal-home .featured-content{padding:24px}
+  .journal-home .featured h2{font-size:30px}
+}
+@media(max-width:820px){
+  .studio-writing{display:block}
+  .studio-writing .studio-sidebar{position:relative;inset:auto;width:100%;padding:16px 20px;flex-direction:column;align-items:stretch;gap:12px}
+  .studio-writing .studio-sidebar .brand{margin:0;font-size:23px}
+  .studio-writing .studio-sidebar .small-label,.studio-writing .sidebar-bottom{display:none}
+  .studio-writing .studio-nav{width:100%;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;gap:4px;overflow-x:auto;padding:2px;scroll-padding:2px}
+  .studio-writing .studio-nav a{flex-shrink:0;white-space:nowrap;padding:10px 12px;min-height:44px}
+  .studio-writing .studio-topbar .editor-top-actions{width:100%}
+}
+@media(max-width:600px){
+  .journal-home,.journal-article{padding:0 20px}
+  .journal-home .site-header,.journal-article .site-header{height:72px;gap:8px}
+  .journal-home .brand,.journal-article .brand{font-size:23px;gap:6px}
+  .journal-home .brand-mark,.journal-article .brand-mark{width:22px;height:22px}
+  .journal-home .header-actions,.journal-article .header-actions{gap:3px}
+  .journal-home .header-actions .icon-btn,.journal-article .header-actions .icon-btn{min-height:44px;min-width:30px}
+  .journal-home .hero{padding:32px 0 20px}
+  .journal-home .hero h1{font-size:43px;line-height:1.15;letter-spacing:-1px}
+  html[lang="zh-CN"] .journal-home .hero h1{font-size:36px;line-height:1.35}
+  .journal-home .hero .eyebrow{font-size:12px;margin-bottom:16px}
+  .journal-home .hero p{font-size:15px;line-height:1.8}
+  .journal-home .featured{grid-template-columns:1fr}
+  .journal-home .featured-image{min-height:220px;border-right:0;border-bottom:1px solid var(--line)}
+  .journal-home .featured-content{padding:22px;gap:20px}
+  .journal-home .featured h2,html[lang="zh-CN"] .journal-home .featured h2{font-size:29px}
+  .journal-home .post-grid,.journal-article .post-grid{grid-template-columns:minmax(0,1fr)}
+  .journal-home .post-card:last-child:nth-child(odd),.journal-article .post-card:last-child:nth-child(odd){display:flex}
+  .journal-home .card-image,.journal-article .card-image{height:220px}
+  .journal-home .filter-pills{margin-left:0}
+  .journal-home .filter-pill{min-height:40px;padding:8px 12px}
+  .journal-home .home-note{padding:20px;gap:12px;grid-template-columns:28px minmax(0,1fr)}
+  .journal-home .home-note h3,html[lang="zh-CN"] .journal-home .home-note h3{font:500 20px/1.5 var(--sans)}
+  .journal-home .home-note p{font-size:15px}
+  .journal-home .note-icon{font-size:30px}
+  .journal-article .article-shell{border:0;box-shadow:none;background:transparent;padding:0;margin-top:24px}
+  .journal-article .article-head{padding:24px 0}
+  .journal-article .article-head h1,html[lang="zh-CN"] .journal-article .article-head h1{font-size:36px;line-height:1.3}
+  .journal-article .article-deck{font-size:16px}
+  .journal-article .article-cover{height:240px;margin-bottom:28px}
+  .journal-article .prose{font-size:17px;line-height:1.95}
+  .journal-article .prose h2{font-size:28px}
+  .journal-article .prose blockquote{font-size:22px;padding-left:18px}
+  .studio-writing .studio-sidebar{padding:16px}
+  .studio-writing .studio-nav a{font-size:14px;gap:7px}
+  .studio-writing .studio-nav a svg{display:block;width:15px;height:15px}
+  .studio-writing .studio-topbar{padding:12px 16px;gap:10px}
+  .studio-writing .studio-topbar-right{gap:10px;flex-wrap:wrap}
+  .studio-writing .studio-topbar-right .connection{display:none}
+  .studio-writing .studio-body{padding:24px 16px}
+  .studio-writing .studio-page-title{gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .studio-writing .studio-page-title h1,html[lang="zh-CN"] .studio-writing .studio-page-title h1{font:600 26px/1.4 var(--sans)}
+  .studio-writing .studio-page-title p{font-size:14px;max-width:none}
+  .studio-writing .studio-page-title .button{min-height:44px}
+  .studio-writing .summary-item{padding:16px 12px}
+  .studio-writing .summary-item strong{font-size:27px}
+  .studio-writing .summary-item .small-label{letter-spacing:0}
+  .studio-writing .posts-toolbar{align-items:stretch;gap:12px}
+  .studio-writing .studio-tabs{gap:1px;justify-content:space-between;flex-wrap:nowrap}
+  .studio-writing .studio-tabs button{font-size:13px;padding:8px 9px;min-height:40px}
+  .studio-writing .post-search{max-width:none;width:100%}
+  .studio-writing .post-search input{font-size:16px}
+  .studio-writing .post-table th,.studio-writing .post-table td{padding:14px 10px}
+  .studio-writing .post-table .post-title{font-size:14px}
+  .studio-writing .post-table .icon-btn{min-height:40px}
+  .studio-writing .studio-note{padding:18px;gap:12px}
+  .studio-writing .editor-top-actions{justify-content:flex-start;gap:8px;border-top:0;padding-top:0}
+  .studio-writing .editor-top-actions .button{font-size:13px;padding:9px 10px;min-height:42px}
+  .studio-writing .editor-panel{padding:20px 16px}
+  .studio-writing .editor-title,html[lang="zh-CN"] .studio-writing .editor-title{font:500 28px/1.4 var(--sans)}
+  .studio-writing .editor-mode-tabs button{padding:8px 11px;min-height:40px}
+  .studio-writing .editor-toolbar{gap:2px;padding:6px}
+  .studio-writing .editor-toolbar button{width:34px;height:38px}
+  .studio-writing .editor-toolbar .toolbar-end{padding-right:4px}
+  .studio-writing .markdown-editor{padding:16px;font-size:16px;min-height:430px}
+  .studio-writing .editor-sidebar{display:block;padding:20px}
+  .studio-writing .editor-sidebar .field input,.studio-writing .editor-sidebar .field textarea{font-size:16px}
+}
+.focus-mode .studio-writing .studio-sidebar,.focus-mode .studio-writing .editor-sidebar{display:none}
+.focus-mode .studio-writing{display:block}
+.focus-mode .studio-writing .editor-layout{grid-template-columns:1fr;max-width:860px;margin:auto}
