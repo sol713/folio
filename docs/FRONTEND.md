@@ -38,6 +38,22 @@ The language preference can use localStorage, but draft buffers do not.
 
 ## Interaction details
 
+### Visual pilot
+
+The homepage (`.journal-home`), article (`.journal-article`) and Studio writing
+list/editor (`.studio-writing`) use a neutral gray canvas, white grouped surfaces,
+restrained violet actions and segmented filters. The reading views retain serif
+headings and a bounded prose column; Studio uses compact system typography.
+The homepage no longer displays decorative orbit artwork or a fictional edition.
+Original generated story illustrations remain the fallback for missing covers.
+
+These styles are scoped to the pilot routes; Topics, About, search, sign-in and
+the other Studio workspaces keep their existing presentation. On narrow screens,
+Studio navigation scrolls within its own row, editor details stack below the
+writing panel, and all existing navigation/actions remain available. Focus mode
+still hides navigation and details. No framework, font, asset or runtime dependency
+was added. See [INSPIRATION.md](INSPIRATION.md) for reference and license boundaries.
+
 - Command palette: Ctrl/Cmd+K; Arrow keys; Enter; Escape; title-prioritized filtering;
   combobox/listbox ARIA; focus restoration; IME-safe keyboard handling
 - Writing: Ctrl/Cmd+S, Markdown toolbar, list/task continuation on Enter, Tab
