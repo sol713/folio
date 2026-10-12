@@ -4,8 +4,8 @@ Research date: 2026-10-03. This document records GitHub source that was actually
 read while choosing FOLIO's interaction patterns. It is a design/provenance
 record, not a claim that every proposed feature has shipped or passed testing.
 
-FOLIO's implementation direction is an original warm-paper, serif-led editorial
-interface with a restrained orange accent, served as embedded frontend assets
+FOLIO's implementation direction is an original serif-led editorial interface
+with a black/white/neutral-gray palette, served as embedded frontend assets
 by Go. The product journey is **capture → develop → review → publish**. A small
 number of coherent knowledge-work features can grow around that journey without
 turning the first release into a general workspace suite.
@@ -16,7 +16,7 @@ or code fragment is adopted later, pin its version, preserve its complete
 required copyright/license notices, and record it in the distribution's
 third-party notices. A link here is not a substitute for those notices.
 
-## Magpie visual pilot
+## Magpie reference and site-wide visual system
 
 Reference: https://github.com/yetone/magpie, reviewed at
 `8f2a314cf9779151b9caa5d60183e594239d0621` on 2026-10-12.
@@ -35,7 +35,10 @@ light/dark surfaces, loading skeletons and empty states. Source reviewed:
 **Adopted as design principles:** quiet neutral canvas, white bordered rounded
 groups, system UI typography, restrained action color, segmented selection and
 a compact sidebar/breadcrumb shell. FOLIO implements these independently in its
-existing vanilla frontend, scoped to home, articles and Studio writing/editor.
+existing vanilla frontend. The initial home/article/Studio writing pilot was
+expanded to all public, sign-in and Studio views after user approval. Its violet
+accent and the older colorful decorative palette were rejected in favor of
+black/white/neutral gray; functional status colors remain distinct.
 Serif reading headings, the prose measure and original story illustrations remain
 FOLIO-specific. Its API, permissions, locale engine and revision-guarded explicit
 publication workflow are unchanged.
@@ -43,7 +46,7 @@ publication workflow are unchanged.
 **Not adopted:** Magpie source snippets, logos, provider icons, fonts, Wails/native
 host, integrations or dependencies. Its dense dashboard typography is unsuitable
 for long-form reading; its mobile Agents install cards showed inner horizontal
-overflow. Dark mode and a full-site rollout are not part of this pilot. No
+overflow. A dark theme is not shipped by this visual rollout. No
 Magpie code or visual assets are distributed, so no new third-party dependency
 or bundled-license notice is introduced.
 
