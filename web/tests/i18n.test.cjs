@@ -66,12 +66,13 @@ function audit(name,html){const tree=parseHTML(html,document);for(const el of [t
 function assertEditorPlaceholders(tree,locale){for(const [id,key] of [['post-title','editor.title.placeholder'],['post-markdown','editor.body.placeholder'],['post-excerpt','editor.excerpt.placeholder']])assert.equal(tree.querySelector(`#${id}`).getAttribute('placeholder'),i18n.dictionaries[locale][key],`${id} placeholder is ${locale}`);}
 for(const [name,html] of views){const tree=audit(name,html);
  if(name==='home'){
-  assert.ok(tree.querySelector('.journal-home'),'homepage opts into the visual pilot');
+  assert.ok(tree.querySelector('.journal-home'),'homepage keeps its reading composition');
   assert.equal(tree.querySelector('.hero-art'),null,'homepage no longer uses decorative orbit artwork');
   assert.equal(tree.querySelector('.hero-edition'),null,'homepage does not imply a fictional edition');
   assert.equal(tree.querySelectorAll('.post-card').length,1,'featured story stays separate from filterable cards');
- }else if(name==='editor')assert.ok(tree.querySelector('.studio-writing'),'editor shares the writing workspace surface');
- else assert.equal(tree.querySelector('.journal-home,.journal-article,.studio-writing'),null,'other views retain their existing visual scope');
+ }else if(name==='editor')assert.ok(tree.querySelector('.studio-shell'),'editor shares the global Studio surface');
+ else if(['topics','tag','about'].includes(name))assert.ok(tree.querySelector('.shell'),'all public pages share the reading shell');
+ else if(name==='login')assert.ok(tree.querySelector('.login-page'),'sign-in keeps its distinct accessible shell');
  i18n.setLocale('zh-CN');i18n.apply(tree);for(const node of tree.querySelectorAll('[data-no-i18n]'))assert.ok(!/设置|手记|暂时还没有活动记录/.test(node.textContent),'user text collision must not translate');if(name==='editor'){
  const fieldNodes=['post-title','post-markdown','post-excerpt'].map(id=>tree.querySelector(`#${id}`));const authoredText=fieldNodes.map(el=>el.textContent);
  for(const locale of ['zh-CN','en','zh-CN']){i18n.setLocale(locale);i18n.apply(tree);assertEditorPlaceholders(tree,locale);fieldNodes.forEach((el,index)=>{assert.equal(tree.querySelector(`#${el.getAttribute('id')}`),el);assert.equal(el.textContent,authoredText[index]);});}
@@ -85,9 +86,10 @@ for(const match of source.matchAll(/'((?:[^'\\]|\\.)*)'/g)){const value=match[1]
   const tree=audit(name,await fn());
   if(name==='article')assert.ok(tree.querySelector('.journal-article'),'article opts into the reading surface');
   else if(name==='posts'){
-   assert.ok(tree.querySelector('.studio-writing'),'writing list opts into the workspace surface');
+   assert.ok(tree.querySelector('.studio-shell'),'writing list shares the global Studio surface');
    assert.ok(tree.querySelector('.writing-list .post-table'),'writing table keeps its native semantics inside a card');
-  }else assert.equal(tree.querySelector('.journal-home,.journal-article,.studio-writing'),null,'non-pilot routes stay unchanged');
+  }else if(name==='search')assert.ok(tree.querySelector('.shell'),'search shares the public surface');
+  else assert.ok(tree.querySelector('.studio-shell'),`${name} shares the global Studio surface`);
  }
  api.state.migration={files:[{path:'Settings.md',content:'Save draft'}],conflict:'update',review:migrationReview,frozenPlanJSON:JSON.stringify(migrationReview.plan),report:{complete:false,outcomes:migrationOutcomes},locked:true,error:'The import result could not be confirmed. Preserve this frozen plan and retry it.'};
  const migrationTree=audit('migration-locked',await api.migrationPage()),migrationBefore=JSON.stringify(api.state.migration),protectedNodes=migrationTree.querySelectorAll('[data-no-i18n]'),protectedText=protectedNodes.map(node=>node.textContent);

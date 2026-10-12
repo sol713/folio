@@ -38,17 +38,21 @@ The language preference can use localStorage, but draft buffers do not.
 
 ## Interaction details
 
-### Visual pilot
+### Shared visual system
 
-The homepage (`.journal-home`), article (`.journal-article`) and Studio writing
-list/editor (`.studio-writing`) use a neutral gray canvas, white grouped surfaces,
-restrained violet actions and segmented filters. The reading views retain serif
-headings and a bounded prose column; Studio uses compact system typography.
+Public pages (`.shell`), all Studio workspaces (`.studio-shell`) and sign-in use
+one black/white/neutral-gray token palette, white bordered groups, charcoal
+actions and segmented selection. Only functional errors, warnings, successes and
+review additions/deletions use status colors. Browser theme and favicon are
+neutral too. The reading views retain serif headings and a bounded prose column;
+Studio uses compact system typography.
 The homepage no longer displays decorative orbit artwork or a fictional edition.
-Original generated story illustrations remain the fallback for missing covers.
+Original generated story illustrations remain the fallback for missing covers,
+now in neutral tones. Uploaded covers and authored images retain their colors.
 
-These styles are scoped to the pilot routes; Topics, About, search, sign-in and
-the other Studio workspaces keep their existing presentation. On narrow screens,
+Topics, About, search, sign-in, Media, Settings, Tools, Proposals, Schedules,
+Migration, dialogs and state surfaces share the same visual system. The home
+and article compositions retain their route-specific layouts. On narrow screens,
 Studio navigation scrolls within its own row, editor details stack below the
 writing panel, and all existing navigation/actions remain available. Focus mode
 still hides navigation and details. No framework, font, asset or runtime dependency
