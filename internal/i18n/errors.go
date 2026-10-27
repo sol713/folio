@@ -3,8 +3,10 @@ package i18n
 // Keys are canonical English templates. Values are Simplified Chinese. User text,
 // operation names, error codes, JSON field names and schemas are never translated.
 var messages = map[string]string{
-	"Revision comparison exceeds its conservative 64 MiB JSON budget; inspect the original backup offline": "版本比较超过保守的 64 MiB JSON 预算；请离线审阅原备份",
-	"Revision comparison requires a post ID and positive current, source and destination revisions": "版本比较须提供文章 ID 及正数的当前、来源和目标版本",
+	"Story search requires a 1–128 character query, a valid status, and a limit from 1 to 50":                                                                                                    "文章搜索需要 1 至 128 个字符的搜索词、有效状态和 1 至 50 的结果上限",
+	"Search current saved private drafts with bounded source snippets and exact match locations; title, summary, Markdown, slug and tags. Read-only; never searches unsaved input or publishes.": "搜索当前已保存私有草稿的标题、摘要、Markdown、网址短名与标签，返回有界片段及准确命中位置。只读，不搜索未保存输入，也不发布。",
+	"Revision comparison exceeds its conservative 64 MiB JSON budget; inspect the original backup offline":                                                                                       "版本比较超过保守的 64 MiB JSON 预算；请离线审阅原备份",
+	"Revision comparison requires a post ID and positive current, source and destination revisions":                                                                                              "版本比较须提供文章 ID 及正数的当前、来源和目标版本",
 
 	"Article relations require a post ID and positive current draft revision":                           "文章引用关系须提供文章 ID 和正数的当前已保存草稿版本",
 	"Content check requires a post ID and positive current draft revision":                              "内容检查须提供文章 ID 和正数的当前已保存草稿版本",

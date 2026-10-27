@@ -56,11 +56,11 @@ def main():
                     require({f['field'] for f in r['review']['changed_fields']}==set(FIELDS) and r['restorable'] and r['from']['current'] and r['to']['published'],'field/version metadata')
                     require(h.cli(['--lang','en','call','posts.compare','--json',json.dumps(payload(current))],server)==api,'CLI parity')
                     mcp=MCP(h,server,locale='en');tools=mcp.request('tools/list',{})['tools'];tool=next(t for t in tools if t['name']=='posts_compare')
-                    require(len(tools)==36 and tool['annotations']['readOnlyHint'] and tool['inputSchema']['additionalProperties'] is False and set(tool['inputSchema']['required'])=={'id','revision','from_revision','to_revision'},'36-operation schema')
+                    require(len(tools)==37 and tool['annotations']['readOnlyHint'] and tool['inputSchema']['additionalProperties'] is False and set(tool['inputSchema']['required'])=={'id','revision','from_revision','to_revision'},'37-operation schema')
                     require(mcp.call('posts.compare',payload(current))==api,'MCP parity');mcp.close()
                     require(call('backup.export')['state']==before and http('posts.compare',payload(current))==api,'comparison/retry changed state')
                     reverse=call('posts.compare',payload(current,to=2,source=1));require(reverse['review']['changed_fields'][0]['before']==old['title'],'direction reversed')
-                    done('36-operation HTTP/CLI/MCP parity; all eight exact fields, source/live metadata, directional review and zero state writes')
+                    done('37-operation HTTP/CLI/MCP parity; all eight exact fields, source/live metadata, directional review and zero state writes')
                     for token in [server['token'],server['draft'],server['read'],proposal]:http('posts.compare',payload(current),token=token)
                     for token in ['', 'invalid']:
                         require(http('posts.compare',payload(current),token=token,status=401)==http('posts.compare',{'id':'unknown','revision':1,'from_revision':1,'to_revision':1},token=token,status=401),'existence oracle')

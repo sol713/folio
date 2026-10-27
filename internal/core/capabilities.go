@@ -47,6 +47,7 @@ func init() {
 	add("system.capabilities", "Discover exact operation schemas, permissions, and safe automation workflow", "read", true, nil)
 	add("system.info", "Get version, instance revision, storage, counts and honest AI availability", "read", true, nil)
 	add("posts.list", "List current authoring drafts, including unpublished changes", "read", true, map[string]any{"status": str("Optional draft, changed, published, or trash"), "query": str("Case-insensitive title/content filter")})
+	add("posts.search", "Search current saved private drafts with bounded source snippets and exact match locations; title, summary, Markdown, slug and tags. Read-only; never searches unsaved input or publishes.", "read", true, map[string]any{"query": map[string]any{"type": "string", "minLength": 1, "maxLength": 128, "description": "Literal Unicode substring, case-insensitive; short Chinese queries supported"}, "status": map[string]any{"type": "string", "enum": []string{"", "draft", "changed", "published", "trash"}, "description": "Optional status; trash is excluded unless explicitly requested"}, "limit": map[string]any{"type": "integer", "minimum": 1, "maximum": 50, "description": "Maximum results; default 20. Refine the query when truncated"}}, "query")
 	add("posts.get", "Read a draft and immutable content revision history", "read", true, ref, "id")
 	positive := func(description string) map[string]any {
 		return map[string]any{"type": "integer", "minimum": 1, "description": description}

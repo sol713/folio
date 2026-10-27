@@ -1,0 +1,478 @@
+{
+  "date_utc": "2026-10-11",
+  "base_commit": "dbbc1c78a36f7dc05ce62f38b7c25c5fe3d50172",
+  "local_branch": "feat/story-search",
+  "source_lineage": {
+    "archive": "folio-source-v0.2.0.tar.gz",
+    "library_id": "libfile_5f2e641715508191a792f0b4c4445b5c",
+    "version": 3,
+    "sha256": "528b0697e29c20abe0b5113b8c82641f13d22355c75675988d00bc83f791bc35",
+    "note": "Extends the independently merged original Folio source; original delivery archive preserved."
+  },
+  "binary": {
+    "version": "0.2.0",
+    "target": "linux/amd64 static",
+    "sha256": "9336b81e7ab236a44e2d8bf3179017bb933ce29e31d704b0b0513d7a3d18233f",
+    "build": "CGO_ENABLED=0 go build -trimpath -buildvcs=false -o BINARY ./cmd/folio"
+  },
+  "toolchain": {
+    "go": "1.27.2",
+    "node": "24.19.0",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.173",
+    "docker": "28.4.0"
+  },
+  "checks": {
+    "final_commands_all_zero": 30,
+    "groups": {
+      "core": 5,
+      "frontend": 6,
+      "api": 10,
+      "container": 1,
+      "browser": 8
+    },
+    "go_test": "passed fresh count=1",
+    "go_race": "passed fresh count=1",
+    "go_vet": "passed",
+    "go_mod_verify": "passed",
+    "new_search_go_groups": 8,
+    "node_test_units": 14,
+    "bilingual_keys": 965,
+    "upstream_license_inventory": {
+      "modules": 43,
+      "license_files": 70,
+      "status": "passed"
+    },
+    "shared_operations": 37,
+    "ops_unit_tests": 66,
+    "ops_real_integration": "passed",
+    "actual_scratch_container_groups": 5,
+    "browser_suites": [
+      "browser",
+      "publication_review",
+      "local_recovery",
+      "content_check",
+      "article_relations",
+      "revision_review",
+      "content_check_busy",
+      "story_search"
+    ],
+    "search_full_e2e_checks": 13,
+    "search_recorded_browser_cases": [
+      {
+        "case": "read-role summary navigation",
+        "width": 320,
+        "locale": "en",
+        "writes": 0
+      },
+      {
+        "case": "read-role summary navigation",
+        "width": 320,
+        "locale": "zh-CN",
+        "writes": 0
+      },
+      {
+        "case": "read-role summary navigation",
+        "width": 390,
+        "locale": "en",
+        "writes": 0
+      },
+      {
+        "case": "read-role summary navigation",
+        "width": 390,
+        "locale": "zh-CN",
+        "writes": 0
+      },
+      {
+        "case": "out-of-order",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "clear",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "route-dirty",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "late-error",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "logout",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "wrong-query",
+        "real_response": true,
+        "writes": 0
+      },
+      {
+        "case": "retry",
+        "real_response": false,
+        "writes": 0
+      }
+    ],
+    "search_browser_errors": [],
+    "search_draft_writes": 0,
+    "search_persisted_state_unchanged": true,
+    "search_review_browser_cases": 42
+  },
+  "negative_control": {
+    "command": "python3 scripts/story_search_e2e.py --baseline --binary BASELINE --chromium CHROMIUM --report REPORT",
+    "test_script_sha256": "79a8112a34e11c23fc478c77242d9d59b0d936d7dfe3dfea0bf1358358701c50",
+    "same_final_script_used": true,
+    "baseline_binary_sha256": "52689a442b1b2a166714c0d3adccf6c6f832de013bea6e4ba3a34aceffbb9fe2",
+    "body_fixture_saved_and_queryable": true,
+    "query": "PRIVATE_BODY_MATCH",
+    "baseline_visible_titles": [],
+    "baseline_failure": "Body-only saved story is absent from Studio search",
+    "baseline_exit": 1,
+    "baseline_browser_errors": [],
+    "fixed_body_search_and_exact_source_navigation": "passed"
+  },
+  "existing_regressions": {
+    "real_daemon_cli_mcp": "passed",
+    "workflow_and_pinned_schedules": "passed",
+    "initialization_and_reliability": "passed",
+    "publication_review_identity_cases": 9,
+    "local_recovery_groups": 16,
+    "content_check": "passed",
+    "article_relations": "passed",
+    "revision_review_held_cases": 27,
+    "revision_review_derived_state_cases": 2,
+    "extra_pr7_unmodified_local_only": {
+      "script_sha256": "edefacb4b781c9d1d7f11a56f572d32c71604702ee26716f6cffd22fa0fba85b",
+      "groups": 5,
+      "actual_sigkill_exits": 3,
+      "negative_controls": 2,
+      "included_in_branch_or_ci": false,
+      "scope": "Process termination with kernel/filesystem alive; no power-loss or storage-hardware guarantee."
+    }
+  },
+  "source_boundary": {
+    "public_source_files": 236,
+    "credential_runtime_binary_log_or_personal_path_findings": 0,
+    "dependencies_and_licenses_unchanged": true,
+    "changed_existing_screenshots": 0,
+    "no_database_migration_or_permission_changes": true,
+    "fixture": "Disposable fictional content and independently generated temporary credentials, never shipped as runtime data."
+  },
+  "raw_evidence": {
+    "baseline_report_sha256": "c3f033dbad7a0f14b70e3338241c7ae68752634b59d8a7ba671c84beffeb4493",
+    "search_api_report_sha256": "82a102e0c52a01774aab01034a3adecb72500df1c7203cc61b27b83a23936ed5",
+    "search_browser_report_sha256": "fb6b3cbdfdbfa0c39de68a17cd08a502bf9776ec0716d297a2745956321a8578",
+    "final_logs": [
+      {
+        "group": "core",
+        "log": "story-search-review-final-core-00.log",
+        "exit_code": 0,
+        "sha256": "ed4307d760c597256afdc696a61d47d13e832615d7741ead11c64966a440b376"
+      },
+      {
+        "group": "core",
+        "log": "story-search-review-final-core-01.log",
+        "exit_code": 0,
+        "sha256": "8aa17949f0ff4a1725c769821e85de6a612f8ea44645c2258c602177f5ed218f"
+      },
+      {
+        "group": "core",
+        "log": "story-search-review-final-core-02.log",
+        "exit_code": 0,
+        "sha256": "788dc4350af1e17587c7747257d44a6f9f3f43d12d4fb98a335ac26894610fe2"
+      },
+      {
+        "group": "core",
+        "log": "story-search-review-final-core-03.log",
+        "exit_code": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "group": "core",
+        "log": "story-search-review-final-core-04.log",
+        "exit_code": 0,
+        "sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-00.log",
+        "exit_code": 0,
+        "sha256": "b7677d3ec37ee1897ba07dc2cfe8292fe421c9ac93396cca5bbece486d1a2a41"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-01.log",
+        "exit_code": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-02.log",
+        "exit_code": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-03.log",
+        "exit_code": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-04.log",
+        "exit_code": 0,
+        "sha256": "c7125fd07a8c90982345d34eb57ce67caa4e6e182c849012abfd90a07d83903c"
+      },
+      {
+        "group": "frontend",
+        "log": "story-search-review-final-frontend-05.log",
+        "exit_code": 0,
+        "sha256": "6a4f0470abcd9cff324510b4de93481a59f3e98481f07bfe13795ffdb6742a8d"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-00.log",
+        "exit_code": 0,
+        "sha256": "ae7263a531909ed21dc25d7f49b5d041b6ea9e32c8d7d2cb5ee384291d8f7b07"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-01.log",
+        "exit_code": 0,
+        "sha256": "84f1d9e0512c46756396936731792af35b88a4d069b5f50650e146d62c954d79"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-02.log",
+        "exit_code": 0,
+        "sha256": "a8e4153b004c8e1dbada4cf2d512e6f79a1ea40b5eff11412aa3c4b4239bac67"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-03.log",
+        "exit_code": 0,
+        "sha256": "e8ba0b5f7c6fd7ba384f5c859bb4ff7879c60ed43b969c2e4249be7feff923ee"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-04.log",
+        "exit_code": 0,
+        "sha256": "08f5df772252672c7047fdf3b11b629a86bf7ae73c1348a5908c44a7ff9d659a"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-05.log",
+        "exit_code": 0,
+        "sha256": "5cb5b3fc752b63815741f9a98e914d40ec68f69bf926632b153f2ffab3184692"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-06.log",
+        "exit_code": 0,
+        "sha256": "18c4b6ecd029c0bb3a9a23fb091a1968c53d062c36e431fd1512c4271f6750ae"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-07.log",
+        "exit_code": 0,
+        "sha256": "58e3e19b1368d3cb197deafb52cf739d4958202dd1fef633d70db7e61646e721"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-08.log",
+        "exit_code": 0,
+        "sha256": "11d7ad44a9adf56dc8f1716db2df5a9f73cf4354c9c2d71e490eda946a82105b"
+      },
+      {
+        "group": "api",
+        "log": "story-search-review-final-api-09.log",
+        "exit_code": 0,
+        "sha256": "b951d70d9df26825ebba4321e98005453d42a69bbd3c84a418375bb99f9051fb"
+      },
+      {
+        "group": "container",
+        "log": "story-search-review-final-container-00.log",
+        "exit_code": 0,
+        "sha256": "b63b18ce4e5f3afdaccd2970a996c6bceba23dd62ee53ffea263ac7ca6b63529"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-00.log",
+        "exit_code": 0,
+        "sha256": "7705e24d1b04095aeb0d3178753939e4aed56d3d04cc53b06ae835988d34025a"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-01.log",
+        "exit_code": 0,
+        "sha256": "b76c145c6a5a2ecef21e63ad37ad474436bc2274e5860fcfc523056f7c7e5f8c"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-02.log",
+        "exit_code": 0,
+        "sha256": "d8073af4201a889890f9c3f2e930a3851d727f498bedef1ea3463c8a66aedf80"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-03.log",
+        "exit_code": 0,
+        "sha256": "6cf88eab7112f13ff35f62b637ecb6ead70324739d9dfd04fe59de6fcb8035ea"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-04.log",
+        "exit_code": 0,
+        "sha256": "0e53fe085a694936821f4a7d46e52aec90dd165c156304a162bd495605a84362"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-05.log",
+        "exit_code": 0,
+        "sha256": "4eb700b9ec475252a7f540a5372adea258363e866080cccd298febdd99c15bcb"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-06.log",
+        "exit_code": 0,
+        "sha256": "b245bc2a66a615f89436d2e4f37a46c937979a1980655a36421ace711390ee7d"
+      },
+      {
+        "group": "browser",
+        "log": "story-search-review-final-browser-07.log",
+        "exit_code": 0,
+        "sha256": "7a6df64db8f7afb5ac5a54192ec21e726250b93585281dd1aa743704fb063752"
+      }
+    ]
+  },
+  "ai_assistance": "Implementation, regression design and documentation are AI-assisted. Prepared as an independent local commit for parent review; no remote mutation or publication in this stage.",
+  "limits": [
+    "Local Go 1.25 toolchain access was previously denied with HTTP 403; that path remains stopped and was not retried. This new branch has local Go 1.27.2 validation only; no new-branch GitHub CI result is claimed. Existing Go 1.25/1.27 workflow matrix is retained.",
+    "Current saved drafts only; Unicode simple-case literal substring, first hit per field and at most 50 ranked stories. Refine truncated queries; no cursor, full history, fuzzy or semantic search.",
+    "The existing small-site catalog and 64 MiB logical-instance/1 MiB Markdown revision bounds remain. No search index or large-library scalability claim.",
+    "Point-in-time reads are not reservations. Clicking checks the latest saved revision, original source range and whole displayed field before projecting raw rune positions into native LF/UTF-16 coordinates. Intervening edits require searching again; dirty input keeps its buffer/caret. Match coordinates are memory-only and belong to one render/route; new-tab links open without location.",
+    "Linux amd64 and Chromium executed; other operating systems/browser engines not executed.",
+    "This branch starts from main and contains neither PR7 nor PR8. Their existing Draft heads remain unchanged; integration must reconcile operation totals if both independent feature branches are later merged.",
+    "No new PR, push, public deployment, merge, release, fee, agreement or permission change performed."
+  ],
+  "reviewed_base_commit": "404432f79d9ef175ec0db1595393b64ad585721f",
+  "review_regressions": {
+    "reviewed_base_commit": "404432f79d9ef175ec0db1595393b64ad585721f",
+    "reviewed_base_binary_sha256": "2893bf5da162dd738263f6367a3a9f8887bbf6fe67647dc2eda534e153d8c304",
+    "same_final_test_script_on_reviewed_base_and_fixed_binary": true,
+    "test_script_sha256": "79a8112a34e11c23fc478c77242d9d59b0d936d7dfe3dfea0bf1358358701c50",
+    "total_cases": 42,
+    "groups": [
+      {
+        "group": "newlines",
+        "cases": 12,
+        "reviewed_base_product_assertion_failures": 11,
+        "fixed_passed": 12,
+        "reviewed_base_report_sha256": "a6b9392bb68398abb5aa4cab4a24fcb06fe54ace913346f9871b800420e7e34c",
+        "fixed_targeted_report_sha256": "f0b026106e882c58d1ee8e063329ffd3429e7c9186797bac1a354bf88c1f94d1",
+        "case_names": [
+          "crlf-api",
+          "repeated-api",
+          "leading-lf-api",
+          "cr-api",
+          "emoji-crlf-cli",
+          "emoji-lf-cli",
+          "mixed-api",
+          "mixed-crlf-cli",
+          "excerpt-leading-lf-api",
+          "title-crlf-api",
+          "same-revision-whole-DOM-mismatch",
+          "same-revision-dirty-input"
+        ]
+      },
+      {
+        "group": "back",
+        "cases": 3,
+        "reviewed_base_product_assertion_failures": 3,
+        "fixed_passed": 3,
+        "reviewed_base_report_sha256": "ea7fe57928ee1202b8a505dba52856b28df5c0d92600004d4f0631c98e64219b",
+        "fixed_targeted_report_sha256": "17646301a7066fdb2d5dd032bf0423fdaadef35d5799013d1e800c23e9b3f48b",
+        "case_names": [
+          "held-editor-back-list",
+          "held-editor-back-new-dirty",
+          "held-editor-back-reopen-same"
+        ]
+      },
+      {
+        "group": "whitespace",
+        "cases": 27,
+        "reviewed_base_product_assertion_failures": 2,
+        "fixed_passed": 27,
+        "reviewed_base_report_sha256": "b8a1377ebe6bad6ab56cf93ab603d101b018964bf4e2363a73a7a0b654676a2c",
+        "fixed_targeted_report_sha256": "b381aba9e89bee82349b6175d4d5d2fc40e5d7befb6afc69ffd8e4c5bce0ae67",
+        "case_names": [
+          "query-U+0009",
+          "query-U+000A",
+          "query-U+000B",
+          "query-U+000C",
+          "query-U+000D",
+          "query-U+0020",
+          "query-U+0085",
+          "query-U+00A0",
+          "query-U+1680",
+          "query-U+2000",
+          "query-U+2001",
+          "query-U+2002",
+          "query-U+2003",
+          "query-U+2004",
+          "query-U+2005",
+          "query-U+2006",
+          "query-U+2007",
+          "query-U+2008",
+          "query-U+2009",
+          "query-U+200A",
+          "query-U+2028",
+          "query-U+2029",
+          "query-U+202F",
+          "query-U+205F",
+          "query-U+3000",
+          "query-U+200B",
+          "query-U+FEFF"
+        ]
+      }
+    ],
+    "repeat_identical_character_proof": {
+      "source": "a\r\n声声",
+      "query": "声",
+      "raw_first_match_range": [
+        3,
+        4
+      ],
+      "expected_browser_utf16_range": [
+        2,
+        3
+      ],
+      "reviewed_base_wrong_second_match_range": [
+        3,
+        4
+      ],
+      "fixed_exact_first_match_range": [
+        2,
+        3
+      ]
+    },
+    "back_reviewed_base_error": "Cannot read properties of null (reading 'after')",
+    "preserved_guards": [
+      "exact saved revision",
+      "exact original source range",
+      "whole displayed field matches normalized saved source",
+      "dirty input and caret",
+      "render and route ownership",
+      "query/status/token/instance/sequence identity",
+      "ranking, read scope and zero persistence writes"
+    ],
+    "fixed_full_browser_report_sha256": "fb6b3cbdfdbfa0c39de68a17cd08a502bf9776ec0716d297a2745956321a8578"
+  }
+}

@@ -356,3 +356,12 @@ html[lang="zh-CN"] .studio-shell .editor-title{font:500 32px/1.4 var(--sans)}
   .studio-shell .workflow-heading h1{font-size:26px}
   .studio-shell .workflow-section>h2,.studio-shell .migration-input>h2,.studio-shell .migration-export h2{font-size:21px}
 }
+
+/* Saved-story search: plain source evidence, never rendered Markdown. */
+.post-search input{min-width:0;flex:1}.post-search #studio-search-clear{flex:none;padding:3px}
+.story-search-status{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--muted);margin:0 0 14px;overflow-wrap:anywhere}
+.story-search-empty{padding:36px 12px!important;text-align:center}
+.story-match{display:block;margin:12px 0 0;border-left:2px solid var(--line);padding-left:10px;overflow-wrap:anywhere}
+.story-match:hover{border-color:var(--accent)}.story-match-label{display:block;color:var(--muted);font:11px/1.6 var(--mono)}
+.story-match-text{display:block;color:var(--ink);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.story-match mark{background:var(--paper-dark);color:inherit;padding:0 1px}.story-search-location{margin:8px 0 18px;padding:10px 12px;background:var(--paper-dark);color:var(--ink);font-size:12px;overflow-wrap:anywhere}

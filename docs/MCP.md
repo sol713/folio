@@ -33,7 +33,7 @@ The daemon stores images in individual SQLite BLOB rows and metadata separately.
 The daemon is the only writer. MCP does not open SQLite, acquire a separate
 writer lock, or implement another set of business rules. Run `folio serve` first.
 
-At startup the adapter calls `system.capabilities`. The v0.2 registry has 36 operations. Each returned operation
+At startup the adapter calls `system.capabilities`. The v0.2 registry has 37 operations. Each returned operation
 becomes one tool with the exact same input JSON Schema. Names replace dots with
 underscores: `posts.preview` becomes `posts_preview`; `backup.restore` becomes
 `backup_restore`. Descriptions include required scope when discovery supplies it.
@@ -79,7 +79,7 @@ silently alter its registry mid-session.
 
 Examples of tools returned by `tools/list`:
 
-- Read: `system_capabilities`, `system_info`, `posts_list`, `posts_get`,
+- Read: `system_capabilities`, `system_info`, `posts_list`, `posts_search`, `posts_get`,
   `posts_preview`, `posts_check`, `posts_relations`, `posts_compare`, `settings_get`, `media_list`, `audit_list`, `backup_export`
 - Write: `posts_create`, `posts_update`, `posts_publish`, `posts_unpublish`,
   `posts_restore`, `posts_delete`, `posts_recover`, `settings_update`, `media_upload`, `backup_restore`
