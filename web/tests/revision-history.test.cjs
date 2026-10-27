@@ -27,7 +27,7 @@ async function run() {
       querySelector:s=>s==='#toast'?toast:fields[s]||null,
       querySelectorAll:()=>[],addEventListener(){},body:{classList:{remove(){}}},
     },
-    window:{addEventListener(){},FolioI18n:{locale:'en',text:v=>v,t:k=>k,apply(){},formatDate:(v)=>new Intl.DateTimeFormat('en',{month:'short',day:'numeric',year:'numeric'}).format(new Date(v)),control:()=>''}},
+    window:{addEventListener(){},FolioI18n:{locale:'en',text:v=>v,t:(k,v)=>k==='editor.revision'?`Revision ${v.number}`:k==='editor.revision.live'?`Revision ${v.number} · live`:k,apply(){},formatDate:(v)=>new Intl.DateTimeFormat('en',{month:'short',day:'numeric',year:'numeric'}).format(new Date(v)),control:()=>''}},
     sessionStorage:{getItem:()=>'',setItem(){},removeItem(){}},
     history:{replaceState(){}},navigator:{},crypto:{randomUUID:()=>`retry-${writes}`},
     location:{origin:'http://localhost:8080',pathname:'/studio/new',search:'',href:'http://localhost:8080/studio/new'},
@@ -76,8 +76,10 @@ async function run() {
   await saveDraft(true);
   assert.equal(writes,2,'saving unchanged text must not create a duplicate revision');
   assert.equal(state.editor.revisions.length,2);
-  const liveMarkup=revisionHistoryMarkup({...saved2,published_revision:1},state.editor.revisions);
+  const liveRows=state.editor.revisions.map(r=>({...r,published:r.revision===1}));
+  const liveMarkup=revisionHistoryMarkup({...saved2,published_revision:1},liveRows);
   assert.match(liveMarkup,/Revision 1 · live/);
+  assert.match(revisionHistoryMarkup(saved2,liveRows),/Revision 1 · live/,'fresh server metadata must show publication changes even with an older editor snapshot');
 
   // Simulate a daemon committing a create while its HTTP response is lost.
   // The retry transport caches successful writes by the canonical retry key.

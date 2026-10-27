@@ -64,7 +64,7 @@ See [review and scheduling workflows](docs/WORKFLOWS.md) and [migration](docs/MI
 | Revision review | Full saved-snapshot comparison, paged history and explicit guarded private restore; current typing and uncertain receipts stay protected |
 | Scheduling | Explicit future publication of a pinned snapshot, cancellation/rescheduling, restart catch-up, audit and backup persistence; paused restore review |
 
-All **36 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations and three read-only content analyses). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
+All **37 operations** exposed by the Go API have matching CLI and MCP interfaces (19 original operations, six proposal, five schedule, three migration operations, three read-only content analyses and [saved-history pagination](docs/HISTORY-PAGINATION.md)). The graphical Studio emphasizes everyday creation; advanced operations remain discoverable even if they have no dedicated button. Process bootstrap (`init`, `serve`, `healthcheck`), installation, Docker lifecycle and offline filesystem recovery remain explicit CLI/Python workflows: the MCP server must already be installed and running before an agent can call it.
 
 ## 中文 / English
 
