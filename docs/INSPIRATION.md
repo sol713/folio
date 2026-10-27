@@ -4,8 +4,8 @@ Research date: 2026-10-03. This document records GitHub source that was actually
 read while choosing FOLIO's interaction patterns. It is a design/provenance
 record, not a claim that every proposed feature has shipped or passed testing.
 
-FOLIO's implementation direction is an original warm-paper, serif-led editorial
-interface with a restrained orange accent, served as embedded frontend assets
+FOLIO's implementation direction is an original serif-led editorial interface
+with a black/white/neutral-gray palette, served as embedded frontend assets
 by Go. The product journey is **capture → develop → review → publish**. A small
 number of coherent knowledge-work features can grow around that journey without
 turning the first release into a general workspace suite.
@@ -15,6 +15,40 @@ The recommendations below primarily adapt interaction ideas. Where a dependency
 or code fragment is adopted later, pin its version, preserve its complete
 required copyright/license notices, and record it in the distribution's
 third-party notices. A link here is not a substitute for those notices.
+
+## Magpie reference and site-wide visual system
+
+Reference: https://github.com/yetone/magpie, reviewed at
+`8f2a314cf9779151b9caa5d60183e594239d0621` on 2026-10-12.
+License: [MIT](https://github.com/yetone/magpie/blob/8f2a314cf9779151b9caa5d60183e594239d0621/LICENSE),
+Copyright (c) 2026 yetone. MIT permits source reuse subject to retaining its
+copyright and permission notice in copies or substantial portions. Third-party
+assets require their own provenance checks; MIT is not a blanket permission for
+vendor logos, trademarks or assets with separate licenses.
+
+The actual Go-backed `magpie web` UI was run locally with isolated configuration,
+telemetry disabled and no provider accounts. Agents, Providers/Add and Settings
+were inspected at desktop 1440×1000 and mobile-browser 390×844 sizes, including
+light/dark surfaces, loading skeletons and empty states. Source reviewed:
+`internal/gui/assets/app.css`, `index.html`, and `docs/subsystems/gui-shell.md`.
+
+**Adopted as design principles:** quiet neutral canvas, white bordered rounded
+groups, system UI typography, restrained action color, segmented selection and
+a compact sidebar/breadcrumb shell. FOLIO implements these independently in its
+existing vanilla frontend. The initial home/article/Studio writing pilot was
+expanded to all public, sign-in and Studio views after user approval. Its violet
+accent and the older colorful decorative palette were rejected in favor of
+black/white/neutral gray; functional status colors remain distinct.
+Serif reading headings, the prose measure and original story illustrations remain
+FOLIO-specific. Its API, permissions, locale engine and revision-guarded explicit
+publication workflow are unchanged.
+
+**Not adopted:** Magpie source snippets, logos, provider icons, fonts, Wails/native
+host, integrations or dependencies. Its dense dashboard typography is unsuitable
+for long-form reading; its mobile Agents install cards showed inner horizontal
+overflow. A dark theme is not shipped by this visual rollout. No
+Magpie code or visual assets are distributed, so no new third-party dependency
+or bundled-license notice is introduced.
 
 ## 1. An editorial reading canvas: Ghost Casper
 

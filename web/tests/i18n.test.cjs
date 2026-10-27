@@ -64,7 +64,16 @@ const missing=new Set();
 function audit(name,html){const tree=parseHTML(html,document);for(const el of [tree,...tree.querySelectorAll('*')]){if(el.closest('[data-no-i18n],.prose,.code-sample,.tools-output,pre,code,script,style'))continue;if(!el.closest('textarea,time'))for(const node of el.childNodes){if(node.nodeType!==3)continue;const value=node.nodeValue.trim();if(value&&/[A-Za-z]/.test(value)&&!allowed.test(value)&&!i18n.resolve(value))missing.add(`${name}: ${value}`);}for(const attr of ['aria-label','title','placeholder']){const value=el.getAttribute(attr);if(value&&/[A-Za-z]/.test(value)&&!value.startsWith('/media/')&&!i18n.resolve(value,'attribute'))missing.add(`${name} [${attr}]: ${value}`);}}
  return tree;}
 function assertEditorPlaceholders(tree,locale){for(const [id,key] of [['post-title','editor.title.placeholder'],['post-markdown','editor.body.placeholder'],['post-excerpt','editor.excerpt.placeholder']])assert.equal(tree.querySelector(`#${id}`).getAttribute('placeholder'),i18n.dictionaries[locale][key],`${id} placeholder is ${locale}`);}
-for(const [name,html] of views){const tree=audit(name,html);i18n.setLocale('zh-CN');i18n.apply(tree);for(const node of tree.querySelectorAll('[data-no-i18n]'))assert.ok(!/设置|手记|暂时还没有活动记录/.test(node.textContent),'user text collision must not translate');if(name==='editor'){
+for(const [name,html] of views){const tree=audit(name,html);
+ if(name==='home'){
+  assert.ok(tree.querySelector('.journal-home'),'homepage keeps its reading composition');
+  assert.equal(tree.querySelector('.hero-art'),null,'homepage no longer uses decorative orbit artwork');
+  assert.equal(tree.querySelector('.hero-edition'),null,'homepage does not imply a fictional edition');
+  assert.equal(tree.querySelectorAll('.post-card').length,1,'featured story stays separate from filterable cards');
+ }else if(name==='editor')assert.ok(tree.querySelector('.studio-shell'),'editor shares the global Studio surface');
+ else if(['topics','tag','about'].includes(name))assert.ok(tree.querySelector('.shell'),'all public pages share the reading shell');
+ else if(name==='login')assert.ok(tree.querySelector('.login-page'),'sign-in keeps its distinct accessible shell');
+ i18n.setLocale('zh-CN');i18n.apply(tree);for(const node of tree.querySelectorAll('[data-no-i18n]'))assert.ok(!/设置|手记|暂时还没有活动记录/.test(node.textContent),'user text collision must not translate');if(name==='editor'){
  const fieldNodes=['post-title','post-markdown','post-excerpt'].map(id=>tree.querySelector(`#${id}`));const authoredText=fieldNodes.map(el=>el.textContent);
  for(const locale of ['zh-CN','en','zh-CN']){i18n.setLocale(locale);i18n.apply(tree);assertEditorPlaceholders(tree,locale);fieldNodes.forEach((el,index)=>{assert.equal(tree.querySelector(`#${el.getAttribute('id')}`),el);assert.equal(el.textContent,authoredText[index]);});}
 }}
@@ -73,7 +82,21 @@ for(const [name,html] of views){const tree=audit(name,html);i18n.setLocale('zh-C
 for(const match of source.matchAll(/'((?:[^'\\]|\\.)*)'/g)){const value=match[1];if(value.length>350||!/[A-Za-z]{2,} [A-Za-z]{2,}/.test(value)||/[<>\n{}]|var\(|\?\.|function|=>|document\.|^[#.]/.test(value)||value==='use strict')continue;if(!i18n.resolve(value.trim()))missing.add(`literal: ${value}`);}
 (async()=>{
  context.fetch=async endpoint=>({ok:true,status:200,json:async()=>endpoint.includes('/api/public/posts/')?{post}:endpoint.includes('/api/public/search')?{posts:[post]}:{ok:true,data:endpoint.endsWith('proposals.list')?{proposals:[proposal]}:endpoint.endsWith('proposals.get')?{proposal,review}:endpoint.endsWith('posts.get')?{post}:endpoint.endsWith('schedules.list')?{schedules:[schedule]}:endpoint.endsWith('posts.list')?{posts:[post]}:endpoint.endsWith('settings.get')?{settings:api.state.site.settings,revision:1}:endpoint.endsWith('media.list')?{media:[{name:'Settings',url:'/media/pic.png',size:12000,created_at:post.created_at}]}:endpoint.endsWith('system.capabilities')?{operations}: {version:'0.1.0'}}});
- for(const [name,fn] of [['article',()=>api.article('journal')],['search',()=>api.searchPage('Settings')],['posts',()=>api.studioPosts()],['settings',()=>api.settingsPage()],['media',()=>api.mediaPage()],['tools',()=>api.toolsPage()],['proposals',()=>api.proposalsPage()],['proposal',()=>api.proposalsPage(proposal.id)],['schedules',()=>api.schedulesPage()],['migration-empty',()=>api.migrationPage()]])audit(name,await fn());
+ for(const [name,fn] of [['article',()=>api.article('journal')],['search',()=>api.searchPage('Settings')],['posts',()=>api.studioPosts()],['settings',()=>api.settingsPage()],['media',()=>api.mediaPage()],['tools',()=>api.toolsPage()],['proposals',()=>api.proposalsPage()],['proposal',()=>api.proposalsPage(proposal.id)],['schedules',()=>api.schedulesPage()],['migration-empty',()=>api.migrationPage()]]){
+  const tree=audit(name,await fn());
+  if(name==='tools'){
+   const badges=tree.querySelectorAll('.badge');
+   assert.equal(badges[0].textContent,'v0.1.0','version remains visible');
+   assert.ok(badges.length>1,'capability scope labels are exercised');
+   for(const badge of badges)assert.equal(badge.getAttribute('class'),'badge','version and permission scopes are not publication/success states');
+  }
+  if(name==='article')assert.ok(tree.querySelector('.journal-article'),'article opts into the reading surface');
+  else if(name==='posts'){
+   assert.ok(tree.querySelector('.studio-shell'),'writing list shares the global Studio surface');
+   assert.ok(tree.querySelector('.writing-list .post-table'),'writing table keeps its native semantics inside a card');
+  }else if(name==='search')assert.ok(tree.querySelector('.shell'),'search shares the public surface');
+  else assert.ok(tree.querySelector('.studio-shell'),`${name} shares the global Studio surface`);
+ }
  api.state.migration={files:[{path:'Settings.md',content:'Save draft'}],conflict:'update',review:migrationReview,frozenPlanJSON:JSON.stringify(migrationReview.plan),report:{complete:false,outcomes:migrationOutcomes},locked:true,error:'The import result could not be confirmed. Preserve this frozen plan and retry it.'};
  const migrationTree=audit('migration-locked',await api.migrationPage()),migrationBefore=JSON.stringify(api.state.migration),protectedNodes=migrationTree.querySelectorAll('[data-no-i18n]'),protectedText=protectedNodes.map(node=>node.textContent);
  for(const locale of ['zh-CN','en','zh-CN']){i18n.setLocale(locale);i18n.apply(migrationTree);assert.ok(migrationTree.textContent.includes(i18n.dictionaries[locale]['migration.heading']));assert.ok(migrationTree.textContent.includes(i18n.dictionaries[locale]['migration.plan.retry']));assert.equal(JSON.stringify(api.state.migration),migrationBefore);protectedNodes.forEach((node,index)=>assert.equal(node.textContent,protectedText[index]));}
